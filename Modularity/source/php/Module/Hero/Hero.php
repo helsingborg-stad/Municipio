@@ -94,6 +94,7 @@ class Hero extends \Modularity\Module
 
                 $buttonArgs[] = [
                     'href' => $button['link']['url'],
+                    'target' => $button['link']['target'] ?? '_self',
                     'text' => $button['link']['title'],
                     'color' => $button['color'] ?? 'primary',
                     'style' => $button['type'] ?? 'filled',

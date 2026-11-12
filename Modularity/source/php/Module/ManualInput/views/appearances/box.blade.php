@@ -3,6 +3,7 @@
     'classList'     => array_merge($input['classList'] ?? [], [$input['columnSize']])
 ])
     @box([
+        'attributeList' => ['target' => $linkTarget ?? null],
         'heading'   => $input['title'],
         'content'   => $input['content'],
         'link'      => $input['link'],

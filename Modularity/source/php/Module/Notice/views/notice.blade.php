@@ -9,6 +9,7 @@
         ? [
             'text' => isset($link['title']) ? $link['title'] : $link['url'],
             'url' => $link['url'],
+            'target' => $linkTarget,
             'position' => $link_position,
          ] 
         : false,

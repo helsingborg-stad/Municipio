@@ -17,23 +17,7 @@
             'bordered' => true
         ])
             @foreach ($manualInputs as $input)
-                @collection__item([
-                    'icon' => $input['icon'] ?? 'arrow_forward',
-                    'link' => $input['link'],
-                    'classList' => $input['classList'] ?? [],
-                    'attributeList' => [
-                        ...($input['attributeList'] ?? []),
-                        ...($input['link'] ? ['aria-labelledby' => $input['id'] . '-title'] : [])
-                    ]
-                ])
-                    @typography([
-                        'element' => 'h2',
-                        'variant' => 'h4',
-                        'id'      => $input['id'] . '-title'
-                    ])
-                        {{ $input['title'] }}
-                    @endtypography
-                @endcollection__item
+                @include('partials.list-item', $input)
             @endforeach
         @endcollection
     @endif

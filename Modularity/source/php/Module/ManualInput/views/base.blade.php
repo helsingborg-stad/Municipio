@@ -2,7 +2,7 @@
 @if (!empty($manualInputs))
     <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }} u-margin__top--4">
         @foreach ($manualInputs as $input)
-            @include('appearances.' . $input['view'])
+            @include('appearances.' . $input['view'], $input)
         @endforeach
     </div>
 @endif

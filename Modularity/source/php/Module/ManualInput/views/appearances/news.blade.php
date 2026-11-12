@@ -6,6 +6,6 @@
     'context'             => $context,
     'hasPlaceholderImage' => $anyItemHasImage,
     'classList'           => array_merge($input['classList'] ?? [], [$input['columnSize']]),
-    'attributeList'       => $input['attributeList'] ?? [],
+    'attributeList'       => [...($attributeList ?? []), 'target' => $linkTarget ?? null],
 ])
 @endnewsItem

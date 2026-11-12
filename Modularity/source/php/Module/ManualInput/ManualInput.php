@@ -89,6 +89,12 @@ class ManualInput extends \Modularity\Module
                 }
 
                 $arr = array_merge($this->getManualInputDefaultValues(), $input);
+                if (is_array($arr['link'])) {
+                    $arr['link_target'] = $arr['link']['target'] ?? '';
+                    $arr['link'] = $arr['link']['url'] ?? '';
+                }
+                $arr['link_target'] = in_array($arr['link_target'], ['_blank', '_self', '_parent', '_top'], true) ? $arr['link_target'] : '';
+
                 $arr['isHighlighted'] = $this->canBeHighlighted($fields, $index);
                 $arr['id'] = 'item-' . $data['ID'] . '-' . $index;
                 // TODO: change name and migrate
@@ -157,6 +163,7 @@ class ManualInput extends \Modularity\Module
             'content' => null,
             'eyebrow' => null,
             'link' => null,
+            'link_target' => '',
             'link_text' => null,
             'default_link_text' => __('Read more', 'municipio'),
             'image' => 0,
