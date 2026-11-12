@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7c2d3b247391e839053d9872da687ce",
+    "content-hash": "0a151fce05ce0a2dfc8203cedff3fc5f",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
-            "version": "4.51.0",
+            "version": "4.54.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/algolia/algoliasearch-client-php.git",
-                "reference": "22cd3779cd3be38cded450bfc62b941e2c43c857"
+                "reference": "c2ffaae6d366b64bb4e3ad1825c6bdb54106493e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/22cd3779cd3be38cded450bfc62b941e2c43c857",
-                "reference": "22cd3779cd3be38cded450bfc62b941e2c43c857",
+                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/c2ffaae6d366b64bb4e3ad1825c6bdb54106493e",
+                "reference": "c2ffaae6d366b64bb4e3ad1825c6bdb54106493e",
                 "shasum": ""
             },
             "require": {
@@ -71,9 +71,9 @@
             ],
             "support": {
                 "issues": "https://github.com/algolia/algoliasearch-client-php/issues",
-                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.51.0"
+                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.54.0"
             },
-            "time": "2026-10-29T09:00:57+00:00"
+            "time": "2026-11-10T20:39:52+00:00"
         },
         {
             "name": "astrotomic/php-deepface",
@@ -1154,16 +1154,16 @@
         },
         {
             "name": "helsingborg-stad/acf-select-image-field",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acf-image-select-field.git",
-                "reference": "3ca0421d4cdec0ff4bce21aa73499700e1c471b1"
+                "reference": "8ee361ea70896d7f3d371f7a1df48324258925e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acf-image-select-field/zipball/3ca0421d4cdec0ff4bce21aa73499700e1c471b1",
-                "reference": "3ca0421d4cdec0ff4bce21aa73499700e1c471b1",
+                "url": "https://api.github.com/repos/helsingborg-stad/acf-image-select-field/zipball/8ee361ea70896d7f3d371f7a1df48324258925e6",
+                "reference": "8ee361ea70896d7f3d371f7a1df48324258925e6",
                 "shasum": ""
             },
             "type": "wordpress-muplugin",
@@ -1179,9 +1179,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/acf-image-select-field/issues",
-                "source": "https://github.com/helsingborg-stad/acf-image-select-field/tree/1.6.1"
+                "source": "https://github.com/helsingborg-stad/acf-image-select-field/tree/1.6.2"
             },
-            "time": "2025-01-16T14:32:04+00:00"
+            "time": "2026-11-06T09:01:23+00:00"
         },
         {
             "name": "helsingborg-stad/acfservice",
@@ -1229,16 +1229,16 @@
         },
         {
             "name": "helsingborg-stad/blade",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Blade.git",
-                "reference": "979a89dc8ab4cc8802713ac57bfc667ebdc75a73"
+                "reference": "72358045ae3c537d672541affb1b63d50bcb8742"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Blade/zipball/979a89dc8ab4cc8802713ac57bfc667ebdc75a73",
-                "reference": "979a89dc8ab4cc8802713ac57bfc667ebdc75a73",
+                "url": "https://api.github.com/repos/helsingborg-stad/Blade/zipball/72358045ae3c537d672541affb1b63d50bcb8742",
+                "reference": "72358045ae3c537d672541affb1b63d50bcb8742",
                 "shasum": ""
             },
             "require": {
@@ -1277,22 +1277,22 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/blade/issues",
-                "source": "https://github.com/helsingborg-stad/Blade/tree/3.5.1"
+                "source": "https://github.com/helsingborg-stad/Blade/tree/3.5.2"
             },
-            "time": "2024-05-27T13:51:35+00:00"
+            "time": "2026-11-06T09:01:38+00:00"
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.47.1",
+            "version": "5.47.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "01f614a896cd0a15b1abfeab701cb2965dd6d8d9"
+                "reference": "ad05919bb26816ae57444cede6255fcb063e5998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/01f614a896cd0a15b1abfeab701cb2965dd6d8d9",
-                "reference": "01f614a896cd0a15b1abfeab701cb2965dd6d8d9",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/ad05919bb26816ae57444cede6255fcb063e5998",
+                "reference": "ad05919bb26816ae57444cede6255fcb063e5998",
                 "shasum": ""
             },
             "require": {
@@ -1325,9 +1325,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.47.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.47.5"
             },
-            "time": "2026-11-04T13:30:35+00:00"
+            "time": "2026-11-06T11:52:40+00:00"
         },
         {
             "name": "helsingborg-stad/material-design-icons-json-svg-font-reduced",
@@ -1400,21 +1400,20 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.44.4",
+            "version": "3.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "ac60e733255a189322011019343d8e0d0daa5601"
+                "reference": "6478d7a055b1e78857cf0b16c8e56b77d1b7942a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/ac60e733255a189322011019343d8e0d0daa5601",
-                "reference": "ac60e733255a189322011019343d8e0d0daa5601",
-                "shasum": ""
+                "url": "https://github.com/helsingborg-stad/styleguide/releases/download/%prettyVersion%/styleguide-%prettyVersion%.zip",
+                "reference": "6478d7a055b1e78857cf0b16c8e56b77d1b7942a"
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.47.1",
+                "helsingborg-stad/component-library": "5.47.5",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1473,9 +1472,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.44.4"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.47.0"
             },
-            "time": "2026-11-05T09:40:47+00:00"
+            "time": "2026-11-11T13:19:24+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -6469,12 +6468,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/phpunit-snapshot-assertions.git",
-                "reference": "3e14a16f8bbc3bf4a714306591b640bde5a25e7c"
+                "reference": "4143b44a0f95675dc3c53cb382c931c2ae519837"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/3e14a16f8bbc3bf4a714306591b640bde5a25e7c",
-                "reference": "3e14a16f8bbc3bf4a714306591b640bde5a25e7c",
+                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/4143b44a0f95675dc3c53cb382c931c2ae519837",
+                "reference": "4143b44a0f95675dc3c53cb382c931c2ae519837",
                 "shasum": ""
             },
             "require": {
@@ -6542,7 +6541,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-10-22T15:12:38+00:00"
+            "time": "2026-11-05T10:34:12+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

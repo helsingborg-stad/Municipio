@@ -10,6 +10,17 @@ class Theme
 {
     public function __construct(private IsMainSite&IsMultisite&IsSubdomainInstall $wpService)
     {
+        // Page titles are translated, so register on init when translations may load.
+        add_action('init', [$this, 'registerOptionsPages']);
+    }
+
+    /**
+     * Register the theme options pages.
+     *
+     * @return void
+     */
+    public function registerOptionsPages(): void
+    {
         if (function_exists('acf_add_options_page')) {
             $themeOptionsCapability = 'administrator';
             $themeOptionsParent = 'themes.php';

@@ -41,16 +41,16 @@
     "ooksanen/acf-focuspoint": "^1.2.1",
     "jeradin/acf-dynamic-table-field": "dev-master",
     "enshrined/svg-sanitize": "dev-master",
-    "helsingborg-stad/acf-select-image-field": "1.6.1",
+    "helsingborg-stad/acf-select-image-field": "1.6.2",
     "landrok/language-detector": "dev-master",
     "league/commonmark": "2.10.7",
     "league/config": "v1.2.0",
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "0.5.0",
     "helsingborg-stad/wputilservice": "0.3.5",
-    "helsingborg-stad/styleguide": "3.44.4",
+    "helsingborg-stad/styleguide": "3.47.0",
     "firebase/php-jwt": "v7.2.1",
-    "algolia/algoliasearch-client-php": "4.51.0"
+    "algolia/algoliasearch-client-php": "4.54.0"
   },
   "scripts": {
     "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",

@@ -125,6 +125,41 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         $this->assertEquals('Bare Image Object', $processedImage->getProperty('name'));
     }
 
+    #[TestDox('updates alt text on a previously sideloaded image from the description')]
+    public function testUpdatesAltTextOnPreviouslySideloadedImage()
+    {
+        $schemaObject = Schema::thing()->image([
+            Schema::imageObject()
+                ->url('http://example.com/image.jpg')
+                ->description('Updated description')
+        ]);
+
+        $wpService       = $this->getWpService([]);
+        $processor       = new ImageSideloadSchemaObjectProcessor($wpService, $this->getWpdbWithPreviousSideload(456));
+        $processedObject = $processor->process($schemaObject);
+
+        $this->assertSame('456', $processedObject->getProperty('image')[0]->getProperty('@id'));
+        $this->assertArrayNotHasKey('mediaSideloadImage', $wpService->methodCalls);
+        $this->assertSame(
+            [[456, '_wp_attachment_image_alt', 'Updated description']],
+            $wpService->methodCalls['updatePostMeta']
+        );
+    }
+
+    #[TestDox('keeps alt text on a previously sideloaded image when the description is empty')]
+    public function testKeepsAltTextOnPreviouslySideloadedImageWithoutDescription()
+    {
+        $schemaObject = Schema::thing()->image([
+            Schema::imageObject()->url('http://example.com/image.jpg')
+        ]);
+
+        $wpService = $this->getWpService([]);
+        $processor = new ImageSideloadSchemaObjectProcessor($wpService, $this->getWpdbWithPreviousSideload(456));
+        $processor->process($schemaObject);
+
+        $this->assertArrayNotHasKey('updatePostMeta', $wpService->methodCalls);
+    }
+
     private function getWpService(
         array $methods
     ): IsWpError|MediaSideloadImage|UpdatePostMeta|WpGetAttachmentUrl|WpUpdatePost|MockObject {
@@ -142,5 +177,24 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
 
     private function getWpdb():wpdb {
         return new wpdb('', '', '', '');
+    }
+
+    private function getWpdbWithPreviousSideload(int $attachmentId): wpdb
+    {
+        return new class ($attachmentId) extends wpdb {
+            public function __construct(private int $attachmentId)
+            {
+            }
+
+            public function prepare($query, ...$args)
+            {
+                return $query;
+            }
+
+            public function get_var($query = null, $x = 0, $y = 0)
+            {
+                return (string) $this->attachmentId;
+            }
+        };
     }
 }

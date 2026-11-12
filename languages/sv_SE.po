@@ -4429,7 +4429,7 @@ msgstr "Gå till nästa bild"
 
 #: Modularity/source/php/Module/Markdown/Markdown.php:176
 msgid "Last updated"
-msgstr ""
+msgstr "Senast uppdaterad"
 
 #: Modularity/source/php/Module/Markdown/Markdown.php:177
 #: Modularity/source/php/Module/Markdown/Markdown.php:310
@@ -5842,6 +5842,14 @@ msgstr "Lägg till inläggstyp"
 #: library/AcfFields/php/options-theme-custom-post-type.php:34
 msgid "Post type name"
 msgstr "Posttypens namn"
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Display name"
+msgstr "Visningsnamn"
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Optional. Name shown to visitors and editors, for example in breadcrumbs, page titles and the admin menu. Leave empty to use the post type name. Can be changed at any time without affecting existing posts."
+msgstr "Valfritt. Namnet som visas för besökare och redaktörer, till exempel i brödsmulor, sidtitlar och adminmenyn. Lämna tomt för att använda posttypens namn. Kan ändras när som helst utan att befintliga inlägg påverkas."
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:38
 msgid "<span style=\"color: #ff0000;\">Will generate the post type name, select a name with care! Cannot be changed! </span>"
@@ -7653,7 +7661,7 @@ msgstr "Pris"
 
 #: library/Controller/SingularEvent.php:132
 msgid "Organizers"
-msgstr "Organisatörer"
+msgstr "Arrangörer"
 
 #: library/Controller/SingularEvent.php:133
 #: library/Theme/Icon.php:124
@@ -9376,9 +9384,8 @@ msgstr "Datum"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:63
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:66
-#, fuzzy
 msgid "Organizer"
-msgstr "Organisatörer"
+msgstr "Arrangör"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:72
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:84
@@ -31453,3 +31460,34 @@ msgstr "Priser"
 msgctxt "Event price term"
 msgid "Free"
 msgstr "Gratis"
+
+msgid "Privacy Policy"
+msgstr "Personuppgiftspolicy"
+
+msgid "Privacy Policy Url"
+msgstr "Länk till personuppgiftspolicy"
+
+msgid "View Privacy Policy"
+msgstr "Visa personuppgiftspolicy"
+
+msgid "<a href=\"{{privacy_policy_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">View Privacy Policy</a>"
+msgstr "<a href=\"{{privacy_policy_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">Visa personuppgiftspolicy</a>"
+
+msgid "privacy-policy"
+msgstr "personuppgiftspolicy"
+
+msgid "The privacy policy has been updated."
+msgstr "Personuppgiftspolicyn har uppdaterats."
+
+msgid "No privacy policy available."
+msgstr "Det finns ingen personuppgiftspolicy."
+
+
+msgid "This privacy policy describes how we process your personal data."
+msgstr "Den här personuppgiftspolicyn beskriver hur vi behandlar dina personuppgifter."
+
+msgid "A short description used by search engines for the privacy policy."
+msgstr "En kort beskrivning av personuppgiftspolicyn som används av sökmotorer."
+
+msgid "Use {{website_name}} to display the current website's name. Use {{website_domain}} to display the current website's domain."
+msgstr "Använd {{website_name}} för att visa webbplatsens namn. Använd {{website_domain}} för att visa webbplatsens domän."

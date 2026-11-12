@@ -243,6 +243,7 @@ class App
         new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Acf\PrefillColor($this->wpService);
+        (new \Municipio\Admin\Acf\PaletteColorChoices($this->wpService, $this->wpUtilService->enqueue(__DIR__)))->addHooks();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
@@ -251,7 +252,11 @@ class App
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
-        new \Municipio\Admin\UI\Editor();
+        new \Municipio\Admin\UI\Editor($this->wpService, $this->wpUtilService->enqueue(__DIR__));
+        (new \Municipio\Admin\UI\ComponentEditorStyles(
+            $this->wpService,
+            new \Municipio\Styleguide\ComponentAssets\StylesheetManifest($this->wpService->getTemplateDirectory() . '/assets/dist/styleguide'),
+        ))->addHooks();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
@@ -427,6 +432,11 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        /**
+         * Setup Privacy Policy
+         */
+        (new \Municipio\PrivacyPolicy\PrivacyPolicy($this->wpService, $this->acfService))->addHooks();
 
         /**
          * Setup Chat

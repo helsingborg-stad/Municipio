@@ -10,7 +10,7 @@
       position: absolute;
       bottom: 0; 
       right: 0;
-      color: #eee; 
+      color: var(--color--background-alt);
       font-size: calc(100px + 20vw);
       content: '401'; 
       z-index: -1;
