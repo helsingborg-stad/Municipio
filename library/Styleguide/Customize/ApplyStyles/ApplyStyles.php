@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\Styleguide\Customize\ApplyStyles;
 
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\Upgrade\ComponentColorPairs;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetThemeMod;
@@ -161,12 +162,44 @@ class ApplyStyles implements Hookable
             'token' => ColorSchemeOverrides::filterSafeRootTokens($decoded['token']),
             '_dark' => is_array($decoded['_dark'] ?? null) ? ColorSchemeOverrides::filter($decoded['_dark']) : null,
             '_contrast' => is_array($decoded['_contrast'] ?? null) ? ColorSchemeOverrides::filter($decoded['_contrast']) : null,
-            'component' => $decoded['component'],
+            // Stored tokens may predate the colour-pair migration. Normalize
+            // them before CSS is generated so a literal legacy override is
+            // never rendered and every selected surface gets its contrast.
+            'component' => $this->normalizeComponentColorPairs($decoded['component']),
             'componentSchemes' => [
                 'dark' => ColorSchemeOverrides::filterComponents($decoded['componentSchemes']['dark'] ?? null),
                 'contrast' => ColorSchemeOverrides::filterComponents($decoded['componentSchemes']['contrast'] ?? null),
             ],
         ];
+    }
+
+    /**
+     * Repairs header and footer semantic colour pairs for legacy stored data
+     * without writing to the database during a frontend request.
+     *
+     * @param array<string, mixed> $components
+     * @return array<string, mixed>
+     */
+    private function normalizeComponentColorPairs(array $components): array
+    {
+        $colorPairs = new ComponentColorPairs();
+
+        foreach ($components as &$componentGroup) {
+            if (!is_array($componentGroup)) {
+                continue;
+            }
+
+            foreach (['header', 'footer'] as $component) {
+                if (!is_array($componentGroup[$component] ?? null)) {
+                    continue;
+                }
+
+                $componentGroup[$component] = $colorPairs->migrate($component, $componentGroup[$component]);
+            }
+        }
+        unset($componentGroup);
+
+        return $components;
     }
 
     private function applyInlineStyles(string $styles): void
