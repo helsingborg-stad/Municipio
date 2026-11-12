@@ -16,6 +16,7 @@ class Version70Test extends TestCase
             'getPosts' => static fn (array $args): array => is_array($args['post_type']) ? [12] : [],
             'getPostMeta' => '#ffffff',
             'updatePostMeta' => true,
+            'getPostTypes' => [],
         ]);
         (new Version70($service))->upgradeToVersion();
         static::assertSame([[12, 'background_color', ColorSwatches::getClosestColorPairRole('#ffffff')]], $service->methodCalls['updatePostMeta']);

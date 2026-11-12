@@ -10,6 +10,7 @@ use Municipio\Helper\ColorSwatches;
 use Municipio\Upgrade\VersionInterface;
 use WpService\Contracts\GetPostField;
 use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\WpUpdatePost;
 use WpService\Contracts\WpSlash;
 
@@ -19,7 +20,7 @@ use WpService\Contracts\WpSlash;
 class Version64 implements VersionInterface
 {
     public function __construct(
-        private GetPosts&GetPostField&WpUpdatePost&WpSlash $wpService,
+        private GetPosts&GetPostTypes&GetPostField&WpUpdatePost&WpSlash $wpService,
         private GetField&UpdateField $acfService,
     ) {}
 
@@ -48,7 +49,9 @@ class Version64 implements VersionInterface
                 continue;
             }
 
-            $this->acfService->updateField('manual_inputs', $inputs, $postId);
+            if (!$this->acfService->updateField('manual_inputs', $inputs, $postId)) {
+                throw new \RuntimeException("Could not migrate manual input colors for post {$postId}.");
+            }
         }
     }
 
@@ -79,8 +82,12 @@ class Version64 implements VersionInterface
 
     private function migrateContainerBlocks(): void
     {
+        $postTypes = array_values(array_diff($this->wpService->getPostTypes(), ['revision']));
+        if ($postTypes === []) {
+            return;
+        }
         $postIds = $this->wpService->getPosts([
-            'post_type' => 'any',
+            'post_type' => $postTypes,
             'post_status' => 'any',
             'posts_per_page' => -1,
             'fields' => 'ids',
@@ -101,10 +108,16 @@ class Version64 implements VersionInterface
                 continue;
             }
 
-            $this->wpService->wpUpdatePost([
+            if ($this->wpService->getPostField('post_content', $postId, 'raw') !== $content) {
+                throw new \RuntimeException("Post {$postId} changed during palette migration.");
+            }
+            $updated = $this->wpService->wpUpdatePost([
                 'ID' => $postId,
                 'post_content' => $this->wpService->wpSlash(serialize_blocks($blocks)),
             ]);
+            if ($updated === 0 || $updated instanceof \WP_Error) {
+                throw new \RuntimeException("Could not migrate container colors for post {$postId}.");
+            }
         }
     }
 

@@ -39,7 +39,8 @@ class Version71 implements VersionInterface
                 continue;
             }
             $content = $this->wpService->getPostField('post_content', $id, 'raw');
-            if (!str_contains($content, 'wp:acf/section-') && !str_contains($content, 'wp:acf/container')) {
+            if (!str_contains($content, 'wp:acf/section-') && !str_contains($content, 'wp:acf/container')
+                && !str_contains($content, 'wp:acf/manualinput')) {
                 continue;
             }
             $blocks = parse_blocks($content);

@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\GetPostField;
 use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\WpUpdatePost;
 use WpService\Contracts\WpSlash;
 
@@ -70,9 +71,14 @@ class Version64Test extends TestCase
             'innerBlocks' => [],
         ]];
 
-        $wpService = new class implements GetPosts, GetPostField, WpUpdatePost, WpSlash {
+        $wpService = new class implements GetPosts, GetPostTypes, GetPostField, WpUpdatePost, WpSlash {
             /** @var array<int, array<string, mixed>> */
             public array $updatedPosts = [];
+
+            public function getPostTypes(array|string $args = [], string $output = 'names', string $operator = 'and'): array
+            {
+                return ['page', 'private-article', 'revision'];
+            }
 
             public function wpSlash(string|array $value): string|array
             {

@@ -9,6 +9,7 @@ use Municipio\Upgrade\VersionInterface;
 use WpService\Contracts\GetPostField;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\UpdatePostMeta;
 use WpService\Contracts\WpUpdatePost;
 use WpService\Contracts\WpSlash;
@@ -18,7 +19,7 @@ class Version70 implements VersionInterface
 {
     private const SECTION_BLOCKS = ['acf/section-full', 'acf/section-split', 'acf/section-featured'];
 
-    public function __construct(private GetPosts&GetPostField&GetPostMeta&UpdatePostMeta&WpUpdatePost&WpSlash $wpService) {}
+    public function __construct(private GetPosts&GetPostTypes&GetPostField&GetPostMeta&UpdatePostMeta&WpUpdatePost&WpSlash $wpService) {}
 
     public function upgradeToVersion(): void
     {
@@ -37,20 +38,33 @@ class Version70 implements VersionInterface
             }
         }
 
+        // The WordPress "any" shortcut omits exclude_from_search post types,
+        // which may still contain editable sections or reusable blocks.
+        $postTypes = array_values(array_diff($this->wpService->getPostTypes(), ['revision']));
+        if ($postTypes === []) {
+            return;
+        }
         $postIds = $this->wpService->getPosts([
-            'post_type' => 'any', 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids',
+            'post_type' => $postTypes, 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids',
         ]);
         foreach ($postIds as $postId) {
             if (!is_int($postId)) {
                 continue;
             }
             $content = $this->wpService->getPostField('post_content', $postId, 'raw');
-            if (!is_string($content) || (!str_contains($content, 'wp:acf/section-') && !str_contains($content, 'wp:acf/container'))) {
+            if (!str_contains($content, 'wp:acf/section-') && !str_contains($content, 'wp:acf/container')
+                && !str_contains($content, 'wp:acf/manualinput')) {
                 continue;
             }
             $blocks = parse_blocks($content);
-            if ($this->migrateBlocks($blocks) && !$this->wpService->wpUpdatePost(['ID' => $postId, 'post_content' => $this->wpService->wpSlash(serialize_blocks($blocks))])) {
-                throw new \RuntimeException("Could not migrate block colors for post {$postId}.");
+            if ($this->migrateBlocks($blocks)) {
+                if ($this->wpService->getPostField('post_content', $postId, 'raw') !== $content) {
+                    throw new \RuntimeException("Post {$postId} changed during palette migration.");
+                }
+                $updated = $this->wpService->wpUpdatePost(['ID' => $postId, 'post_content' => $this->wpService->wpSlash(serialize_blocks($blocks))]);
+                if ($updated === 0 || $updated instanceof \WP_Error) {
+                    throw new \RuntimeException("Could not migrate block colors for post {$postId}.");
+                }
             }
         }
     }
