@@ -4,6 +4,9 @@ namespace Municipio\Content;
 
 class CustomPostType
 {
+    private const FIELD_DISPLAY_NAME = 'field_6912b0c4a7e51';
+    private const POST_TYPE_KEY_MAX_LENGTH = 19;
+
     public function __construct()
     {
         //Registration of Custom Post Types
@@ -19,6 +22,11 @@ class CustomPostType
         add_filter('acf/update_value/key=field_56b36c01e0619', static function ($value, $post_id, $field) {
             return sanitize_title($value);
         }, 10, 3);
+
+        // Display name is a label, not a slug: strip tags and whitespace but keep casing and characters.
+        add_filter('acf/update_value/key=' . self::FIELD_DISPLAY_NAME, static function ($value) {
+            return sanitize_text_field((string) $value);
+        }, 10, 1);
 
         //Use page or single template
         add_filter('single_template', array($this, 'setPageTemplate'), 20);
@@ -52,21 +60,23 @@ class CustomPostType
         }
 
         foreach ($typeDefinitions as $typeDefinition) {
+            $displayName = self::getDisplayName($typeDefinition);
+
             $labels = array(
-                'name'               => $typeDefinition['post_type_name'],
-                'singular_name'      => $typeDefinition['post_type_name'],
-                'menu_name'          => $typeDefinition['post_type_name'],
-                'name_admin_bar'     => $typeDefinition['post_type_name'],
+                'name'               => $displayName,
+                'singular_name'      => $displayName,
+                'menu_name'          => $displayName,
+                'name_admin_bar'     => $displayName,
                 'add_new'            => __('Add new', 'municipio'),
-                'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $typeDefinition['post_type_name']),
-                'new_item'           => sprintf(__('New %s', 'municipio'), $typeDefinition['post_type_name']),
-                'edit_item'          => sprintf(__('Edit %s', 'municipio'), $typeDefinition['post_type_name']),
-                'view_item'          => sprintf(__('View %s', 'municipio'), $typeDefinition['post_type_name']),
-                'all_items'          => sprintf(__('All %s', 'municipio'), $typeDefinition['post_type_name']),
-                'search_items'       => sprintf(__('Search %s', 'municipio'), $typeDefinition['post_type_name']),
-                'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $typeDefinition['post_type_name']),
-                'not_found'          => sprintf(__('No %s found', 'municipio'), $typeDefinition['post_type_name']),
-                'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $typeDefinition['post_type_name'])
+                'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $displayName),
+                'new_item'           => sprintf(__('New %s', 'municipio'), $displayName),
+                'edit_item'          => sprintf(__('Edit %s', 'municipio'), $displayName),
+                'view_item'          => sprintf(__('View %s', 'municipio'), $displayName),
+                'all_items'          => sprintf(__('All %s', 'municipio'), $displayName),
+                'search_items'       => sprintf(__('Search %s', 'municipio'), $displayName),
+                'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $displayName),
+                'not_found'          => sprintf(__('No %s found', 'municipio'), $displayName),
+                'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $displayName)
             );
 
             $labels = apply_filters('Municipio/CustomPostType/labels', $labels, $typeDefinition);
@@ -115,10 +125,45 @@ class CustomPostType
                 }
             }
 
-            $postType = sanitize_title(substr($typeDefinition['post_type_name'], 0, 19));
+            $postType = self::getPostTypeKey((string) $typeDefinition['post_type_name']);
 
             register_post_type($postType, $args);
         }
+    }
+
+    /**
+     * Get the name shown in labels for a post type definition.
+     *
+     * Uses the optional display name when set, otherwise the post type name.
+     * The post type key is always derived from the post type name, so the
+     * display name can be changed without affecting existing posts.
+     *
+     * @param array $typeDefinition Post type definition from the options page.
+     * @return string
+     */
+    public static function getDisplayName(array $typeDefinition): string
+    {
+        $displayName = trim((string) ($typeDefinition['display_name'] ?? ''));
+
+        return $displayName !== '' ? $displayName : (string) ($typeDefinition['post_type_name'] ?? '');
+    }
+
+    /**
+     * Get the post type key for a post type name.
+     *
+     * Must stay identical to how keys have always been derived, otherwise
+     * existing posts end up under an unregistered post type. Applying it to
+     * an existing key returns the same key.
+     *
+     * @param string        $postTypeName  Post type name or key.
+     * @param callable|null $sanitizeTitle Sanitizer, defaults to sanitize_title().
+     * @return string
+     */
+    public static function getPostTypeKey(string $postTypeName, ?callable $sanitizeTitle = null): string
+    {
+        $sanitizeTitle ??= 'sanitize_title';
+
+        return (string) $sanitizeTitle(substr($postTypeName, 0, self::POST_TYPE_KEY_MAX_LENGTH));
     }
 
     public static function getTypeDefinitions(): array

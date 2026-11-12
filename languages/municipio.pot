@@ -1671,6 +1671,14 @@ msgstr ""
 msgid "Post type name"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Display name"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Optional. Name shown to visitors and editors, for example in breadcrumbs, page titles and the admin menu. Leave empty to use the post type name. Can be changed at any time without affecting existing posts."
+msgstr ""
+
 #: library/AcfFields/php/options-theme-custom-post-type.php:38
 msgid "<span style=\"color: #ff0000;\">Will generate the post type name, select a name with care! Cannot be changed! </span>"
 msgstr ""
