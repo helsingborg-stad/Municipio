@@ -11,6 +11,7 @@ use Municipio\Upgrade\VersionInterface;
 use WpService\Contracts\GetPostField;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\WpUpdatePost;
+use WpService\Contracts\WpSlash;
 
 /**
  * Replaces legacy saved colour literals with Styleguide palette roles.
@@ -18,7 +19,7 @@ use WpService\Contracts\WpUpdatePost;
 class Version64 implements VersionInterface
 {
     public function __construct(
-        private GetPosts&GetPostField&WpUpdatePost $wpService,
+        private GetPosts&GetPostField&WpUpdatePost&WpSlash $wpService,
         private GetField&UpdateField $acfService,
     ) {}
 
@@ -102,7 +103,7 @@ class Version64 implements VersionInterface
 
             $this->wpService->wpUpdatePost([
                 'ID' => $postId,
-                'post_content' => serialize_blocks($blocks),
+                'post_content' => $this->wpService->wpSlash(serialize_blocks($blocks)),
             ]);
         }
     }

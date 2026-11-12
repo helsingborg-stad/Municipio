@@ -11,13 +11,14 @@ use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\UpdatePostMeta;
 use WpService\Contracts\WpUpdatePost;
+use WpService\Contracts\WpSlash;
 
 /** Persist semantic palette roles for legacy section and container colors. */
 class Version70 implements VersionInterface
 {
     private const SECTION_BLOCKS = ['acf/section-full', 'acf/section-split', 'acf/section-featured'];
 
-    public function __construct(private GetPosts&GetPostField&GetPostMeta&UpdatePostMeta&WpUpdatePost $wpService) {}
+    public function __construct(private GetPosts&GetPostField&GetPostMeta&UpdatePostMeta&WpUpdatePost&WpSlash $wpService) {}
 
     public function upgradeToVersion(): void
     {
@@ -48,7 +49,7 @@ class Version70 implements VersionInterface
                 continue;
             }
             $blocks = parse_blocks($content);
-            if ($this->migrateBlocks($blocks) && !$this->wpService->wpUpdatePost(['ID' => $postId, 'post_content' => serialize_blocks($blocks)])) {
+            if ($this->migrateBlocks($blocks) && !$this->wpService->wpUpdatePost(['ID' => $postId, 'post_content' => $this->wpService->wpSlash(serialize_blocks($blocks))])) {
                 throw new \RuntimeException("Could not migrate block colors for post {$postId}.");
             }
         }
@@ -69,6 +70,9 @@ class Version70 implements VersionInterface
             $data = &$block['attrs']['data'];
             if (in_array($name, self::SECTION_BLOCKS, true)) {
                 $changed = $this->migrateValue($data, 'background_color') || $changed;
+                foreach (['field_61543393334bf', 'field_60d1a9295551b'] as $key) {
+                    $changed = $this->migrateValue($data, $key) || $changed;
+                }
             } elseif ($name === 'acf/container') {
                 $changed = $this->migrateValue($data, 'color') || $changed;
                 foreach ($data as $key => &$value) {

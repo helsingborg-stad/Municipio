@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use WpService\Contracts\GetPostField;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\WpUpdatePost;
+use WpService\Contracts\WpSlash;
 
 class Version64TestState
 {
@@ -31,7 +32,7 @@ if (!function_exists(__NAMESPACE__ . '\\serialize_blocks')) {
     function serialize_blocks(array $blocks): string
     {
         Version64TestState::$blocks = $blocks;
-        return 'serialized-blocks';
+        return 'serialized-\\u0026-blocks';
     }
 }
 
@@ -69,9 +70,14 @@ class Version64Test extends TestCase
             'innerBlocks' => [],
         ]];
 
-        $wpService = new class implements GetPosts, GetPostField, WpUpdatePost {
+        $wpService = new class implements GetPosts, GetPostField, WpUpdatePost, WpSlash {
             /** @var array<int, array<string, mixed>> */
             public array $updatedPosts = [];
+
+            public function wpSlash(string|array $value): string|array
+            {
+                return is_string($value) ? addslashes($value) : $value;
+            }
 
             public function getPosts(array $args = null): array
             {
@@ -114,6 +120,6 @@ class Version64Test extends TestCase
         static::assertSame('primary', Version64TestState::$blocks[0]['attrs']['data']['background_gradient'][0]['color']);
         static::assertSame('primary', Version64TestState::$blocks[1]['attrs']['data']['color']);
         static::assertArrayNotHasKey('text_color', Version64TestState::$blocks[1]['attrs']['data']);
-        static::assertSame('serialized-blocks', $wpService->updatedPosts[0]['post_content']);
+        static::assertSame('serialized-\\\\u0026-blocks', $wpService->updatedPosts[0]['post_content']);
     }
 }

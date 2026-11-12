@@ -28,7 +28,7 @@ class Version70Test extends TestCase
         $blocks = [[
             'blockName' => 'core/group',
             'innerBlocks' => [
-                ['blockName' => 'acf/section-split', 'attrs' => ['data' => ['background_color' => '#ffffff', 'text_color' => 'dark']], 'innerBlocks' => []],
+                ['blockName' => 'acf/section-split', 'attrs' => ['data' => ['background_color' => '#ffffff', 'field_60d1a9295551b' => '#ffffff', 'text_color' => 'dark']], 'innerBlocks' => []],
                 ['blockName' => 'acf/container', 'attrs' => ['data' => ['color' => '#ffffff', 'background_gradient_0_color' => '#ffffff', 'background_gradient' => [['color' => '#ffffff']]]], 'innerBlocks' => []],
                 ['blockName' => 'acf/other', 'attrs' => ['data' => ['background_color' => '#ffffff']], 'innerBlocks' => []],
             ],
@@ -36,6 +36,7 @@ class Version70Test extends TestCase
         $expected = ColorSwatches::getClosestColorPairRole('#ffffff');
         static::assertTrue($migration->migrateBlocks($blocks));
         static::assertSame($expected, $blocks[0]['innerBlocks'][0]['attrs']['data']['background_color']);
+        static::assertSame($expected, $blocks[0]['innerBlocks'][0]['attrs']['data']['field_60d1a9295551b']);
         static::assertSame('dark', $blocks[0]['innerBlocks'][0]['attrs']['data']['text_color']);
         static::assertSame($expected, $blocks[0]['innerBlocks'][1]['attrs']['data']['background_gradient_0_color']);
         static::assertSame($expected, $blocks[0]['innerBlocks'][1]['attrs']['data']['background_gradient'][0]['color']);

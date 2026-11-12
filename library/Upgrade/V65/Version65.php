@@ -9,13 +9,14 @@ use Municipio\Upgrade\VersionInterface;
 use WpService\Contracts\GetPostField;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\WpUpdatePost;
+use WpService\Contracts\WpSlash;
 
 /**
  * Collapses container background and text colour settings into one palette role.
  */
 class Version65 implements VersionInterface
 {
-    public function __construct(private GetPosts&GetPostField&WpUpdatePost $wpService) {}
+    public function __construct(private GetPosts&GetPostField&WpUpdatePost&WpSlash $wpService) {}
 
     public function upgradeToVersion(): void
     {
@@ -43,7 +44,7 @@ class Version65 implements VersionInterface
 
             $this->wpService->wpUpdatePost([
                 'ID' => $postId,
-                'post_content' => serialize_blocks($blocks),
+                'post_content' => $this->wpService->wpSlash(serialize_blocks($blocks)),
             ]);
         }
     }
