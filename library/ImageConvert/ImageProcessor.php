@@ -12,7 +12,6 @@ use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpAttachmentIs;
-use WpService\Contracts\WpDeleteFile;
 use WpService\Contracts\WpGetAttachmentMetadata;
 use WpService\Contracts\WpGetImageEditor;
 
@@ -25,7 +24,7 @@ use WpService\Contracts\WpGetImageEditor;
 class ImageProcessor
 {
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&ApplyFilters&WpDeleteFile $wpService,
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&ApplyFilters $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache,
         private Log $log,
@@ -169,7 +168,8 @@ class ImageProcessor
             return $image;
         } finally {
             if (file_exists($localTemporaryPath)) {
-                $this->wpService->wpDeleteFile($localTemporaryPath);
+                // WordPress before 6.7 returns null; wpservice 3 requires a bool.
+                wp_delete_file($localTemporaryPath);
             }
         }
     }
