@@ -19,12 +19,29 @@ class StickyResolver
             return false;
         }
 
-        $lowerHeaderRawMenuItems = $this->extractMenuItems->getHeaderItems(Enums::HEADER_KEY::LOWER->value);
+        $upperHasItems = $this->headerHasItems(Enums::HEADER_KEY::UPPER->value);
+        $lowerHasItems = $this->headerHasItems(Enums::HEADER_KEY::LOWER->value);
 
-        if (!empty($lowerHeaderRawMenuItems[Enums::HEADER_BREAKPOINT::MOBILE->value])) {
-            return $headerId === Enums::HEADER_KEY::LOWER->value ? true : false;
+        if ($upperHasItems && $lowerHasItems) {
+            return $headerId === Enums::HEADER_KEY::LOWER->value;
         }
 
-        return $headerId === Enums::HEADER_KEY::UPPER->value ? true : false;
+        if ($lowerHasItems) {
+            return $headerId === Enums::HEADER_KEY::LOWER->value;
+        }
+
+        if ($upperHasItems) {
+            return $headerId === Enums::HEADER_KEY::UPPER->value;
+        }
+
+        return false;
+    }
+
+    private function headerHasItems(string $headerId): bool
+    {
+        $rawMenuItems = $this->extractMenuItems->getHeaderItems($headerId);
+
+        return !empty($rawMenuItems[Enums::HEADER_BREAKPOINT::DESKTOP->value])
+            || !empty($rawMenuItems[Enums::HEADER_BREAKPOINT::MOBILE->value]);
     }
 }
