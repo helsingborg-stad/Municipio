@@ -60,17 +60,24 @@ class AlphaColorControl extends WP_Customize_Control
             <?php if (!empty($palettePairs)): ?>
                 <div class="municipio-alpha-color-palettes" aria-label="<?php echo esc_attr__('Color swatches', 'municipio'); ?>">
                     <?php if ($this->shouldIncludeResetSwatch()): ?>
-                        <?php $isResetActive = trim($currentValue) === ''; ?>
+                        <?php
+                        $isResetActive = trim($currentValue) === '';
+                        $resetPreview = $this->getResetPreview();
+                        $resetLabel = $resetPreview !== null ? __('Default color', 'municipio') : __('No color', 'municipio');
+                        ?>
                         <button
                             type="button"
                             class="municipio-alpha-color-swatch municipio-alpha-color-swatch--reset<?php echo $isResetActive ? ' is-active' : ''; ?>"
                             data-reset="true"
-                            aria-label="<?php echo esc_attr__('No color', 'municipio'); ?>"
-                            title="<?php echo esc_attr__('No color', 'municipio'); ?>"
+                            aria-label="<?php echo esc_attr($resetLabel); ?>"
+                            title="<?php echo esc_attr($resetLabel); ?>"
                         >
                             <span
-                                class="municipio-alpha-color-swatch__sample municipio-alpha-color-swatch__sample--reset"
+                                class="municipio-alpha-color-swatch__sample<?php echo $resetPreview === null ? ' municipio-alpha-color-swatch__sample--reset' : ''; ?>"
                                 aria-hidden="true"
+                                <?php if ($resetPreview !== null): ?>
+                                style="background-color: <?php echo esc_attr($resetPreview['background']); ?>; color: <?php echo esc_attr($resetPreview['contrast']); ?>;"
+                                <?php endif; ?>
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" focusable="false" aria-hidden="true">
                                     <path d="M280-160v-520H80v-120h520v120H400v520H280Zm360 0v-320H520v-120h360v120H760v320H640Z"/>
@@ -138,6 +145,29 @@ class AlphaColorControl extends WP_Customize_Control
         }
 
         return false;
+    }
+
+    /**
+     * Get the colors to preview in the reset swatch, or null to show it as "no color".
+     *
+     * @return array{background:string, contrast:string}|null
+     */
+    private function getResetPreview(): ?array
+    {
+        $preview = $this->input_attrs['reset_preview'] ?? [];
+
+        if (!is_array($preview)) {
+            return null;
+        }
+
+        $background = is_string($preview['background'] ?? null) ? trim($preview['background']) : '';
+        $contrast = is_string($preview['contrast'] ?? null) ? trim($preview['contrast']) : '';
+
+        if ($background === '' || $contrast === '') {
+            return null;
+        }
+
+        return ['background' => $background, 'contrast' => $contrast];
     }
 
     /**

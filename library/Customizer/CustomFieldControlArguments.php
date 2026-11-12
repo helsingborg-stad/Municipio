@@ -28,6 +28,7 @@ class CustomFieldControlArguments
                     'swatch_pair_role' => $field['swatch_pair_role'] ?? 'background',
                     'paired_setting' => $field['paired_setting'] ?? '',
                     'include_reset' => $field['include_reset'] ?? ($field['includeReset'] ?? false),
+                    'reset_preview' => $field['reset_preview'] ?? [],
                 ],
                 'field' => $field,
             ],

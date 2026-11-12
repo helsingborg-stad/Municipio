@@ -98,6 +98,18 @@ class ColorSwatches
     }
 
     /**
+     * Returns a stored design token color as hex, or the fallback when it is not set.
+     */
+    public static function getTokenColor(string $tokenKey, string $fallback): string
+    {
+        if (!function_exists('get_theme_mod')) {
+            return $fallback;
+        }
+
+        return self::normalizeHexColor(self::getStoredTokenValues()[$tokenKey] ?? null) ?? $fallback;
+    }
+
+    /**
      * Returns normalized background/contrast color pairs.
      *
      * @return array<int, array{background:string, contrast:string}>
