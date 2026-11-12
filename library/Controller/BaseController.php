@@ -141,8 +141,6 @@ class BaseController
         // Header
         $this->data['headerData'] = (new \Municipio\Controller\Header\Flexible(
             new HeaderFactory(
-                $this->wpService,
-                $this->acfService,
                 $this->data['customizer']
             )
         ))->getHeaderData();

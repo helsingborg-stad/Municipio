@@ -33,10 +33,6 @@ class Header
     {
         $visibilityClasses = $this->headerClasses->buildVisibilityClasses($this->extractMenuItems->getHeaderItems($this->id));
 
-        if ($this->hasMenuItemsForAlignment(Enums::MENU_ITEM_ALIGNMENT::CENTER->value)) {
-            $visibilityClasses[] = 'c-header--flexible-has-centered-content';
-        }
-
         return array_merge($visibilityClasses);
     }
 

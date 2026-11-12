@@ -20,11 +20,8 @@ class HeaderFactory
     private StickyResolver $stickyResolver;
 
     public function __construct(
-        private WpService $wpService,
-        private AcfService $acfService,
         private object $customizer
     ) {
-        // echo '<pre>' . print_r( $this->customizer->headerSortableHiddenStorage, true ) . '</pre>';die;
         $this->extractMenuItems = new ExtractMenuItems($this->customizer);
         $this->stickyResolver = new StickyResolver($this->extractMenuItems, $this->customizer);
         $this->headerClasses = new HeaderClasses();
