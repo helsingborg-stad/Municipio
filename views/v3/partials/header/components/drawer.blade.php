@@ -20,11 +20,13 @@
         'attributeList' => [
             'data-move-to' => 'body', 
             'data-js-toggle-item' => 'drawer',
-            'data-scope' => 's-drawer;'
+            'data-scope' => 's-drawer;',
+            'style' => $drawerCurrentBadgeStyle ?? ''
         ],
         'classList' => [
             'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileSecondaryMenu['items']) ? 'duotone' : 'monotone'),
-            's-drawer-menu'
+            's-drawer-menu',
+            $drawerCurrentBadgeClass ?? ''
         ],
         'label' => $lang->close,
         'screenSizes' => [
