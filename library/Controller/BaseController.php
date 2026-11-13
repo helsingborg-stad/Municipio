@@ -122,6 +122,7 @@ class BaseController
         $this->data['footerLogotype'] = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype'] = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['footerBackgroundImageStyle'] = $this->getFooterBackgroundImageStyle();
+        $this->data['preFooterImageUrl'] = $this->getPreFooterImageUrl();
         $this->data['preFooterImageStyle'] = $this->getPreFooterImageStyle();
         $this->data['preFooterImageClassList'] = $this->getPreFooterImageClassList();
         $this->data['emblem'] = $this->getEmblem();
@@ -1198,9 +1199,9 @@ class BaseController
     }
 
     /**
-     * Get the inline pre footer image style, or an empty string when no image is set.
+     * Get the escaped pre footer image url, or an empty string when no image is set.
      */
-    public function getPreFooterImageStyle(): string
+    public function getPreFooterImageUrl(): string
     {
         $preFooterImage = $this->data['customizer']->footerPreFooterImage ?? '';
 
@@ -1208,13 +1209,19 @@ class BaseController
             return '';
         }
 
-        $style = "background-image: url('" . esc_url($preFooterImage) . "');";
+        return esc_url($preFooterImage);
+    }
 
-        if ($this->isPreFooterImageTallerOnMobile()) {
-            $style .= ' --municipio-pre-footer-image-mobile-height: ' . $this->getPreFooterImageMobileHeight() . 'px;';
+    /**
+     * Get the inline pre footer image style (custom mobile height), or an empty string.
+     */
+    public function getPreFooterImageStyle(): string
+    {
+        if (!$this->isPreFooterImageTallerOnMobile()) {
+            return '';
         }
 
-        return $style;
+        return '--municipio-pre-footer-image-mobile-height: ' . $this->getPreFooterImageMobileHeight() . 'px;';
     }
 
     /**
