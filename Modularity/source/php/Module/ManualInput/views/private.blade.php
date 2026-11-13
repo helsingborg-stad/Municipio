@@ -26,6 +26,7 @@
     ])
     @group([
         'direction' => 'vertical',
+        'display' => 'flex',
         'justifyContent' => 'center'
     ])
         @notice([
