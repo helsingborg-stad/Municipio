@@ -32,6 +32,11 @@ class OverrideStateTest extends TestCase
                     '_dark' => ['--color--background' => '#111111'],
                     '_contrast' => null,
                     'component' => [],
+                    'componentSchemes' => [
+                        'dark' => ['scope:footer' => ['footer' => ['--c-footer--color--surface' => 'var(--color--palette-1)']]],
+                        'contrast' => [],
+                        'unsupported' => [],
+                    ],
                 ]);
             }
 
@@ -46,6 +51,9 @@ class OverrideStateTest extends TestCase
         static::assertSame(['--color--background' => '#111111'], $result['_dark']);
         static::assertArrayHasKey('_contrast', $result);
         static::assertNull($result['_contrast']);
+        static::assertSame('var(--color--palette-1)', $result['componentSchemes']['dark']['scope:footer']['footer']['--c-footer--color--surface']);
+        static::assertArrayHasKey('contrast', $result['componentSchemes']);
+        static::assertArrayNotHasKey('unsupported', $result['componentSchemes']);
     }
 
     private static function createWpService(): GetThemeMod&ApplyFilters

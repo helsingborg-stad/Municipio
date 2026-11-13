@@ -32,6 +32,9 @@ use Municipio\Upgrade\V66\Version66;
 use Municipio\Upgrade\V67\Version67;
 use Municipio\Upgrade\V68\Version68;
 use Municipio\Upgrade\V69\Version69;
+use Municipio\Upgrade\V70\Version70;
+use Municipio\Upgrade\V71\Version71;
+use Municipio\Upgrade\Palette\PopulateUsedColors;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -47,7 +50,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 69; //The db version we want to achive
+    private $dbVersion = 72; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1196,8 +1199,9 @@ class Upgrade
     public function v_64(): bool
     {
         try {
+            (new PopulateUsedColors(WpService::get(), $this->acfService))->run();
             (new Version64(WpService::get(), $this->acfService))->upgradeToVersion();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             error_log($e->getMessage());
             return false;
         }
@@ -1280,6 +1284,44 @@ class Upgrade
             return false;
         }
 
+        return true;
+    }
+
+    /** Migrates section and container literal colors to palette roles. */
+    public function v_70(): bool
+    {
+        try {
+            (new PopulateUsedColors(WpService::get(), $this->acfService))->run();
+            (new Version70(WpService::get()))->upgradeToVersion();
+        } catch (\Throwable $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    /** Repairs unambiguous block content from revisions after legacy color migration. */
+    public function v_71(): bool
+    {
+        try {
+            (new PopulateUsedColors(WpService::get(), $this->acfService))->run();
+            (new Version71(WpService::get()))->upgradeToVersion();
+        } catch (\Throwable $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    /** Seed remaining palette slots on sites already upgraded to version 71. */
+    public function v_72(): bool
+    {
+        try {
+            (new PopulateUsedColors(WpService::get(), $this->acfService))->run();
+        } catch (\Throwable $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
         return true;
     }
 

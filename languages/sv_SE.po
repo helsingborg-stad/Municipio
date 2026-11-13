@@ -5843,6 +5843,14 @@ msgstr "Lägg till inläggstyp"
 msgid "Post type name"
 msgstr "Posttypens namn"
 
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Display name"
+msgstr "Visningsnamn"
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Optional. Name shown to visitors and editors, for example in breadcrumbs, page titles and the admin menu. Leave empty to use the post type name. Can be changed at any time without affecting existing posts."
+msgstr "Valfritt. Namnet som visas för besökare och redaktörer, till exempel i brödsmulor, sidtitlar och adminmenyn. Lämna tomt för att använda posttypens namn. Kan ändras när som helst utan att befintliga inlägg påverkas."
+
 #: library/AcfFields/php/options-theme-custom-post-type.php:38
 msgid "<span style=\"color: #ff0000;\">Will generate the post type name, select a name with care! Cannot be changed! </span>"
 msgstr "<span style=\"color: #ff0000;\">Välj namn med omsorg. Namnet går inte att ändra.</span>"
@@ -7681,6 +7689,10 @@ msgstr "Länken öppnas i nytt fönster"
 msgid "Join the online event"
 msgstr "Delta i onlineeventet"
 
+#: library/PostsList/ViewCallableProviders/Schema/Event/GetOnlineAttendanceLabel.php:44
+msgid "Takes place online"
+msgstr "Sker digitalt"
+
 #: library/Controller/SingularExhibitionEvent.php:107
 msgctxt "ExhibitionEvent"
 msgid "Place"
@@ -8978,6 +8990,26 @@ msgstr "Expandera"
 #: library/Helper/TranslatedLabels.php:60
 msgid "You are here: "
 msgstr "Du är här: "
+
+#: library/Helper/TranslatedLabels.php:61
+msgid "You are here"
+msgstr "Du är här"
+
+#: library/Customizer/Sections/Menu/Drawer.php:101
+msgid "Show \"You are here\" badge"
+msgstr "Visa \"Du är här\"-bricka"
+
+#: library/Customizer/Sections/Menu/Drawer.php:102
+msgid "Displays a badge next to the current page in the drawer menu."
+msgstr "Visar en bricka bredvid den aktuella sidan i utdragsmenyn."
+
+#: library/Customizer/Sections/Menu/Drawer.php:118
+msgid "\"You are here\" badge color"
+msgstr "Färg på \"Du är här\"-brickan"
+
+#: library/Customizer/Sections/Menu/Drawer.php:119
+msgid "Defaults to red. The text color follows the selected swatch."
+msgstr "Standard är röd. Textfärgen följer den valda färgrutan."
 
 #: library/Helper/TranslatedLabels.php:61
 msgid "Reading time"
@@ -12746,6 +12778,10 @@ msgstr ""
 #: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:69
 msgid "No color"
 msgstr ""
+
+#: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:66
+msgid "Default color"
+msgstr "Standardfärg"
 
 #: library/Customizer/Controls/Background/BackgroundControl.php:114
 #: library/Theme/Icon.php:3155

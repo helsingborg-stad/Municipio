@@ -161,11 +161,9 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            $backgroundRole = !empty($data['color'])
-                ? ColorSwatches::normalizeColorPairRole((string) $data['color'])
-                : null;
-            if ($backgroundRole !== null && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
-                $data['classList'] .= ' ' . ColorSwatches::getColorUtilityClass($backgroundRole);
+            $backgroundClass = is_string($data['color'] ?? null) ? ColorSwatches::getColorUtilityClass($data['color']) : null;
+            if ($backgroundClass !== null && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
+                $data['classList'] .= ' ' . $backgroundClass;
             }
 
             if ($this->blockHasBackgroundGradient($data)) {
@@ -272,13 +270,18 @@ class BlockManager
         }
 
         foreach ($gradientStops as $key => $gradient) {
-            $role = !empty($gradient['color']) ? ColorSwatches::normalizeColorPairRole((string) $gradient['color']) : null;
-            $colorPair = $role !== null ? ColorSwatches::getColorPair($role) : null;
+            $colorPair = is_string($gradient['color'] ?? null) ? ColorSwatches::getColorPair($gradient['color']) : null;
             $gradientValues .= ($colorPair['background'] ?? 'transparent') . $this->handleGradientStopValues($gradient, $type);
 
             if ($key !== array_key_last($gradientStops)) {
                 $gradientValues .= ', ';
             }
+        }
+
+        // CSS gradients require at least two stops. Keep a newly added single
+        // colour visible while the editor is still configuring the gradient.
+        if (count($gradientStops) === 1) {
+            $gradientValues .= ', ' . $gradientValues;
         }
 
         if (!empty($gradientValues)) {
@@ -310,9 +313,8 @@ class BlockManager
                 continue;
             }
 
-            $role = ColorSwatches::normalizeColorPairRole((string) $gradient['color']);
-            if ($role !== null) {
-                return $role;
+            if (is_string($gradient['color']) && ColorSwatches::getColorPair($gradient['color']) !== null) {
+                return $gradient['color'];
             }
         }
 
@@ -357,9 +359,19 @@ class BlockManager
     {
         $newData = [];
         foreach ($data as $key => $value) {
+            // Unsaved editor data uses field keys and nested repeater arrays.
+            // Read through ACF so subfields are formatted to their field names.
+            if (str_starts_with($key, 'field_')) {
+                $fieldObject = get_field_object($key);
+                if ($fieldObject !== false) {
+                    $newData[$fieldObject['name']] = get_field($key);
+                }
+                continue;
+            }
+
             $key = ltrim($key, '_');
 
-            if (str_contains($value, 'field_')) {
+            if (is_string($value) && str_starts_with($value, 'field_')) {
                 $newData[$key] = get_field($value);
             } else {
                 if ($fieldObject = get_field_object($key)) {
@@ -408,12 +420,18 @@ class BlockManager
 
         foreach ($fields as $key => $value) {
             //Must validate as a field_key
-            if (!str_contains($value, 'field_')) {
+            $fieldKey = null;
+            if (str_starts_with($key, 'field_')) {
+                $fieldKey = $key;
+            } elseif (is_string($value) && str_starts_with($value, 'field_')) {
+                $fieldKey = $value;
+            }
+            if ($fieldKey === null) {
                 continue;
             }
 
             // Get full field specification
-            if (!$fieldObject = get_field_object($value)) {
+            if (!$fieldObject = get_field_object($fieldKey)) {
                 continue;
             }
 

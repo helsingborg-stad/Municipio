@@ -24,9 +24,9 @@
 @modal([
     'isPanel'      => $modalIsPanel,
     'size'         => $modalSize,
-    'padding'      => $modalPadding,
+    'padding'      => (int) $modalPadding,
     'borderRadius' => $modalBorderRadius,
-    'heading'      => $useModalContentTitle ? $modalContentTitle : false,
+    'heading'      => $useModalContentTitle ? (string) $modalContentTitle : '',
     'id'           => 'modal-' . $modalId
 ])
     {!! $modalContent !!}

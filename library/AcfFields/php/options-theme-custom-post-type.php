@@ -49,6 +49,27 @@
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
                 1 => array(
+                    'key' => 'field_6912b0c4a7e51',
+                    'label' => __('Display name', 'municipio'),
+                    'name' => 'display_name',
+                    'aria-label' => '',
+                    'type' => 'text',
+                    'instructions' => __('Optional. Name shown to visitors and editors, for example in breadcrumbs, page titles and the admin menu. Leave empty to use the post type name. Can be changed at any time without affecting existing posts.', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '100',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'maxlength' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'parent_repeater' => 'field_56b347f3ffb6c',
+                ),
+                2 => array(
                     'key' => 'field_56b36c01e0619',
                     'label' => __('Permalänk', 'municipio'),
                     'name' => 'slug',
@@ -69,7 +90,7 @@
                     'append' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                2 => array(
+                3 => array(
                     'key' => 'field_57fb6fde23852',
                     'label' => __('Rewrite with front', 'municipio'),
                     'name' => 'with_front',
@@ -90,7 +111,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                3 => array(
+                4 => array(
                     'key' => 'field_56c1c7c731a5c',
                     'label' => __('Menu icon', 'municipio'),
                     'name' => 'menu_icon',
@@ -118,7 +139,7 @@
                     'acfe_thumbnail' => 0,
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                4 => array(
+                5 => array(
                     'key' => 'field_56b363105df00',
                     'label' => __('Menu position', 'municipio'),
                     'name' => 'menu_position',
@@ -158,7 +179,7 @@
                     'search_placeholder' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                5 => array(
+                6 => array(
                     'key' => 'field_56b361b25defd',
                     'label' => __('Public?', 'municipio'),
                     'name' => 'public',
@@ -179,7 +200,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                6 => array(
+                7 => array(
                     'key' => 'field_56b362255defe',
                     'label' => __('Exclude from search?', 'municipio'),
                     'name' => 'exclude_from_search',
@@ -200,7 +221,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                7 => array(
+                8 => array(
                     'key' => 'field_56b3629c5deff',
                     'label' => __('Avabile in nav menus?', 'municipio'),
                     'name' => 'show_in_nav_menus',
@@ -221,7 +242,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                8 => array(
+                9 => array(
                     'key' => 'field_56b364336050a',
                     'label' => __('Hierarchical', 'municipio'),
                     'name' => 'hierarchical',
@@ -242,7 +263,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                9 => array(
+                10 => array(
                     'key' => 'field_64fef9ff25f70',
                     'label' => __('Place under pages menu?', 'municipio'),
                     'name' => 'place_under_pages_menu',
@@ -263,7 +284,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                10 => array(
+                11 => array(
                     'key' => 'field_5805d63cdcbf4',
                     'label' => __('Navigation', 'municipio'),
                     'name' => 'show_posts_in_sidebar_menu',
@@ -292,7 +313,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                11 => array(
+                12 => array(
                     'key' => 'field_56b364a391788',
                     'label' => __('Post type functions', 'municipio'),
                     'name' => 'supports',
@@ -334,7 +355,7 @@
                     'custom_choice_button_text' => 'Add new choice',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                12 => array(
+                13 => array(
                     'key' => 'field_633d67ea3f62c',
                     'label' => __('Display age notification on posts', 'municipio'),
                     'name' => 'display_age_notification_on_posts',
@@ -355,7 +376,7 @@
                     'ui' => 0,
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                13 => array(
+                14 => array(
                     'key' => 'field_633d68aec93bb',
                     'label' => __('Display the notice after this many days', 'municipio'),
                     'name' => 'post_age_days',

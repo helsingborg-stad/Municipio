@@ -255,7 +255,6 @@ class App
         new \Municipio\Admin\UI\Editor($this->wpService, $this->wpUtilService->enqueue(__DIR__));
         (new \Municipio\Admin\UI\ComponentEditorStyles(
             $this->wpService,
-            $this->wpUtilService->enqueue(__DIR__, cacheBust: false)->setDistDirectory('/assets/dist/styleguide/'),
             new \Municipio\Styleguide\ComponentAssets\StylesheetManifest($this->wpService->getTemplateDirectory() . '/assets/dist/styleguide'),
         ))->addHooks();
 

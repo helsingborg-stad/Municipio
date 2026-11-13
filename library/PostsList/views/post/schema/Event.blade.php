@@ -17,14 +17,20 @@
     
         @element(['classList' => ['u-margin__bottom--0', 'u-margin__top--2', 'u-display--flex', 'u-flex-direction--column', 'o-layout-grid--gap-1']])
             @if(!empty($getSchemaEventPlaceName($post)))
-                @typography(['variant' => 'meta', 'classList' => ['u-margin__top--0', 'u-margin__bottom--0', 'u-display--flex', 'u-align-items--center', 'o-layout-grid--gap-1']])
-                    @icon(['icon' => 'location_on', 'size' => 'sm'])@endicon
+                @typography(['variant' => 'meta', 'classList' => ['u-margin__top--0', 'u-margin__bottom--0', 'u-display--flex', 'o-layout-grid--gap-1']])
+                    @icon(['icon' => 'location_on', 'size' => 'sm', 'attributeList' => ['style' => 'margin-top: 2px;']])@endicon
                     {!! $getSchemaEventPlaceName($post) !!}
                 @endtypography
             @endif
-            @if(!empty($getSchemaEventDate($post)))
+            @if(!empty($getSchemaEventOnlineAttendanceLabel($post)))
                 @typography(['variant' => 'meta', 'classList' => ['u-margin__top--0', 'u-margin__bottom--0', 'u-display--flex', 'u-align-items--center', 'o-layout-grid--gap-1']])
-                    @icon(['icon' => 'event', 'size' => 'sm'])@endicon
+                    @icon(['icon' => 'language', 'size' => 'sm'])@endicon
+                    {{ $getSchemaEventOnlineAttendanceLabel($post) }}
+                @endtypography
+            @endif
+            @if(!empty($getSchemaEventDate($post)))
+                @typography(['variant' => 'meta', 'classList' => ['u-margin__top--0', 'u-margin__bottom--0', 'u-display--flex', 'o-layout-grid--gap-1']])
+                    @icon(['icon' => 'event', 'size' => 'sm', 'attributeList' => ['style' => 'margin-top: 2px;']])@endicon
                     {!! $getSchemaEventDate($post) !!}
                 @endtypography
             @endif
