@@ -3,6 +3,9 @@
 namespace Municipio\Controller;
 
 use AcfService\AcfService;
+use Municipio\Controller\Header\HeaderFactory;
+use Municipio\Controller\Header\Helper\LogoScrollShrinkSettings;
+use Municipio\Controller\Header\Helper\HeaderComponents;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
@@ -136,16 +139,24 @@ class BaseController
         $this->data['footerGridSize'] = floor(12 / $footerColumns);
         $this->data['footerAreas'] = $footerAreas;
 
-        // Header controllers
-        $headerClassName = '\\Municipio\\Controller\\Header\\Flexible';
-        if (class_exists($headerClassName)) {
-            $headerController = new $headerClassName(
-                $this->data['customizer'],
-                $this->wpService->isCustomizePreview()
-            );
-        }
+        // Header
+        $flexibleHeader = new \Municipio\Controller\Header\Flexible(
+            new HeaderFactory(
+                $this->data['customizer']
+            ),
+            new LogoScrollShrinkSettings($this->data['customizer'])
+        );
 
-        $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
+        $this->data['headerData'] = $flexibleHeader->getHeaderData();
+
+        $logoScrollShrinkSettings = $flexibleHeader->getLogoScrollShrinkSettings($this->wpService->isCustomizePreview());
+        $this->data['logoScrollShrinkEnabled'] = $logoScrollShrinkSettings['enabled'];
+        $this->data['logoScrollShrinkOverlapMultiplier'] = $logoScrollShrinkSettings['overlapMultiplier'];
+        $this->data['logoScrollShrinkAspectRatio'] = $logoScrollShrinkSettings['aspectRatio'];
+
+        $this->data['hasSeparateBrandText'] = $this->getHeaderComponents()->has('brand-text');
+        $this->data['hasMegaMenu'] = $this->getHeaderComponents()->has('mega-menu');
+        $this->data['hasSearchModal'] = $this->getHeaderComponents()->has('search-modal');
 
         $this->menuDirector->setBuilder($this->menuBuilder);
 
@@ -826,7 +837,7 @@ class BaseController
             return false;
         }
 
-        return $this->headerContainsComponent('primary');
+        return $this->getHeaderComponents()->has('primary');
     }
 
     /**
@@ -835,23 +846,15 @@ class BaseController
     protected function hasDrawerMenu(): bool
     {
         return !empty($this->data['mobileMenu']['items'])
-            && $this->headerContainsComponent('drawer');
+            && $this->getHeaderComponents()->has('drawer');
     }
 
     /**
-     * Check if a component is rendered in the header.
+     * Get the components placed in the rendered headers.
      */
-    protected function headerContainsComponent(string $component): bool
+    protected function getHeaderComponents(): HeaderComponents
     {
-        foreach (['upperItems', 'lowerItems'] as $section) {
-            foreach (['left', 'center', 'right'] as $alignment) {
-                if (isset($this->data['headerData'][$section][$alignment][$component])) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return new HeaderComponents($this->data['headerData'] ?? []);
     }
 
     /**

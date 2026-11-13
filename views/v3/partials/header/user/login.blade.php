@@ -4,7 +4,7 @@
         'user--inactive', 
         !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
         'u-print-display--none'
-    ], $classList ?? []),
+    ], $menuItem->getCssClasses()),
     'context' => ['header.loginlogout', 'header.loginlogout.login'],
     'attributeList' => [
         'data-js-sizeobserver' => 'user-background', 
@@ -31,9 +31,9 @@
     @endlink
     @button([
         'text' => $lang->login,
-        'color' => $buttonAppearance['color'],
-        'style' => $buttonAppearance['style'],
-        'size' => $buttonAppearance['size'],
+        'color' => $menuItem->getButtonColor(),
+        'style' => $menuItem->getButtonStyle(),
+        'size' => $menuItem->getButtonSize(),
         'href' => $loginUrl,
         'classList' => [
             'user__button',

@@ -1,5 +1,10 @@
-@link(['id' => 'header-logotype', 'href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
-    @if($headerBrandEnabled && !$headerData['hasSeparateBrandText'])
+@link([
+    'id' => 'header-logotype', 'href' => $homeUrl,
+    'classList' => array_merge([
+        'u-no-decoration'
+        ], $menuItem->getCssClasses() ?? [])
+    ])
+    @if($headerBrandEnabled && !$hasSeparateBrandText)
         @brand([
             'logotype' => [
                 'src'=> $logotype,
@@ -7,14 +12,14 @@
             ],
             'classList' => ['c-nav__logo', 'c-header__logotype'],
             'text' => $brandText,
-            'aspectRatio' => $headerData['logoScrollShrinkAspectRatio'] ?? null,
+            'aspectRatio' => $logoScrollShrinkAspectRatio ?? null,
         ])
         @endbrand
     @else
         @logotype([
             'src'=> $logotype,
             'alt' => $lang->goToHomepage,
-            'aspectRatio' => $headerData['logoScrollShrinkAspectRatio'] ?? null,
+            'aspectRatio' => $logoScrollShrinkAspectRatio ?? null,
             'classList' => ['c-nav__logo', 'c-header__logotype'],
             'context' => ['site.header.logo']
         ])

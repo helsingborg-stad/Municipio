@@ -1,7 +1,7 @@
 @if ($headerBrandEnabled && !empty($brandText))
     @link([
         'href' => $homeUrl, 
-        'classList' => ['u-no-decoration', 'c-header__brand-text']
+        'classList' => array_merge(['u-no-decoration', 'c-header__brand-text'], $menuItem->getCssClasses())
     ])
         @foreach ($brandText as $text)
             <span>{!! $text !!}</span>
