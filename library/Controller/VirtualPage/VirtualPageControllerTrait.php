@@ -58,15 +58,14 @@ trait VirtualPageControllerTrait
     }
 
     /**
-     * Replace the missing breadcrumb menu from BaseController with the standard
-     * data for this virtual page.
+     * Set the breadcrumb menu for this virtual page.
+     *
+     * BaseController builds the breadcrumb from the main query, which does not
+     * represent the virtual page (it may be empty or e.g. point to the posts
+     * page). The breadcrumb is therefore always replaced with Home > this page.
      */
     protected function ensureBreadcrumbMenu(string $itemKey): void
     {
-        if (!empty($this->data['breadcrumbMenu']['items'])) {
-            return;
-        }
-
         $this->data['breadcrumbMenu'] = [
             'name'       => 'breadcrumb',
             'identifier' => 'breadcrumb',
