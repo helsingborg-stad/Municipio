@@ -118,3 +118,10 @@ interface PuzzelQueueInfoResponse {
     agentsReady?: number;
     agentsLoggedIn?: number;
 }
+
+/**
+ * connected:   the conversation is ready to use.
+ * unavailable: Puzzel cannot start a conversation right now (closed, no agents, sign-in failed).
+ * failed:      a conversation exists but has no usable status, e.g. a stale stored conversation.
+ */
+type PuzzelConnectResult = "connected" | "unavailable" | "failed";
