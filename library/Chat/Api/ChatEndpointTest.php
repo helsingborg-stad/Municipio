@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Municipio\Chat\Api;
 
 use AcfService\Implementations\FakeAcfService;
+use Municipio\Chat\Api\Integration\ChatAssistantIntegrationInterface;
+use Municipio\Chat\Api\Integration\EneoAssistantIntegration;
 use Municipio\Chat\Config\ChatConfig;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\Exception\PIIRedactionException;
@@ -40,10 +42,51 @@ class MockPIIRedactorFactory implements PIIRedactorFactoryInterface
 
 class ChatEndpointTest extends TestCase
 {
+    #[TestDox('handleRequest() does not call integration when message is missing')]
+    public function testHandleRequestDoesNotCallIntegrationWhenMessageIsMissing(): void
+    {
+        $integration = new FakeChatAssistantIntegration();
+        $endpoint = $this->createEndpoint(integration: $integration);
+        $request = $this->createRequest([]);
+
+        $response = $endpoint->handleRequest($request);
+
+        static::assertInstanceOf(\WP_Error::class, $response);
+        static::assertFalse($integration->wasRegisterResponseHandlerCalled);
+    }
+
+    #[TestDox('handleRequest() does not call integration when pii redaction fails')]
+    public function testHandleRequestDoesNotCallIntegrationWhenPiiRedactionFails(): void
+    {
+        $config = $this->getConfig([
+            'chat_default_assistant' => 'a1',
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            ],
+        ]);
+
+        $throwingRedactor = new class implements PIIRedactorInterface {
+            public function extractAndRedactPII(string $input): RedactionResult
+            {
+                throw new PIIRedactionException('Presidio unavailable');
+            }
+        };
+
+        $integration = new FakeChatAssistantIntegration();
+        $throwingRedactorFactory = new MockPIIRedactorFactory($throwingRedactor);
+        $endpoint = $this->createEndpoint($config, $throwingRedactorFactory, $integration);
+        $request = $this->createRequest(['message' => 'Hello']);
+
+        $response = $endpoint->handleRequest($request);
+
+        static::assertInstanceOf(\WP_Error::class, $response);
+        static::assertFalse($integration->wasRegisterResponseHandlerCalled);
+    }
+
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint();
 
         static::assertInstanceOf(ChatEndpoint::class, $endpoint);
     }
@@ -51,7 +94,7 @@ class ChatEndpointTest extends TestCase
     #[TestDox('handleRegisterRestRoute() returns true')]
     public function testHandleRegisterRestRouteCanBeCalled(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint();
 
         static::assertTrue($endpoint->handleRegisterRestRoute());
     }
@@ -59,7 +102,7 @@ class ChatEndpointTest extends TestCase
     #[TestDox('handleRequest() returns a WP_Error when no message parameter is provided')]
     public function testHandleRequestReturnsErrorWhenMessageIsMissing(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint();
         $request = $this->createRequest([]);
 
         $response = $endpoint->handleRequest($request);
@@ -70,7 +113,7 @@ class ChatEndpointTest extends TestCase
     #[TestDox('handleRequest() returns a WP_Error when the message parameter is empty')]
     public function testHandleRequestReturnsErrorWhenMessageIsEmpty(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint();
         $request = $this->createRequest(['message' => '']);
 
         $response = $endpoint->handleRequest($request);
@@ -83,12 +126,12 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'unknown-id',
-            'chat_assistants' => [
-                ['id' => 'other-id', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'other-id', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint($config);
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -101,12 +144,12 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['id' => 'a1', 'api_key' => 'k', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint($config);
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -119,12 +162,12 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['id' => 'a1', 'server_url' => 'https://x', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'assistant_id' => 'a'],
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint($config);
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -137,12 +180,12 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['id' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k'],
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint($config);
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -213,8 +256,8 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['id' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
 
@@ -227,7 +270,7 @@ class ChatEndpointTest extends TestCase
 
         $throwingRedactorFactory = new MockPIIRedactorFactory($throwingRedactor);
 
-        $endpoint = new ChatEndpoint($config, $throwingRedactorFactory, static::createWpService());
+        $endpoint = $this->createEndpoint($config, $throwingRedactorFactory);
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -235,21 +278,21 @@ class ChatEndpointTest extends TestCase
         static::assertInstanceOf(\WP_Error::class, $response);
     }
 
-    #[TestDox('handleRequest() resolves the assistant by the explicit assistant_id parameter when provided')]
-    public function testHandleRequestPrefersExplicitAssistantIdParameter(): void
+    #[TestDox('handleRequest() resolves assistant from assistant_name parameter when provided')]
+    public function testHandleRequestResolvesAssistantFromAssistantNameParameter(): void
     {
         $config = $this->getConfig([
-            'chat_default_assistant' => 'default-id',
-            'chat_assistants' => [
-                ['id' => 'default-id', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
-                ['id' => 'explicit-id'],
+            'chat_default_assistant' => 'default-name',
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'default-name', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+                ['acf_fc_layout' => 'eneo', 'name' => 'explicit-name'],
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactorFactory(), static::createWpService());
+        $endpoint = $this->createEndpoint($config);
         $request = $this->createRequest([
             'message' => 'Hello',
-            'assistant_id' => 'explicit-id',
+            'assistant_name' => 'explicit-name',
         ]);
 
         $response = $endpoint->handleRequest($request);
@@ -281,6 +324,19 @@ class ChatEndpointTest extends TestCase
         return new MockPIIRedactorFactory();
     }
 
+    private function createEndpoint(
+        ?ChatConfigInterface $config = null,
+        ?PIIRedactorFactoryInterface $piiRedactorFactory = null,
+        ?ChatAssistantIntegrationInterface $integration = null,
+    ): ChatEndpoint {
+        return new ChatEndpoint(
+            $config ?? $this->getConfig(),
+            $piiRedactorFactory ?? $this->getPIIRedactorFactory(),
+            $integration ?? new EneoAssistantIntegration(),
+            static::createWpService(),
+        );
+    }
+
     private static function createWpService(): RegisterRestRoute
     {
         return new class implements RegisterRestRoute {
@@ -289,5 +345,24 @@ class ChatEndpointTest extends TestCase
                 return true;
             }
         };
+    }
+}
+
+class FakeChatAssistantIntegration implements ChatAssistantIntegrationInterface
+{
+    public bool $wasRegisterResponseHandlerCalled = false;
+
+    public function validateAssistantConfig(array $assistant): ?\WP_Error
+    {
+        return null;
+    }
+
+    public function registerResponseHandler(
+        \WP_REST_Request $request,
+        array $assistant,
+        array $params,
+        RedactionResult $redaction,
+    ): void {
+        $this->wasRegisterResponseHandlerCalled = true;
     }
 }

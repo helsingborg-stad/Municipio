@@ -1,17 +1,24 @@
+import ChatInitializer from "./chatInitializer";
 import Popover from "./popover/popover";
+import {
+	persistChatBubbleInitializeState,
+	persistChatBubbleOpenState,
+	shouldInitializeChatBubbleOnInit,
+	shouldOpenChatBubbleOnInit,
+} from "./chat/chatBubbleOpenState";
+
+const bubbleStateListeners = new WeakMap<HTMLElement, EventListener>();
 
 /**
  * Checks whether chat markup exists on the page before event listeners are registered.
  */
-let chatInitializer: any = null;
-
 document.addEventListener("popover:initialized", (e: any) => {
 	const popover = e.detail;
 
 	if (popover.id !== "chat-global-root") return;
 
 	const chatContainer = popover.element?.querySelector(
-		"[data-js-municipio-ai-chat-wrapper]",
+		"[data-js-municipio-chat-wrapper]",
 	);
 	const messageArea = popover.element?.querySelector("[data-js-message-area]");
 
@@ -23,28 +30,45 @@ document.addEventListener("popover:initialized", (e: any) => {
 document.addEventListener("chat:initialized", async (e: any) => {
 	const chat = e.detail;
 
-	if (!chat.getElement().hasAttribute("data-js-municipio-ai-chat")) return;
-	if (chat.getElement().hasAttribute("municipio-ai-chat-bubble")) {
+	if (!chat.getElement().hasAttribute("data-js-municipio-chat")) return;
+	if (chat.getElement().hasAttribute("data-js-municipio-chat-bubble")) {
 		return initChatBubble(chat);
 	}
 
 	initializeChat(chat);
 });
 
-function initChatBubble(chat: any) {
+async function initChatBubble(chat: any) {
 	const popover = getPopover();
-	const isOpen = popover?.matches(':popover-open');
 
-
-	if (!popover || isOpen) {
+	if (popover) {
+		registerBubbleOpenStateListener(popover, chat);
+	} else {
 		scrollToBottom(chat);
 		return initializeChat(chat);
 	}
 
-	const listener = () => {
+	if (
+		shouldOpenChatBubbleOnInit(chat) &&
+		!popover.matches(":popover-open")
+	) {
+		scrollToBottom(chat);
+		await initializeChat(chat);
+		popover.showPopover();
+		return;
+	}
+
+	if (shouldInitializeChatBubbleOnInit(chat)) {
+		scrollToBottom(chat);
+		await initializeChat(chat);
+		persistChatBubbleInitializeState(chat, false);
+		return;
+	}
+
+	const listener = async () => {
 		popover.removeEventListener('toggle', listener);
 		scrollToBottom(chat);
-		initializeChat(chat);
+		await initializeChat(chat);
 	};
 
 	popover.addEventListener('toggle', listener);
@@ -56,14 +80,27 @@ function scrollToBottom(chat: any) {
 }
 
 async function initializeChat(chat: any) {
-	if (!chatInitializer) {
-		chatInitializer = new (await import("./chatFactory")).default();
-	}
-
-	await chatInitializer.init(chat);
+	chat.getElement().classList.add('u-preloader');
+	await new ChatInitializer(chat).init();
+	chat.getElement().classList.remove('u-preloader');
 }
 
 function getPopover(): HTMLElement | null {
 	const popover = document.querySelector(`#chat-global-root`);
 	return popover ? (popover as HTMLElement) : null;
+}
+
+function registerBubbleOpenStateListener(popover: HTMLElement, chat: any): void {
+	const existingListener = bubbleStateListeners.get(popover);
+
+	if (existingListener) {
+		popover.removeEventListener("toggle", existingListener);
+	}
+
+	const stateListener: EventListener = () => {
+		persistChatBubbleOpenState(chat, popover.matches(":popover-open"));
+	};
+
+	popover.addEventListener("toggle", stateListener);
+	bubbleStateListeners.set(popover, stateListener);
 }
