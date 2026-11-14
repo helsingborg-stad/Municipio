@@ -10,7 +10,7 @@ interface ChatConfigInterface
 
     public function getDefaultAssistant(): ?array;
 
-    public function getAssistantForActiveQuery(): ?array;
+    public function getAssistantForActiveQuery(): array;
 
     public function getAssistants(): array;
 

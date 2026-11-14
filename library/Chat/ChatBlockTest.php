@@ -38,7 +38,54 @@ class ChatBlockTest extends TestCase
         static::assertSame('rendered', $this->renderBlock(['name' => 'Public'], false, 'Public'));
     }
 
+    #[TestDox('block renders nothing when the selected assistant does not exist')]
+    public function testUnknownAssistantRendersNothing(): void
+    {
+        static::assertSame('', $this->renderBlock(['name' => 'Public'], true, 'Removed assistant'));
+    }
+
+    #[TestDox('Puzzel assistants are not offered in the block assistant dropdown')]
+    public function testPuzzelIsNotOfferedInBlock(): void
+    {
+        $blockArgs = $this->registerBlock([
+            ['name' => 'Ava', 'acf_fc_layout' => 'eneo'],
+            ['name' => 'Noah', 'acf_fc_layout' => 'puzzel'],
+        ], true, 'Ava');
+
+        static::assertSame(['Default', 'Ava'], $blockArgs['attributes']['assistant']['enum']);
+    }
+
+    #[TestDox('block renders nothing for a Puzzel assistant, selected or as default')]
+    public function testPuzzelAssistantRendersNothing(): void
+    {
+        $assistants = [
+            ['name' => 'Ava', 'acf_fc_layout' => 'eneo'],
+            ['name' => 'Noah', 'acf_fc_layout' => 'puzzel'],
+        ];
+
+        $blockArgs = $this->registerBlock($assistants, true, 'Noah');
+
+        static::assertSame('', $blockArgs['render_callback'](['assistant' => 'Noah']));
+        static::assertSame('', $blockArgs['render_callback'](['assistant' => 'Default']));
+        static::assertSame('rendered', $blockArgs['render_callback'](['assistant' => 'Ava']));
+    }
+
+    #[TestDox('block is not registered when only Puzzel assistants exist')]
+    public function testBlockIsNotRegisteredWithOnlyPuzzel(): void
+    {
+        $blockArgs = $this->registerBlock([['name' => 'Noah', 'acf_fc_layout' => 'puzzel']], true, 'Noah');
+
+        static::assertSame([], $blockArgs);
+    }
+
     private function renderBlock(array $assistant, bool $isUserLoggedIn, string $assistantName): string
+    {
+        $blockArgs = $this->registerBlock([$assistant], $isUserLoggedIn, $assistant['name']);
+
+        return $blockArgs['render_callback'](['assistant' => $assistantName]);
+    }
+
+    private function registerBlock(array $assistants, bool $isUserLoggedIn, string $defaultAssistantName): array
     {
         $blockArgs = [];
         $wpService = new FakeWpService([
@@ -51,8 +98,8 @@ class ChatBlockTest extends TestCase
         ]);
         $acfService = new FakeAcfService([
             'getField' => static fn(string $name) => match ($name) {
-                'chat_assistants' => [$assistant],
-                'chat_default_assistant' => $assistant['name'],
+                'chat_integrations' => $assistants,
+                'chat_default_assistant' => $defaultAssistantName,
                 default => null,
             },
         ]);
@@ -66,6 +113,6 @@ class ChatBlockTest extends TestCase
 
         $block->registerBlock();
 
-        return $blockArgs['render_callback'](['assistant' => $assistantName]);
+        return $blockArgs;
     }
 }
