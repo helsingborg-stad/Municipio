@@ -21,130 +21,182 @@ use WpService\Contracts\WpCacheSet;
 
 class ContextualTermPostCountsTest extends TestCase
 {
-    protected function setUp(): void
+    #[TestDox('sets counts from the posts in the list and leaves out unselected terms matching no posts')]
+    public function testAppliesCountsToTerms(): void
     {
-        FakeWpQueryFactory::$createdWithArgs = [];
-        FakeWpQueryFactory::$postIds         = [1, 2, 3];
-    }
-
-    #[TestDox('returns post counts per term from the posts matching the list')]
-    public function testReturnsCountsPerTerm(): void
-    {
-        $wpdb = $this->createWpdb([
+        [$counts] = $this->createSut(rows: [
             (object) ['taxonomy' => 'category', 'term_id' => '10', 'post_count' => '2'],
             (object) ['taxonomy' => 'audience', 'term_id' => '20', 'post_count' => '1'],
         ]);
+        $terms    = [$this->createTerm(10, 'category'), $this->createTerm(11, 'category'), $this->createTerm(12, 'category')];
 
-        $counts = $this->createSut($this->createGetPostsConfig(), $wpdb);
+        $result = $counts->applyToTerms('category', $terms, ['term-12']);
 
-        $this->assertSame([10 => 2], $counts->getCounts('category'));
-        $this->assertSame([20 => 1], $counts->getCounts('audience'));
-        $this->assertSame([], $counts->getCounts('unknown'));
+        static::assertSame([10 => 2, 12 => 0], array_column(array_map(static fn($term) => (array) $term, $result), 'count', 'term_id'));
+        static::assertSame(5, $terms[0]->count, 'The given terms must not be modified.');
     }
 
-    #[TestDox('queries all post IDs without pagination, using the date range of the list')]
-    public function testQueriesAllPostIdsUsingListDateRange(): void
+    #[TestDox('queries all post IDs once, without pagination, using the date range of the list')]
+    public function testQueriesAllPostIdsOnceUsingListDateRange(): void
     {
-        $config = $this->createGetPostsConfig(dateFrom: '2026-11-16', dateSource: 'startDate');
+        [$counts, $factory] = $this->createSut($this->createGetPostsConfig(dateFrom: '2026-11-16', dateSource: 'startDate'));
 
-        $this->createSut($config, $this->createWpdb([]))->getCounts('category');
+        $counts->applyToTerms('category', [], []);
+        $counts->applyToTerms('audience', [], []);
 
-        $args = FakeWpQueryFactory::$createdWithArgs[0];
-        $this->assertSame('ids', $args['fields']);
-        $this->assertSame(-1, $args['posts_per_page']);
-        $this->assertArrayNotHasKey('paged', $args);
-        $this->assertSame('startDate', $args['meta_query']['date_clause']['key']);
-        $this->assertSame('2026-11-16 00:00:00', $args['meta_query']['date_clause']['value']);
-    }
-
-    #[TestDox('shares one posts query between taxonomies when no terms are selected')]
-    public function testSharesQueryWhenNoTermsSelected(): void
-    {
-        $counts = $this->createSut($this->createGetPostsConfig(), $this->createWpdb([]));
-
-        $counts->getCounts('category');
-        $counts->getCounts('audience');
-
-        $this->assertCount(1, FakeWpQueryFactory::$createdWithArgs);
-        $this->assertArrayNotHasKey('tax_query', FakeWpQueryFactory::$createdWithArgs[0]);
+        static::assertCount(1, $factory::$createdWithArgs);
+        $args = $factory::$createdWithArgs[0];
+        static::assertSame('ids', $args['fields']);
+        static::assertSame(-1, $args['posts_per_page']);
+        static::assertArrayNotHasKey('paged', $args);
+        static::assertArrayNotHasKey('tax_query', $args);
+        static::assertSame('startDate', $args['meta_query']['date_clause']['key']);
+        static::assertSame('2026-11-16 00:00:00', $args['meta_query']['date_clause']['value']);
     }
 
     #[TestDox('narrows the counts of a taxonomy by the terms selected in other taxonomies when facetting')]
     public function testNarrowsByOtherTaxonomiesWhenFacetting(): void
     {
-        $config = $this->createGetPostsConfig(
-            terms: [$this->createTerm(10, 'category'), $this->createTerm(20, 'audience')],
-            facetting: true,
+        $selected           = [$this->createTerm(10, 'category'), $this->createTerm(20, 'audience')];
+        [$counts, $factory] = $this->createSut($this->createGetPostsConfig(terms: $selected, facetting: true));
+
+        $counts->applyToTerms('category', [], []);
+
+        $narrowedBy = array_map(
+            static fn(array $args) => array_map(
+                static fn(array $clause) => [$clause['taxonomy'], $clause['terms']],
+                array_values(array_filter($args['tax_query'], 'is_array')),
+            ),
+            $factory::$createdWithArgs,
         );
-
-        $this->createSut($config, $this->createWpdb([]))->getCounts('category');
-
-        $this->assertCount(2, FakeWpQueryFactory::$createdWithArgs);
-        $taxQueriesByTaxonomy = [];
-        foreach (FakeWpQueryFactory::$createdWithArgs as $args) {
-            $taxQueriesByTaxonomy[] = array_values(array_filter($args['tax_query'], 'is_array'));
-        }
-
-        // Counts for category are narrowed by audience only, and vice versa.
-        $this->assertSame('audience', $taxQueriesByTaxonomy[0][0]['taxonomy']);
-        $this->assertSame([20], $taxQueriesByTaxonomy[0][0]['terms']);
-        $this->assertCount(1, $taxQueriesByTaxonomy[0]);
-        $this->assertSame('category', $taxQueriesByTaxonomy[1][0]['taxonomy']);
-        $this->assertSame([10], $taxQueriesByTaxonomy[1][0]['terms']);
-        $this->assertCount(1, $taxQueriesByTaxonomy[1]);
+        static::assertSame([[['audience', [20]]], [['category', [10]]]], $narrowedBy);
     }
 
     #[TestDox('does not narrow counts by selected terms when not facetting')]
     public function testDoesNotNarrowWhenNotFacetting(): void
     {
-        $config = $this->createGetPostsConfig(
-            terms: [$this->createTerm(10, 'category'), $this->createTerm(20, 'audience')],
-            facetting: false,
-        );
+        $selected           = [$this->createTerm(10, 'category'), $this->createTerm(20, 'audience')];
+        [$counts, $factory] = $this->createSut($this->createGetPostsConfig(terms: $selected, facetting: false));
 
-        $this->createSut($config, $this->createWpdb([]))->getCounts('category');
+        $counts->applyToTerms('category', [], []);
 
-        $this->assertCount(1, FakeWpQueryFactory::$createdWithArgs);
-        $this->assertArrayNotHasKey('tax_query', FakeWpQueryFactory::$createdWithArgs[0]);
+        static::assertCount(1, $factory::$createdWithArgs);
+        static::assertArrayNotHasKey('tax_query', $factory::$createdWithArgs[0]);
     }
 
     #[TestDox('does not query term counts when no posts match')]
     public function testSkipsTermQueryWhenNoPosts(): void
     {
-        FakeWpQueryFactory::$postIds = [];
-        $wpdb                        = $this->createWpdb([(object) ['taxonomy' => 'category', 'term_id' => '10', 'post_count' => '2']]);
+        [$counts, , $wpdb] = $this->createSut(rows: [(object) ['taxonomy' => 'category', 'term_id' => '10', 'post_count' => '2']], postIds: []);
 
-        $this->assertSame([], $this->createSut($this->createGetPostsConfig(), $wpdb)->getCounts('category'));
-        $this->assertSame(0, $wpdb->getResultsCalls);
+        static::assertSame([], $counts->applyToTerms('category', [$this->createTerm(10, 'category')], []));
+        static::assertSame(0, $wpdb->getResultsCalls);
     }
 
     #[TestDox('uses cached counts when available')]
     public function testUsesCachedCounts(): void
     {
-        $wpService = $this->createWpService(['category' => [10 => 5], 'audience' => []]);
-        $counts    = new ContextualTermPostCounts(
-            $this->createGetPostsConfig(),
-            $this->createFilterConfig(),
+        [$counts, $factory] = $this->createSut(cached: ['category' => [10 => 7], 'audience' => []]);
+
+        $result = $counts->applyToTerms('category', [$this->createTerm(10, 'category')], []);
+
+        static::assertSame(7, $result[0]->count);
+        static::assertCount(0, $factory::$createdWithArgs);
+    }
+
+    /**
+     * @return array{0: ContextualTermPostCounts, 1: WpQueryFactoryInterface, 2: \wpdb}
+     */
+    private function createSut(
+        ?GetPostsConfigInterface $config = null,
+        array $rows = [],
+        array $postIds = [1, 2, 3],
+        ?array $cached = null,
+    ): array {
+        $factory = new class implements WpQueryFactoryInterface {
+            public static array $createdWithArgs = [];
+            public static array $postIds         = [];
+
+            public static function create($query = ''): \WP_Query
+            {
+                self::$createdWithArgs[] = $query;
+                $wpQuery                 = new class extends \WP_Query {
+                    public function get_posts() // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+                    {
+                        return [];
+                    }
+                };
+                $wpQuery->posts          = self::$postIds;
+                return $wpQuery;
+            }
+        };
+        $factory::$createdWithArgs = [];
+        $factory::$postIds         = $postIds;
+
+        $wpdb = new class ('', '', '', '') extends \wpdb {
+            public array $rows          = [];
+            public int $getResultsCalls = 0;
+
+            public function prepare($query, ...$args)
+            {
+                return $query;
+            }
+
+            public function get_results($query = null, $output = OBJECT) // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+            {
+                $this->getResultsCalls++;
+                return $this->rows;
+            }
+        };
+        $wpdb->rows               = $rows;
+        $wpdb->term_relationships = 'wp_term_relationships';
+        $wpdb->term_taxonomy      = 'wp_term_taxonomy';
+
+        $taxonomyConfigs = array_map(static function (string $name) {
+            $taxonomy       = new WP_Taxonomy($name, 'event');
+            $taxonomy->name = $name;
+            return new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT);
+        }, ['category', 'audience']);
+
+        $filterConfig = new class ($taxonomyConfigs) extends DefaultFilterConfig {
+            public function __construct(private array $taxonomyConfigs) {}
+
+            public function getTaxonomiesEnabledForFiltering(): array
+            {
+                return $this->taxonomyConfigs;
+            }
+        };
+
+        $wpService = new class ($cached) implements WpCacheGet, WpCacheSet, WpCacheGetLastChanged {
+            public function __construct(private ?array $cached) {}
+
+            public function wpCacheGet(int|string $key, string $group = '', bool $force = false, bool &$found = null): mixed
+            {
+                $found = $this->cached !== null;
+                return $this->cached ?? false;
+            }
+
+            public function wpCacheSet(int|string $key, mixed $data, string $group = '', int $expire = 0): bool
+            {
+                return true;
+            }
+
+            public function wpCacheGetLastChanged(string $group): string
+            {
+                return '1';
+            }
+        };
+
+        $counts = new ContextualTermPostCounts(
+            $config ?? $this->createGetPostsConfig(),
+            $filterConfig,
             new DefaultAppearanceConfig(),
-            new FakeWpQueryFactory(),
-            $this->createWpdb([]),
+            $factory,
+            $wpdb,
             $wpService,
         );
 
-        $this->assertSame([10 => 5], $counts->getCounts('category'));
-        $this->assertCount(0, FakeWpQueryFactory::$createdWithArgs);
-    }
-
-    private function createSut(GetPostsConfigInterface $config, \wpdb $wpdb): ContextualTermPostCounts
-    {
-        return new ContextualTermPostCounts(
-            $config,
-            $this->createFilterConfig(),
-            new DefaultAppearanceConfig(),
-            new FakeWpQueryFactory(),
-            $wpdb,
-            $this->createWpService(),
-        );
+        return [$counts, $factory, $wpdb];
     }
 
     private function createGetPostsConfig(
@@ -188,106 +240,13 @@ class ContextualTermPostCountsTest extends TestCase
         };
     }
 
-    private function createFilterConfig(): DefaultFilterConfig
-    {
-        $taxonomies = [
-            new TaxonomyFilterConfig($this->createTaxonomy('category'), TaxonomyFilterType::MULTISELECT),
-            new TaxonomyFilterConfig($this->createTaxonomy('audience'), TaxonomyFilterType::MULTISELECT),
-        ];
-
-        return new class ($taxonomies) extends DefaultFilterConfig {
-            public function __construct(private array $taxonomies) {}
-
-            public function getTaxonomiesEnabledForFiltering(): array
-            {
-                return $this->taxonomies;
-            }
-        };
-    }
-
-    private function createTaxonomy(string $name): WP_Taxonomy
-    {
-        $taxonomy       = new WP_Taxonomy($name, 'event');
-        $taxonomy->name = $name;
-        return $taxonomy;
-    }
-
     private function createTerm(int $id, string $taxonomy): WP_Term
     {
         $term           = new WP_Term([]);
         $term->term_id  = $id;
         $term->taxonomy = $taxonomy;
-        $term->slug     = "term-$id";
+        $term->slug     = "term-{$id}";
+        $term->count    = 5;
         return $term;
-    }
-
-    private function createWpdb(array $rows): \wpdb
-    {
-        $wpdb = new class ('', '', '', '') extends \wpdb {
-            public array $rows          = [];
-            public int $getResultsCalls = 0;
-
-            public function prepare($query, ...$args)
-            {
-                return $query;
-            }
-
-            public function get_results($query = null, $output = OBJECT) // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-            {
-                $this->getResultsCalls++;
-                return $this->rows;
-            }
-        };
-
-        $wpdb->rows               = $rows;
-        $wpdb->term_relationships = 'wp_term_relationships';
-        $wpdb->term_taxonomy      = 'wp_term_taxonomy';
-
-        return $wpdb;
-    }
-
-    private function createWpService(mixed $cached = null): WpCacheGet&WpCacheSet&WpCacheGetLastChanged
-    {
-        return new class ($cached) implements WpCacheGet, WpCacheSet, WpCacheGetLastChanged {
-            public function __construct(private mixed $cached) {}
-
-            public function wpCacheGet(int|string $key, string $group = '', bool $force = false, bool &$found = null): mixed
-            {
-                $found = $this->cached !== null;
-                return $this->cached ?? false;
-            }
-
-            public function wpCacheSet(int|string $key, mixed $data, string $group = '', int $expire = 0): bool
-            {
-                return true;
-            }
-
-            public function wpCacheGetLastChanged(string $group): string
-            {
-                return '1';
-            }
-        };
-    }
-}
-
-class FakeWpQueryFactory implements WpQueryFactoryInterface
-{
-    public static array $createdWithArgs = [];
-    public static array $postIds         = [];
-
-    public static function create($query = ''): \WP_Query
-    {
-        self::$createdWithArgs[] = $query;
-
-        $wpQuery = new class extends \WP_Query {
-            public function get_posts() // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-            {
-                return [];
-            }
-        };
-
-        $wpQuery->posts = self::$postIds;
-
-        return $wpQuery;
     }
 }

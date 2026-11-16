@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Municipio\PostsList\ViewCallableProviders\Filter\TermPostCounts;
 
+use WP_Term;
+
 /**
- * Resolves how many posts in a posts list each term of a taxonomy matches.
+ * Decides which post count each taxonomy filter term shows, and which terms are shown at all.
  */
 interface TermPostCountsInterface
 {
     /**
-     * Get the number of posts per term for a taxonomy.
+     * Apply post counts to the terms of a taxonomy.
      *
      * @param string $taxonomy
-     * @return array<int, int> Post count keyed by term ID. Terms without matching posts are left out.
+     * @param WP_Term[] $terms
+     * @param string[] $selectedTermSlugs Slugs of the terms currently filtered on.
+     * @return WP_Term[] The terms to show, with `count` set to the post count to display.
      */
-    public function getCounts(string $taxonomy): array;
+    public function applyToTerms(string $taxonomy, array $terms, array $selectedTermSlugs): array;
 }

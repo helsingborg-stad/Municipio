@@ -103,39 +103,43 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
         ], $componentArgs->getCallable()());
     }
 
-    #[TestDox('uses provided term post counts and leaves out unselected terms matching no posts')]
-    public function testUsesProvidedTermPostCounts(): void
+    #[TestDox('shows the terms and counts decided by the term post counts')]
+    public function testUsesTermPostCounts(): void
     {
         $taxonomy      = $this->createTaxonomy('category', 'Category');
         $filterConfig  = $this->createFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT)]);
-        $terms         = $this->getArrayOfTerms(3);
         $termCounts    = new class implements TermPostCountsInterface {
-            public function getCounts(string $taxonomy): array
+            public array $calledWith = [];
+
+            public function applyToTerms(string $taxonomy, array $terms, array $selectedTermSlugs): array
             {
-                return [1 => 4];
+                $this->calledWith = [$taxonomy, count($terms), $selectedTermSlugs];
+                $term             = clone $terms[0];
+                $term->count      = 4;
+                return [$term];
             }
         };
         $componentArgs = new GetTaxonomyFiltersSelectComponentArguments(
             $filterConfig,
-            $this->createGetPostsConfig([$terms[2]]),
-            $this->createWpService($terms),
+            $this->createGetPostsConfig([$this->getArrayOfTerms(2)[1]]),
+            $this->createWpService($this->getArrayOfTerms(2)),
             'queryVarNamePrefix_',
             $termCounts
         );
 
         $result = $componentArgs->getCallable()();
 
-        $this->assertSame(['term-1' => 'Term 1 (4)', 'term-3' => 'Term 3 (0)'], $result[0]['options']);
-        $this->assertSame(1, $terms[0]->count, 'The original term must not be modified.');
+        static::assertSame(['term-1' => 'Term 1 (4)'], $result[0]['options']);
+        static::assertSame(['category', 2, ['term-2']], $termCounts->calledWith);
     }
 
-    #[TestDox('leaves out a taxonomy when none of its terms match any posts')]
-    public function testLeavesOutTaxonomyWithoutMatchingTerms(): void
+    #[TestDox('leaves out a taxonomy when the term post counts leave no terms')]
+    public function testLeavesOutTaxonomyWithoutTerms(): void
     {
         $taxonomy      = $this->createTaxonomy('category', 'Category');
         $filterConfig  = $this->createFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT)]);
         $termCounts    = new class implements TermPostCountsInterface {
-            public function getCounts(string $taxonomy): array
+            public function applyToTerms(string $taxonomy, array $terms, array $selectedTermSlugs): array
             {
                 return [];
             }
@@ -148,7 +152,7 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
             $termCounts
         );
 
-        $this->assertSame([], $componentArgs->getCallable()());
+        static::assertSame([], $componentArgs->getCallable()());
     }
 
     private function getArrayOfTerms(int $numberOfTerms = 1, string $taxonomy = 'category'): array

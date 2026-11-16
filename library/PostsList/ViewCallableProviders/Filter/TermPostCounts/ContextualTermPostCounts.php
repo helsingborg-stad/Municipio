@@ -27,10 +27,10 @@ use WpService\Contracts\WpCacheSet;
 class ContextualTermPostCounts implements TermPostCountsInterface
 {
     private const CACHE_GROUP  = 'municipio_posts_list_term_counts';
-    private const CACHE_EXPIRE = 86400;
+    private const CACHE_EXPIRE = 86_400;
 
-    /** @var array<string, array<int, int>> */
-    private array $countsByTaxonomy;
+    /** @var array<string, array<int, int>>|null */
+    private ?array $countsByTaxonomy = null;
 
     /**
      * Constructor
@@ -41,6 +41,8 @@ class ContextualTermPostCounts implements TermPostCountsInterface
      * @param WpQueryFactoryInterface $wpQueryFactory
      * @param \wpdb $wpdb
      * @param WpCacheGet&WpCacheSet&WpCacheGetLastChanged $wpService
+     *
+     * @mago-expect lint:excessive-parameter-list
      */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
@@ -52,13 +54,41 @@ class ContextualTermPostCounts implements TermPostCountsInterface
     ) {}
 
     /**
+     * Replace the stored term counts with the number of posts in the list each term matches.
+     *
+     * Terms matching no posts are left out, unless they are selected, so that the selection can
+     * still be seen and removed.
+     *
      * @inheritDoc
      */
-    public function getCounts(string $taxonomy): array
+    public function applyToTerms(string $taxonomy, array $terms, array $selectedTermSlugs): array
     {
-        if (!isset($this->countsByTaxonomy)) {
-            $this->countsByTaxonomy = $this->resolveCounts();
+        $counts = $this->getCounts($taxonomy);
+        $result = [];
+
+        foreach ($terms as $term) {
+            $count = $counts[$term->term_id] ?? 0;
+
+            if ($count === 0 && !in_array($term->slug, $selectedTermSlugs, true)) {
+                continue;
+            }
+
+            $termWithCount        = clone $term;
+            $termWithCount->count = $count;
+            $result[]             = $termWithCount;
         }
+
+        return $result;
+    }
+
+    /**
+     * Get the number of posts per term ID for a taxonomy.
+     *
+     * @return array<int, int>
+     */
+    private function getCounts(string $taxonomy): array
+    {
+        $this->countsByTaxonomy ??= $this->resolveCounts();
 
         return $this->countsByTaxonomy[$taxonomy] ?? [];
     }
@@ -173,7 +203,7 @@ class ContextualTermPostCounts implements TermPostCountsInterface
      */
     private function queryTermCounts(array $taxonomies, array $postIds): array
     {
-        if (empty($taxonomies) || empty($postIds)) {
+        if ($taxonomies === [] || $postIds === []) {
             return [];
         }
 
@@ -191,7 +221,7 @@ class ContextualTermPostCounts implements TermPostCountsInterface
             ...$postIds,
         );
 
-        return $this->wpdb->get_results($sql) ?: [];
+        return $this->wpdb->get_results($sql) ?? [];
     }
 
     /**
