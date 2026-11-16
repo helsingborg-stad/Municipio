@@ -13,6 +13,13 @@ use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthController;
 use Municipio\Kulturkortet\Vitec\VitecConfig;
 use Municipio\Kulturkortet\Vitec\VitecService;
+use Municipio\Kulturkortet\Wallet\ApplePassGenerator;
+use Municipio\Kulturkortet\Wallet\ApplePassDownloadController;
+use Municipio\Kulturkortet\Wallet\AppleWalletConfig;
+use Municipio\Kulturkortet\Wallet\GoogleWalletLinkFactory;
+use Municipio\Kulturkortet\Wallet\GoogleWalletConfig;
+use Municipio\Kulturkortet\Wallet\WalletService;
+use Municipio\Kulturkortet\Wallet\WalletButtonDataFactory;
 use WpService\Contracts\AddAction;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -42,6 +49,11 @@ class KulturkortetQRCodeViewerFeature implements Hookable
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueAssets']);
         $this->wpService->addAction('litespeed_control_set_nocache', static fn() => 'cache disabled due to cookie usage');
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
+        $this->wpService->addFilter(
+            'query_vars',
+            static fn(array $queryVars): array => array_values(array_unique([...$queryVars, WalletService::APPLE_PASS_QUERY_VAR])),
+        );
+        $this->wpService->addAction('template_redirect', [$this, 'handleApplePassDownload']);
     }
 
     public function enqueueAssets(): void
@@ -92,11 +104,31 @@ class KulturkortetQRCodeViewerFeature implements Hookable
             new SecureMunicipioAuthConfig(),
         );
 
-        $viewFactory = new KulturkortetQRCodeViewerAuthViewFactory($this->wpService, new VitecService($this->wpService, new VitecConfig($this->acfService)), $attributes);
+        $appleWalletConfig = new AppleWalletConfig($this->acfService);
+        $googleWalletConfig = new GoogleWalletConfig($this->acfService);
+        $walletService = new WalletService($appleWalletConfig, $this->wpService);
+        $googleWalletLinkFactory = new GoogleWalletLinkFactory($googleWalletConfig);
+        $viewFactory = new KulturkortetQRCodeViewerAuthViewFactory(
+            $this->wpService,
+            new VitecService($this->wpService, new VitecConfig($this->acfService)),
+            $attributes,
+            new WalletButtonDataFactory($walletService, $googleWalletLinkFactory),
+        );
 
         return $secureController->render(
             $viewFactory,
             $navigation,
         );
+    }
+
+    /**
+     * Handles a one-time Apple Wallet pass request.
+     *
+     * @return void
+     */
+    public function handleApplePassDownload(): void
+    {
+        $appleWalletConfig = new AppleWalletConfig($this->acfService);
+        (new ApplePassDownloadController($this->wpService, new ApplePassGenerator($appleWalletConfig)))->handle();
     }
 }
