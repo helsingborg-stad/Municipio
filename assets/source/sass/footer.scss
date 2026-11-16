@@ -9,14 +9,20 @@
 .site-pre-footer-image {
     display: block;
     width: 100%;
-    height: clamp(100px, 16vw, 300px);
     background-color: var(--color--background);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+
+    // The image keeps its own aspect ratio, so it is never clipped on wide screens.
+    &__image {
+        display: block;
+        width: 100%;
+        height: auto;
+        min-height: 100px;
+        object-fit: cover;
+        object-position: center;
+    }
 
     @media (max-width: 767px) {
-        &--taller-on-mobile {
+        &--taller-on-mobile &__image {
             height: var(--municipio-pre-footer-image-mobile-height, 160px);
         }
     }
