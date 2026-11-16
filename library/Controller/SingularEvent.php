@@ -3,6 +3,7 @@
 namespace Municipio\Controller;
 
 use DateTime;
+use Modularity\Integrations\Component\ImageResolver;
 use Municipio\PostsList\Block\PostsListEventsBlockRender\PostsListEventsBlockRender;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
@@ -47,6 +48,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['occasions'] = (new SingularEvent\Mappers\MapOccasions($this->post->getPermalink(), $this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['currentOccasion'] = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['icsUrl'] = (new SingularEvent\Mappers\MapIcsUrlFromOccasion($this->data['currentOccasion']))->map($event);
+        $this->data['galleryComponentAttributes'] = (new SingularEvent\Mappers\MapGallery(new ImageResolver(), $this->getFeaturedImageId()))->map($event);
         $this->data['bookingLink'] = (new SingularEvent\Mappers\MapBookingLink($this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['relatedEventsBlock'] = $this->getPostsListData();
 
@@ -136,6 +138,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['lang']->relatedEventsTitle = $this->wpService->__('Related events', 'municipio');
         $this->data['lang']->readMore = $this->wpService->__('Read more', 'municipio');
         $this->data['lang']->linksTitle = $this->wpService->__('Links', 'municipio');
+        $this->data['lang']->galleryLabel = $this->wpService->_x('Gallery', 'Event', 'municipio');
     }
 
     /**
@@ -161,6 +164,14 @@ class SingularEvent extends \Municipio\Controller\Singular
         }
 
         return DateTime::createFromFormat(self::CURRENT_OCCASION_DATE_FORMAT, $startDateParam) ?: null;
+    }
+
+    /**
+     * Get the id of the featured image, if any
+     */
+    private function getFeaturedImageId(): ?int
+    {
+        return (int) $this->wpService->getPostThumbnailId($this->post->getId()) ?: null;
     }
 
     private function getWpDb(): \wpdb

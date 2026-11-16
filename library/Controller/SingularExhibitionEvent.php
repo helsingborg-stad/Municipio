@@ -2,12 +2,11 @@
 
 namespace Municipio\Controller;
 
-use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use DateTime;
 use Modularity\Integrations\Component\ImageResolver;
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
+use Municipio\Controller\SingularEvent\Mappers\MapGallery;
 use Municipio\Schema\BaseType;
-use Municipio\Schema\ImageObject;
 use Municipio\Schema\Place;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString;
@@ -17,9 +16,6 @@ use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpe
  */
 class SingularExhibitionEvent extends Singular
 {
-    private const GALLERY_THUMBNAIL_SIZE = [450, 280];
-    private const GALLERY_LARGE_SIZE = [768, 432];
-
     protected object $postMeta;
     public string $view = 'single-schema-exhibition-event';
 
@@ -44,7 +40,7 @@ class SingularExhibitionEvent extends Singular
             'occasion' => $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate')),
             'physicalAccessibilityFeatures' => $this->formatAccessibilityFeatures($this->post->getSchemaProperty('physicalAccessibilityFeatures')),
             'eventIsInThePast' => $this->eventIsInThePast(),
-            'galleryComponentAttributes' => $this->getGalleryComponentAttributes(),
+            'galleryComponentAttributes' => $this->getGalleryComponentAttributes($event),
             'openingHours' => $this->formatOpeningHours($event->getProperty('location')?->getProperty('openingHoursSpecification') ?? []),
             'specialOpeningHours' => $this->formatOpeningHours($event->getProperty('location')?->getProperty('specialOpeningHoursSpecification') ?? []),
         ]);
@@ -193,40 +189,10 @@ class SingularExhibitionEvent extends Singular
         return $endDate instanceof DateTime && $endDate->getTimestamp() < time();
     }
 
-    private function getGalleryComponentAttributes(): ?array
+    private function getGalleryComponentAttributes(BaseType $event): ?array
     {
-        $imageProperty = $this->post->getSchemaProperty('image');
+        $featuredImageId = (int) $this->wpService->getPostThumbnailId($this->post->getId());
 
-        if (is_array($imageProperty) && !empty($imageProperty)) {
-            array_shift($imageProperty);
-        }
-
-        $imageAttributes = array_map([$this, 'getImageAttributes'], $imageProperty);
-
-        return (
-            empty($imageAttributes)
-                ? null
-                : [
-                    'list' => $imageAttributes,
-                ]
-        );
-    }
-
-    private function getImageAttributes(ImageObject $image): array
-    {
-        $imageId = $image->getProperty('@id');
-        if (empty($imageId)) {
-            return [];
-        }
-
-        $smallContract = ImageComponentContract::factory($imageId, self::GALLERY_THUMBNAIL_SIZE, new ImageResolver());
-        $largeContract = ImageComponentContract::factory($imageId, self::GALLERY_LARGE_SIZE, new ImageResolver());
-
-        return [
-            'largeImage' => $largeContract->getUrl(),
-            'smallImage' => $smallContract->getUrl(),
-            'alt' => $image->getProperty('description') ?: '',
-            'caption' => null,
-        ];
+        return (new MapGallery(new ImageResolver(), $featuredImageId ?: null))->map($event);
     }
 }
