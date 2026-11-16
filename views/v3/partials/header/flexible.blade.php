@@ -3,78 +3,59 @@
     @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
     @includeWhen($hasSideMenu, 'partials.header.skip-to-side-menu')
 
-    @if(!empty($headerData['upperItems']))
-        @scope(['name' => ['header-flexible-upper', 'header-flexible', 'header']])
+    @foreach($headerData as $key => $header)
+        @if($header->isEmpty())
+            @continue
+        @endif
+
+        @scope(['name' => ['header-flexible-'. $key, 'header-flexible', 'header']])
             @header([
                 'classList' => array_merge(
-                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : '', !empty($headerData['logoScrollShrinkEnabled']) ? 'c-header--logotype-scroll-shrink' : ''],
-                    $headerData['upperHeader']['classList'],
-                    isset($classList) ? (array) $classList : [],
-                    $classes ?? []
+                    $header->getCssClasses(),
+                    ['header', 'c-header--flexible'],
+                    ($key === 'lower' && !empty($logoScrollShrinkEnabled))
+                        ? ['c-header--logotype-scroll-shrink']
+                        : []
                 ),
-                'id' => 'site-header-flexible-upper',
-                'sticky' => $headerData['upperHeader']['sticky'],
-                'attributeList' => !empty($headerData['logoScrollShrinkStyle']) ? ['style' => $headerData['logoScrollShrinkStyle']] : [],
-                'context' => 'site.header.flexible.upper'
-            ])
-                <div class="c-header__main-upper-area">
-                    @foreach (['left', 'center', 'right'] as $alignment)
-                        @include('partials.header.components.headerLoop', 
-                            [
-                                'area' => 'upper', 
-                                'key' => 'upperItems', 
-                                'align' => $alignment
-                            ]
-                        )
-                    @endforeach
-                </div>
-                    @if ($headerData['upperHeader']['innerMegaMenu'])
-                        @include('partials.navigation.megamenu')
-                    @endif
-            @endheader
-       @endscope 
-    @endif
-    @if (!empty($headerData['lowerItems']))
-        @scope(['name' => ['header-flexible-lower', 'header-flexible', 'header']])
-            @header([
-                'classList' => array_merge(
-                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : '', !empty($headerData['logoScrollShrinkEnabled']) ? 'c-header--logotype-scroll-shrink' : ''],
-                    $headerData['lowerHeader']['classList'],
-                    isset($classList) ? (array) $classList : [],
-                    $classes ?? []
+                'id' => 'site-header-flexible-' . $key,
+                'sticky' => $header->isSticky(),
+                'context' => 'site.header.flexible.' . $key,
+                'attributeList' => array_merge(
+                    $header->getAttributes(),
+                    ($key === 'lower' && !empty($logoScrollShrinkEnabled))
+                        ? [
+                            'style' => ($header->getAttributes()['style'] ?? '') . '--municipio-header-logo-overlap-multiplier: ' . ($logoScrollShrinkOverlapMultiplier ?? 0.25) . ';',
+                        ]
+                        : []
                 ),
-                'id' => 'site-header-flexible-lower',
-                'sticky' => $headerData['lowerHeader']['sticky'],
-                'attributeList' => !empty($headerData['logoScrollShrinkStyle']) ? ['style' => $headerData['logoScrollShrinkStyle']] : [],
-                'context' => 'site.header.flexible.lower',
             ])
-                <div class="c-header__main-lower-area">
-                    @foreach (['left', 'center', 'right'] as $alignment) 
-                        @include('partials.header.components.headerLoop',
-                            [
-                                'area' => 'lower', 
-                                'key' => 'lowerItems', 
-                                'align' => $alignment
-                            ]
-                        )
+                @element([
+                    'classList' => [
+                        'c-header__main-'. $key .'-area'
+                    ]
+                ])
+                    @foreach(['left', 'center', 'right'] as $alignment)
+                        @continue(!$header->hasMenuItemsForAlignment($alignment))
+                            @element([
+                                'classList' => [
+                                    'c-header__' . $key .'-'. $alignment
+                                ]
+                            ])
+                                @foreach($header->getMenuItemsForAlignment($alignment) as $menuItem)
+                                    @includeIf('partials.header.components.' . $menuItem->getType())
+                                @endforeach
+                        @endelement
                     @endforeach
-                </div>
-                @if ($headerData['lowerHeader']['innerMegaMenu'])
-                    @include('partials.navigation.megamenu')
-                @endif
+                @endelement
             @endheader
         @endscope
-    @endif
+    @endforeach
 
-    @if(
-        !empty($megaMenu['items']) &&
-        $headerData['nonStickyMegaMenu']
-    )
+    @if($hasMegaMenu && !empty($megaMenu['items']))
         @include('partials.navigation.megamenu')
     @endif
-    @if ($headerData['hasSearch'])
-        @include('partials.search.search-modal', [
-            'buttonAppearance' => $headerData['defaultButtonAppearance'],
-        ])
+
+    @if($hasSearchModal)
+        @include('partials.search.search-modal')
     @endif
 @endif
