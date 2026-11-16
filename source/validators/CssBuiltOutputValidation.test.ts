@@ -1,14 +1,8 @@
 /** @jest-environment node */
 
-import { execFile } from 'node:child_process';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
-import os from 'node:os';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { promisify } from 'node:util';
-import {
-	type CssValidatorIgnoreRule,
-	cssValidatorIgnoreList,
-} from './cssValidatorIgnoreList';
+import { validate } from 'csstree-validator';
 
 interface ValidatorManifest {
 	[entryName: string]: string;
@@ -16,19 +10,16 @@ interface ValidatorManifest {
 
 interface ValidatorIssue {
 	column?: number;
-	context?: string;
 	line?: number;
 	message?: string;
-	skippedstring?: string;
-	type?: string;
+	details?: string;
+	property?: string;
 }
 
-interface ValidatorResponse {
-	cssvalidation?: {
-		errors?: ValidatorIssue[];
-		result?: { errorcount?: number; warningcount?: number };
-		warnings?: ValidatorIssue[];
-	};
+interface CssValidatorIgnoreRule {
+	bundle: string;
+	property: string;
+	detailsIncludes: string;
 }
 
 interface CssBundle {
@@ -36,17 +27,16 @@ interface CssBundle {
 	label: string;
 }
 
-interface SourceBundle extends CssBundle {
-	startLine: number;
-	endLine: number;
-	lines: string[];
-}
-
-const execFileAsync = promisify(execFile);
 const projectRoot = path.resolve(__dirname, '..', '..');
-const validatorUrl = 'https://jigsaw.w3.org/css-validator/validator';
-const validatorTestEnabled = process.env.RUN_W3C_CSS_VALIDATION === 'true';
-const cssValidationIt = validatorTestEnabled ? it : it.skip;
+
+// The OpenStreetMap package currently ships `color: 0`, which CSSTree correctly
+// flags as invalid. Preserve the prior validator's behaviour for this exact
+// third-party declaration without suppressing other validation errors.
+const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [{
+	bundle: 'Modularity: css/interactive-map.css',
+	property: 'color',
+	detailsIncludes: 'value: 0',
+}];
 
 const manifests = [
 	{ directory: 'assets/dist', label: 'Municipio', excludedEntries: new Set(['css/styleguide.css', 'css/designbuilder.css']) },
@@ -76,107 +66,36 @@ async function getBuiltCssBundles(): Promise<CssBundle[]> {
 	return bundles;
 }
 
-/** Concatenates bundles for one W3C request while retaining source file boundaries. */
-async function concatenateCssBundles(bundles: CssBundle[]): Promise<{ css: string; sourceBundles: SourceBundle[] }> {
-	const sourceBundles: SourceBundle[] = [];
-	const sources: string[] = [];
-	let currentLine = 1;
-
-	for (const bundle of bundles) {
-		const css = await readFile(bundle.path, 'utf8');
-		const validatorCss = css
-			.replace(/@view-transition\s*\{[^{}]*\}/g, '')
-			.replace(/@container[^\{]*\{/g, '@media all {')
-			.replaceAll('::view-transition-group(*)', ':root')
-			.replace(/\[([^\]]*?)([*^$|~]?=)(--[\w-]+)\]/g, '[$1$2"$3"]')
-			.replace(/anchor\([^)]*\)/g, '0px')
-			.replaceAll('}', '}\n');
-		const lines = validatorCss.split('\n');
-		const lineCount = lines.length;
-		sourceBundles.push({ ...bundle, startLine: currentLine + 1, endLine: currentLine + lineCount, lines });
-		// W3C does not parse valid View Transition, named Container Query, or Anchor
-		// Positioning syntax yet.
-		// Normalize only syntax the W3C validator cannot parse in the validator payload,
-		// preserving the surrounding declarations. It also requires quotes around
-		// minified custom identifiers in attribute selectors. The stylesheet itself
-		// remains unchanged.
-		sources.push(`/* Source: ${bundle.label} (${path.relative(projectRoot, bundle.path)}) */\n${validatorCss}`);
-		currentLine += lineCount + 1;
-	}
-
-	return { css: sources.join('\n'), sourceBundles };
-}
-
-async function validateCss(css: string): Promise<ValidatorResponse> {
-	const tempDirectory = await mkdtemp(path.join(os.tmpdir(), 'municipio-css-validator-'));
-	const tempCssPath = path.join(tempDirectory, 'bundles.css');
-
-	try {
-		await writeFile(tempCssPath, css, 'utf8');
-		const { stdout, stderr } = await execFileAsync(
-			'curl',
-			['-sS', '--connect-timeout', '10', '--max-time', '90', '-X', 'POST', '-F', `text=<${tempCssPath}`, '-F', 'output=json', validatorUrl],
-			{ maxBuffer: 20 * 1024 * 1024 },
-		);
-
-		if (stderr.trim()) {
-			throw new Error(`CSS validator request failed: ${stderr.trim()}`);
-		}
-
-		try {
-			return JSON.parse(stdout) as ValidatorResponse;
-		} catch {
-			throw new Error(`CSS validator returned a non-JSON response:\n${stdout.slice(0, 500).trim() || '[empty response]'}`);
-		}
-	} finally {
-		await rm(tempDirectory, { force: true, recursive: true });
-	}
-}
-
-function normalize(value: string | undefined): string {
-	return (value ?? '').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').replace(/\s+/g, ' ').trim();
-}
-
-function isIgnored(
-	issue: ValidatorIssue & { severity: 'error' },
-	bundle: SourceBundle | undefined,
-	rules: CssValidatorIgnoreRule[],
-): boolean {
-	return rules.some((rule) =>
-		(!rule.type || rule.type === issue.severity) &&
-		(!rule.bundle || bundle?.path.includes(rule.bundle)) &&
-		normalize(issue.message).includes(normalize(rule.messageIncludes)) &&
-		(!rule.contextIncludes || normalize(issue.context).includes(normalize(rule.contextIncludes))),
+function isIgnored(issue: ValidatorIssue, bundle: CssBundle): boolean {
+	return cssValidatorIgnoreList.some((rule) =>
+		rule.bundle === bundle.label &&
+		rule.property === issue.property &&
+		issue.details?.includes(rule.detailsIncludes),
 	);
 }
 
 describe('CssBuiltOutputValidation', () => {
-	cssValidationIt('validates built Municipio and Modularity CSS bundles against W3C', async () => {
+	it('validates built Municipio and Modularity CSS bundles with CSSTree', async () => {
 		const bundles = await getBuiltCssBundles();
 		expect(bundles.length).toBeGreaterThan(0);
 
-		const { css, sourceBundles } = await concatenateCssBundles(bundles);
-		const response = await validateCss(css);
-		const errors = response.cssvalidation?.errors ?? [];
-		const remainingErrors = errors
-			.map((issue) => {
-				const bundle = issue.line
-					? sourceBundles.find(({ startLine, endLine }) => issue.line! >= startLine && issue.line! <= endLine)
-					: undefined;
-				return { issue: { ...issue, severity: 'error' as const }, bundle };
-			})
-			.filter(({ issue, bundle }) => !isIgnored(issue, bundle, cssValidatorIgnoreList));
+		const validationResults = await Promise.all(bundles.map(async (bundle) => ({
+			bundle,
+			errors: validate(await readFile(bundle.path, 'utf8'), bundle.path) as ValidatorIssue[],
+		})));
+		const errors = validationResults
+			.flatMap(({ bundle, errors }) => errors.map((issue) => ({ bundle, issue })))
+			.filter(({ bundle, issue }) => !isIgnored(issue, bundle));
 
-		if (remainingErrors.length > 0) {
-			const errorDetails = remainingErrors
+		if (errors.length > 0) {
+			const errorDetails = errors
 				.map(({ issue, bundle }) => [
-					`- ${bundle?.label ?? 'Unknown bundle'}${issue.line ? ` (line ${issue.line}${issue.column ? `, column ${issue.column}` : ''})` : ''}: ${issue.message ?? 'Unknown error'}`,
-					issue.context ? `  Context: ${issue.context}` : '',
-					issue.skippedstring ? `  Source: ${issue.skippedstring}` : '',
-					issue.line && bundle ? `  Generated rule: ${bundle.lines[issue.line - bundle.startLine]}` : '',
+					`- ${bundle.label}${issue.line ? ` (line ${issue.line}${issue.column ? `, column ${issue.column}` : ''})` : ''}: ${issue.message ?? 'Unknown error'}`,
+					issue.property ? `  Property: ${issue.property}` : '',
+					issue.details ? `  Details: ${issue.details}` : '',
 				].filter(Boolean).join('\n'))
 				.join('\n');
-			throw new Error(`W3C reported ${remainingErrors.length} CSS error(s) (${errors.length - remainingErrors.length} ignored).\n${errorDetails}`);
+			throw new Error(`CSSTree reported ${errors.length} CSS error(s).\n${errorDetails}`);
 		}
-	}, 300000);
+	});
 });
