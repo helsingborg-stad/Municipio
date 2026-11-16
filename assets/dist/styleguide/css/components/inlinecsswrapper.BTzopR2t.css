@@ -1,0 +1,1 @@
+@layer components{:root{--c-inlinecsswrapper--space:var(--space)}.c-inlinecsswrapper{padding:calc((var(--c-inlinecsswrapper--space, var(--space)))*var(--base)*1)}}
