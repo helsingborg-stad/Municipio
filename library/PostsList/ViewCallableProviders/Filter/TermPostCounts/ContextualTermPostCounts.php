@@ -202,7 +202,7 @@ class ContextualTermPostCounts implements TermPostCountsInterface
      */
     private function getCacheKey(array $args, array $taxonomies): string
     {
-        return md5(serialize([
+        return hash('sha256', serialize([
             $args,
             $taxonomies,
             $this->wpService->wpCacheGetLastChanged('posts'),
