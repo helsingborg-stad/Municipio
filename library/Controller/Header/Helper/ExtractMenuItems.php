@@ -18,9 +18,13 @@ class ExtractMenuItems
 
         $jsonString = $this->customizer?->headerSortableHiddenStorage ?? '{}';
 
+        if (!is_string($jsonString)) {
+            $jsonString = '{}';
+        }
+
         $decodedJsonString = json_decode($jsonString, true);
 
-        $this->extractedRawData = $decodedJsonString;
+        $this->extractedRawData = is_array($decodedJsonString) ? $decodedJsonString : [];
 
         return $this->extractedRawData;
     }
@@ -38,14 +42,12 @@ class ExtractMenuItems
 
     public function getHeaderItems(string $id): array
     {
-        
         if (isset($this->extractedItems[$id])) {
             return $this->extractedItems[$id];
         }
             
         $key = $this->getKey(Enums::HEADER_KEY::from($id));
         $responsiveKey = $this->getKey(Enums::HEADER_KEY::from($id), true);
-
         $desktopValue = $this->customizer->$key ?? [];
         $mobileValue = $this->customizer->$responsiveKey ?? [];
 
@@ -60,20 +62,29 @@ class ExtractMenuItems
 
         $items = $this->addMenuItemDataToItems($items, $id);
 
+        $this->extractedItems[$id] = $items;
+
         return $items;
     }
 
     private function addMenuItemDataToItems(array $items, string $id): array
     {
         $data = $this->extract();
+
         $mappedItems = [];
         foreach ($items as $breakpoint => $breakpointItems) {
-            $key = $this->getMenuItemDataKey(Enums::HEADER_KEY::from($id), $breakpoint === Enums::HEADER_BREAKPOINT::MOBILE->value);
+            $dataKey = $this->getMenuItemDataKey(
+                Enums::HEADER_KEY::from($id),
+                $breakpoint === Enums::HEADER_BREAKPOINT::MOBILE->value
+            );
 
             foreach ($breakpointItems as $item) {
-                if (isset($data[$key][$item])) {
-                    $mappedItems[$breakpoint][$item] = array_merge($this->getDefaultValues(), $data[$key][$item]);
-                }
+                $metadata = $data[$dataKey][$item] ?? [];
+
+                $mappedItems[$breakpoint][$item] = array_merge(
+                    $this->getDefaultValues(),
+                    is_array($metadata) ? $metadata : []
+                );
             }
         }
 
