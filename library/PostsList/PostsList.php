@@ -93,7 +93,7 @@ class PostsList implements PostsListInterface
             // Schema Exhibition event view utilities
             'getSchemaExhibitionOccasionText' => (new ViewCallableProviders\Schema\ExhibitionEvent\GetOccasionText($this->wpService))->getCallable(),
             // Filter utilities
-            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig, $this->wpService, $this->queryVars->getPrefix()))->getCallable(),
+            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig, $this->wpService, $this->queryVars->getPrefix(), new ViewCallableProviders\Filter\TermPostCounts\ContextualTermPostCounts($this->getPostsConfig, $this->filterConfig, $this->appearanceConfig, $this->wpQueryFactory, $this->wpdb, $this->wpService)))->getCallable(),
             'getFilterFormSubmitButtonArguments' => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig, $this->wpService))->getCallable(),
             'getFilterFormResetButtonArguments' => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig, $this->filterConfig, $this->wpService))->getCallable(),
             'getTextSearchFieldArguments' => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig, $this->queryVars->getSearchParameterName(), $this->wpService))->getCallable(),

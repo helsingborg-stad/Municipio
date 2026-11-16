@@ -6,6 +6,7 @@ use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\ViewCallableProviders\Filter\TermPostCounts\TermPostCountsInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetTerms;
@@ -16,6 +17,10 @@ use WP_Term;
  *
  * Taxonomies using the checkbox filter type get a `checkboxes` key holding the arguments for one
  * option component per term, instead of the select options.
+ *
+ * When term post counts are provided, each term shows how many posts in the list it matches
+ * (e.g. only upcoming events), and terms matching no posts are left out unless selected.
+ * Without them, the total post count stored on the term is shown.
  */
 class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProviderInterface
 {
@@ -24,12 +29,14 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
      *
      * @param FilterConfigInterface $filterConfig
      * @param GetTerms&ApplyFilters $wpService
+     * @param TermPostCountsInterface|null $termPostCounts
      */
     public function __construct(
         private FilterConfigInterface $filterConfig,
         private GetPostsConfigInterface $getPostsConfig,
         private GetTerms&ApplyFilters $wpService,
-        private string $queryVarNamePrefix
+        private string $queryVarNamePrefix,
+        private ?TermPostCountsInterface $termPostCounts = null,
     ) {
     }
 
@@ -99,24 +106,25 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         $allSelectArguments = [];
         foreach ($taxonomyFilterConfigs as $taxonomyConfig) {
             $taxonomyName = $taxonomyConfig->getTaxonomy()->name;
+            $preselected  = $this->getPreselectedTermSlugs($taxonomyName);
+            $terms        = $this->applyTermPostCounts($termsByTaxonomy[$taxonomyName] ?? [], $taxonomyName, $preselected);
 
-            if (empty($termsByTaxonomy[$taxonomyName])) {
+            if (empty($terms)) {
                 continue;
             }
 
-            $label       = $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Label', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy());
-            $name        = $this->queryVarNamePrefix . $taxonomyName;
-            $preselected = $this->getPreselectedTermSlugs($taxonomyName);
+            $label = $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Label', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy());
+            $name  = $this->queryVarNamePrefix . $taxonomyName;
 
             if ($taxonomyConfig->getFilterType() === TaxonomyFilterType::CHECKBOX) {
                 $allSelectArguments[] = [
                     'label'      => $label,
-                    'checkboxes' => $this->buildCheckboxes($termsByTaxonomy[$taxonomyName], $name, $preselected),
+                    'checkboxes' => $this->buildCheckboxes($terms, $name, $preselected),
                 ];
                 continue;
             }
 
-            $options         = $this->buildOptions($termsByTaxonomy[$taxonomyName]);
+            $options         = $this->buildOptions($terms);
             $selectArguments = [
                 'label'       => $label,
                 'name'        => $name,
@@ -133,6 +141,41 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
             $allSelectArguments[] = $selectArguments;
         }
         return $allSelectArguments;
+    }
+
+    /**
+     * Replace the stored term counts with the number of posts in the list each term matches.
+     *
+     * Terms matching no posts are left out, unless they are selected, so that the selection can
+     * still be seen and removed.
+     *
+     * @param WP_Term[] $terms
+     * @param string $taxonomyName
+     * @param string[] $preselected Slugs of the terms currently filtered on.
+     * @return WP_Term[]
+     */
+    private function applyTermPostCounts(array $terms, string $taxonomyName, array $preselected): array
+    {
+        if ($this->termPostCounts === null) {
+            return $terms;
+        }
+
+        $counts = $this->termPostCounts->getCounts($taxonomyName);
+        $result = [];
+
+        foreach ($terms as $term) {
+            $count = $counts[$term->term_id] ?? 0;
+
+            if ($count === 0 && !in_array($term->slug, $preselected, true)) {
+                continue;
+            }
+
+            $termWithCount        = clone $term;
+            $termWithCount->count = $count;
+            $result[]             = $termWithCount;
+        }
+
+        return $result;
     }
 
     /**
