@@ -2,6 +2,9 @@
 
 namespace Municipio\Content\Images;
 
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Integrations\Component\ImageResolver;
+
 class ImagesDeprecated implements ImagesInterface
 {
     public function __construct()
@@ -104,7 +107,15 @@ class ImagesDeprecated implements ImagesInterface
         $url = $this->sanitizeRequestUrl($image->getAttribute('src'));
         $attachmentId = attachment_url_to_postid($url);
 
-        $classes = $image->parentNode instanceof \DOMElement ? explode(' ', $image->parentNode->getAttribute('class') ?? []) : [];
+        $captionFigure = $this->getCaptionFigure($image);
+        $wrapper       = $captionFigure ?? $image->parentNode;
+
+        $classes = ImageAlignment::resolveClassList(
+            $wrapper instanceof \DOMElement
+                ? ImageAlignment::splitClassAttribute($wrapper->getAttribute('class'))
+                : [],
+            ImageAlignment::splitClassAttribute($image->getAttribute('class'))
+        );
 
         if (is_numeric($attachmentId) && !empty($attachmentId)) {
             $contentContainerWidth = $this->getPageWidth();
@@ -112,7 +123,11 @@ class ImagesDeprecated implements ImagesInterface
 
             if ($imageSrc && isset($imageSrc[0])) {
                 $html = render_blade_view('partials.content.image', [
-                    'src' => $imageSrc[0],
+                    'src' => ImageComponentContract::factory(
+                        (int) $attachmentId,
+                        [$contentContainerWidth, false],
+                        new ImageResolver()
+                    ),
                     'alt' => $altText,
                     'caption' => $captionText,
                     'classList' => $classes,
@@ -147,7 +162,73 @@ class ImagesDeprecated implements ImagesInterface
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
             if ($image)
                 $image->replaceWith($newNode);
+
+            if ($captionFigure !== null) {
+                $this->unwrap($captionFigure);
+            }
         }
+    }
+
+    /**
+     * Get the caption figure (classic editor [caption] shortcode) that wraps an image,
+     * if the figure contains nothing but the image, optionally wrapped in a link,
+     * and its figcaption.
+     *
+     * The rendered image component is itself a <figure> with caption and alignment
+     * classes. Keeping the caption figure around it would nest two floating figures,
+     * which collapses the image to zero width, so the caption figure is unwrapped.
+     *
+     * @param \DOMElement $image
+     * @return \DOMElement|null
+     */
+    private function getCaptionFigure(\DOMElement $image): ?\DOMElement
+    {
+        $inner  = $image;
+        $figure = $image->parentNode;
+
+        if ($figure instanceof \DOMElement && strtolower($figure->nodeName) === 'a') {
+            $inner  = $figure;
+            $figure = $figure->parentNode;
+        }
+
+        if (
+            !$figure instanceof \DOMElement
+            || strtolower($figure->nodeName) !== 'figure'
+            || !$figure->parentNode instanceof \DOMNode
+        ) {
+            return null;
+        }
+
+        foreach ($figure->childNodes as $child) {
+            if ($child === $inner) {
+                continue;
+            }
+
+            if ($child instanceof \DOMElement && strtolower($child->nodeName) !== 'figcaption') {
+                return null;
+            }
+
+            if ($child instanceof \DOMText && trim($child->textContent) !== '') {
+                return null;
+            }
+        }
+
+        return $figure;
+    }
+
+    /**
+     * Replace an element with its children.
+     *
+     * @param \DOMElement $element
+     * @return void
+     */
+    private function unwrap(\DOMElement $element): void
+    {
+        while ($element->firstChild) {
+            $element->parentNode->insertBefore($element->firstChild, $element);
+        }
+
+        $element->parentNode->removeChild($element);
     }
 
     public function imageHasBeenNormalized($normalized, $image): bool

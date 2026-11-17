@@ -2,6 +2,9 @@
 
 namespace Municipio\Content\Images;
 
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Integrations\Component\ImageResolver;
+
 /**
  * Class Images
  */
@@ -114,7 +117,10 @@ class Images implements ImagesInterface
         $altText      = $image->getAttribute('alt') ?: $captionText;
         $attachmentId = attachment_url_to_postid($url);
 
-        $classes = explode(' ', $figure->getAttribute('class')) ?: [];
+        $classes = ImageAlignment::resolveClassList(
+            ImageAlignment::splitClassAttribute($figure->getAttribute('class')),
+            ImageAlignment::splitClassAttribute($image->getAttribute('class'))
+        );
 
         $html = $this->renderBladeImage($image, $attachmentId, $url, $altText, $captionText, $classes);
 
@@ -123,7 +129,13 @@ class Images implements ImagesInterface
             $imageSrc = wp_get_attachment_image_src($attachmentId, [$conentContainerWidth, false]);
 
             if ($imageSrc && isset($imageSrc[0])) {
-                $html = $this->renderBladeImage($image, $attachmentId, $imageSrc[0], $altText, $captionText, $classes);
+                $imageContract = ImageComponentContract::factory(
+                    (int) $attachmentId,
+                    [$conentContainerWidth, false],
+                    new ImageResolver()
+                );
+
+                $html = $this->renderBladeImage($image, $attachmentId, $imageContract, $altText, $captionText, $classes);
             }
         }
 
