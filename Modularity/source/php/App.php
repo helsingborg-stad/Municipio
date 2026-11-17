@@ -27,7 +27,6 @@ class App
         add_action('enqueue_block_assets', [$this, 'enqueueBlockEditorStyles']);
         add_action('enqueue_block_editor_assets', [$this, 'enqueueBlockEditor']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueFront'], 950);
-        add_action('wp_footer', [$this, 'enqueueDetectedFrontendAssets'], 1);
         add_filter('Modularity/Display/Markup', [$this, 'detectFrontendAssets'], 10, 2);
         add_action('Modularity/Cache/Markup', [$this, 'detectFrontendAssets']);
         add_action('admin_menu', [$this, 'addAdminMenuPage']);
@@ -216,23 +215,28 @@ class App
 
     /**
      * Detect optional frontend behaviour from the final module markup.
+     *
+     * Assets are enqueued as soon as they are detected. Municipio captures
+     * wp_footer() before Blade renders modules, so the handle is also handed
+     * to the theme's late asset printing.
      */
     public function detectFrontendAssets(string $markup, mixed $module = null): string
     {
-        $this->hasUserEditableList = $this->hasUserEditableList
-            || str_contains($markup, 'data-js-user-editable');
+        if (!$this->hasUserEditableList && str_contains($markup, 'data-js-user-editable')) {
+            $this->hasUserEditableList = true;
+            $this->enqueueUserEditableList();
+        }
 
         return $markup;
     }
 
     /**
-     * Enqueue optional frontend assets after module markup has been rendered.
+     * Enqueue the script that saves user editable lists.
      */
-    public function enqueueDetectedFrontendAssets(): void
+    private function enqueueUserEditableList(): void
     {
-        if ($this->hasUserEditableList) {
-            $this->wpEnqueue->add('js/user-editable-list.js', ['wp-api'], null, true);
-        }
+        $this->wpEnqueue->add('js/user-editable-list.js', ['wp-api'], null, true);
+        \Municipio\Theme\AssetRequirements::requireLateScript('js-user-editable-listjs');
     }
 
     public function enqueueBlockEditor()
