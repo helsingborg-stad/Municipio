@@ -1,0 +1,120 @@
+interface PuzzelConfigInterface {
+    getAuthenticationUrl(): string;
+    getCommunicationUrl(): string;
+    getCustomerId(): string;
+    getChatQueueKey(): string;
+    getClientId(): string;
+    getVisualQueueId(): string;
+    getTimeId(): string;
+    getName(): string;
+    getAvatar(): string|null;
+}
+
+interface PuzzelConversationManagerInterface {
+    startConversation(): Promise<RouteConversationResponse>;
+    getConversationId(): string;
+    resetConversationId(): void;
+    stopListening(): void;
+    stopListeningForMetaData(): void;
+    stopListeningForConversation(): void;
+    stopListeningForConversationStatus(): void;
+    sendUserJoinEventToConversation(): Promise<void>;
+    listenForMetaData(callback: (data: PuzzelMetaDataEvent) => void): Promise<void>;
+    listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void>;
+    listenForConversationStatus(callback: (data: PuzzelConversationStatusResponse) => void): Promise<void>;
+    sendUserMessage(content: string): Promise<void>;
+    sendUserTypingEvent(): Promise<void>;
+    getCurrentConversation(): Promise<PuzzelConversationEvent[]>;
+    getCurrentMetaData(): Promise<PuzzelMetaDataEvent[]>;
+    getConversationStatus(): Promise<PuzzelConversationStatusResponse[]>;
+}
+
+interface PuzzelAvailabilityManagerInterface {
+    isAvailable(): Promise<boolean>;
+}
+
+type CreatePuzzelFunction = (
+    chat: unknown,
+    uiManager: ChatUiManagerInterface,
+    puzzelConfig: PuzzelConfigInterface,
+    name: string,
+) => ChatIntegrationInterface;
+
+interface PuzzelAuthenticatorInterface {
+    getAccessToken(): Promise<string>;
+    authenticate(): Promise<AuthenticationData>;
+}
+
+type AuthenticationResponse = {
+    access_token: string;
+    refresh_token: string;
+    expires_in: number;
+    scope: string;
+    token_type: string;
+    visitor_id: string;
+};
+
+type AuthenticationData = AuthenticationResponse & {
+    expires: number;
+};
+
+type RouteConversationResponse = {
+    conversationId: string;
+    iqSessionId: string;
+    requestId: number;
+    result: string | number;
+};
+
+type PuzzelLocalStorageData = RouteConversationResponse & {
+    conversationData: RouteConversationResponse;
+    authenticationData: AuthenticationData;
+    /** Timestamp (ms) of the last sent/received message, used to expire idle conversations. */
+    lastActivityAt?: number;
+};
+
+type PuzzelMetaDataEvent = {
+    eventId: number;
+    createdAt: string;
+    senderId: string;
+    senderRole: string;
+    senderName: string;
+    type: string;
+    [key: string]: unknown;
+};
+
+type PuzzelConversationEvent = {
+    eventId: number;
+    createdAt: string;
+    senderId: string;
+    senderRole: string;
+    senderName: string;
+    type: string;
+    message: string;
+    [key: string]: unknown;
+};
+
+type PuzzelConversationStatusResponse = {
+    createdAt: string;
+    destination: string;
+    eventId: number;
+    requestId: number;
+    iqSessionId: string;
+    source: string;
+    requestStart: string;
+    mediaType: string;
+    queueKey: string;
+    queueEntryTime: string;
+    queuePosition: number;
+    status: string;
+};
+
+interface PuzzelChatOpenResponse {
+    status?: string;
+    isOpen?: string | boolean;
+}
+
+interface PuzzelQueueInfoResponse {
+    openForWebAccess?: boolean;
+    agentsReady?: number;
+    agentsLoggedIn?: number;
+}
