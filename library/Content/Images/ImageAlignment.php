@@ -86,11 +86,15 @@ class ImageAlignment
     }
 
     /**
-     * Resolve the class list for a rendered image.
+     * Resolve the class list for the image component that replaces an image in the content.
+     *
+     * The result is final: WordPress classes (alignment, wp-caption, wp-image-*, size-*)
+     * are replaced by utility classes, so the list does not depend on
+     * replaceBuiltinClasses() running on the rendered HTML afterwards.
      *
      * In the classic editor, images without a caption carry the alignment class on the
-     * <img> itself and not on a wrapping element. When the wrapper has no alignment,
-     * the alignment of the image is moved to the wrapper so that it is not lost.
+     * <img> itself and not on a wrapping element. The alignment of the wrapper is used
+     * when present, otherwise the alignment of the image.
      *
      * @param array $wrapperClasses Classes of the element wrapping the image (figure, p, a).
      * @param array $imageClasses   Classes of the <img> element.
@@ -99,21 +103,40 @@ class ImageAlignment
     public static function resolveClassList(array $wrapperClasses, array $imageClasses): array
     {
         $wrapperClasses = array_values(array_filter($wrapperClasses));
+        $alignment      = self::getAlignment($wrapperClasses) ?? self::getAlignment(array_filter($imageClasses));
 
-        if (self::getAlignment($wrapperClasses) !== null) {
-            return $wrapperClasses;
-        }
-
-        $imageAlignment = self::getAlignment(array_filter($imageClasses));
-
-        if ($imageAlignment === null) {
-            return $wrapperClasses;
-        }
-
-        return array_values(array_unique(array_merge(
+        $classes = array_filter(
             $wrapperClasses,
-            self::getClassesForAlignment($imageAlignment)
-        )));
+            static fn (string $class): bool => !self::isBuiltinClass($class)
+        );
+
+        if ($alignment !== null) {
+            $classes = array_merge($classes, self::getClassesForAlignment($alignment));
+        }
+
+        return array_values(array_unique($classes));
+    }
+
+    /**
+     * Whether a class is a WordPress image class, or an alignment utility class, that
+     * resolveClassList() replaces.
+     *
+     * @param string $class
+     * @return bool
+     */
+    private static function isBuiltinClass(string $class): bool
+    {
+        static $alignmentClasses = null;
+
+        $alignmentClasses ??= array_merge(
+            array_keys(self::CLASS_MAP),
+            ...array_map(static fn (string $classes): array => explode(' ', $classes), array_values(self::CLASS_MAP))
+        );
+
+        return $class === 'wp-caption'
+            || str_starts_with($class, 'wp-image-')
+            || str_starts_with($class, 'size-')
+            || in_array($class, $alignmentClasses, true);
     }
 
     /**

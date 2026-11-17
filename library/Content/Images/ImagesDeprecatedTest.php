@@ -53,6 +53,7 @@ if (!function_exists(__NAMESPACE__ . '\\render_blade_view')) {
     function render_blade_view(...$args): string
     {
         $data = $args[1];
+        ImagesDeprecatedTest::$renderedClassLists[] = $data['classList'];
 
         return sprintf(
             '<figure class="c-image %s"><img src="%s" alt="%s">%s</figure>',
@@ -66,6 +67,14 @@ if (!function_exists(__NAMESPACE__ . '\\render_blade_view')) {
 
 class ImagesDeprecatedTest extends TestCase
 {
+    /** @var array<int, array<int, string>> Class lists passed to the image component. */
+    public static array $renderedClassLists = [];
+
+    protected function setUp(): void
+    {
+        self::$renderedClassLists = [];
+    }
+
     private function normalize(string $content): string
     {
         return (new ImagesDeprecated())->normalizeImages($content);
@@ -109,6 +118,23 @@ class ImagesDeprecatedTest extends TestCase
         $this->assertStringContainsString('u-float--right', $figures->item(0)->getAttribute('class'));
         $this->assertSame('A caption', trim($xpath->query('//figure/figcaption')->item(0)->textContent));
         $this->assertSame(1, $xpath->query('//p[text()="Text"]')->length);
+    }
+
+    #[TestDox('normalizeImages() passes final utility classes to the image component')]
+    public function testImageComponentGetsFinalClassList(): void
+    {
+        $this->normalize(
+            '<figure class="wp-caption alignright">'
+            . '<img class="wp-image-3 size-medium" src="https://example.com/a.png" alt="A" width="300">'
+            . '<figcaption class="wp-caption-text">A caption</figcaption>'
+            . '</figure>'
+        );
+
+        $this->assertCount(1, self::$renderedClassLists);
+        $this->assertSame(
+            [...ImageAlignment::getClassesForAlignment(ImageAlignment::RIGHT), ImageAlignment::CONTENT_IMAGE_CLASS],
+            self::$renderedClassLists[0]
+        );
     }
 
     #[TestDox('normalizeImages() keeps the link when unwrapping a caption figure around a linked image')]

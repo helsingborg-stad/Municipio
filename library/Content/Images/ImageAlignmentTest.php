@@ -96,14 +96,37 @@ class ImageAlignmentTest extends TestCase
         $this->assertContains('u-float--left', $classes);
     }
 
-    #[TestDox('resolveClassList() keeps wrapper alignment when present (image with caption)')]
-    public function testResolveClassListKeepsWrapperAlignment(): void
+    #[TestDox('resolveClassList() uses wrapper alignment when present (image with caption)')]
+    public function testResolveClassListUsesWrapperAlignment(): void
     {
-        $wrapper = ['wp-caption', 'alignleft'];
+        $this->assertSame(
+            ImageAlignment::getClassesForAlignment(ImageAlignment::LEFT),
+            ImageAlignment::resolveClassList(['wp-caption', 'alignleft'], ['wp-image-1', 'alignright'])
+        );
+    }
+
+    #[TestDox('resolveClassList() returns final utility classes without WordPress classes')]
+    public function testResolveClassListReturnsNoWordPressClasses(): void
+    {
+        $classes = ImageAlignment::resolveClassList(
+            ['wp-caption', 'alignright', 'custom-class'],
+            ['wp-image-3', 'size-medium']
+        );
 
         $this->assertSame(
-            $wrapper,
-            ImageAlignment::resolveClassList($wrapper, ['wp-image-1', 'alignright'])
+            ['custom-class', ...ImageAlignment::getClassesForAlignment(ImageAlignment::RIGHT)],
+            $classes
+        );
+    }
+
+    #[TestDox('resolveClassList() does not duplicate classes when the wrapper already has utility classes')]
+    public function testResolveClassListWithAlreadyReplacedWrapper(): void
+    {
+        $wrapper = ImageAlignment::splitClassAttribute(ImageAlignment::replaceAlignmentClasses('alignright'));
+
+        $this->assertSame(
+            ImageAlignment::getClassesForAlignment(ImageAlignment::RIGHT),
+            ImageAlignment::resolveClassList($wrapper, [])
         );
     }
 
