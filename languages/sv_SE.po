@@ -7738,6 +7738,11 @@ msgctxt "ExhibitionEvent"
 msgid "Gallery"
 msgstr "Galleri"
 
+#: library/Controller/SingularEvent.php:141
+msgctxt "Event"
+msgid "Gallery"
+msgstr "Galleri"
+
 #: library/Controller/SingularExhibitionEvent.php:116
 msgctxt "ExhibitionEvent"
 msgid "This exhibition has already taken place."
