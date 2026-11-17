@@ -35,7 +35,8 @@ class AppleWalletConfig
     /** @return string The password for the Apple signing certificate. */
     public function getCertificatePassword(): string
     {
-        return $this->getString('kulturkortet_wallet_apple_certificate_password');
+        $value = $this->acfService->getField('kulturkortet_wallet_apple_certificate_password', 'option');
+        return is_string($value) ? $value : '';
     }
 
     /** @return string The local path to the Apple WWDR certificate. */

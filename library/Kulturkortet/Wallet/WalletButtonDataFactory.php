@@ -28,14 +28,22 @@ class WalletButtonDataFactory
     public function create(array $ticket, MunicipioAuthNavigationInterface $navigation): array
     {
         $wallet = [];
-        $applePassUrl = $this->appleWalletService->createApplePassUrl($ticket, $navigation);
-        if ($applePassUrl !== null) {
-            $wallet['apple'] = $applePassUrl;
+        try {
+            $applePassUrl = $this->appleWalletService->createApplePassUrl($ticket, $navigation);
+            if ($applePassUrl !== null) {
+                $wallet['apple'] = $applePassUrl;
+            }
+        } catch (\Exception $exception) {
+            error_log('Unable to create Apple Wallet link: ' . $exception->getMessage());
         }
 
-        $googleWalletLink = $this->googleWalletLinkFactory->createLink($ticket);
-        if ($googleWalletLink !== null) {
-            $wallet['google'] = $googleWalletLink;
+        try {
+            $googleWalletLink = $this->googleWalletLinkFactory->createLink($ticket);
+            if ($googleWalletLink !== null) {
+                $wallet['google'] = $googleWalletLink;
+            }
+        } catch (\Exception $exception) {
+            error_log('Unable to create Google Wallet link: ' . $exception->getMessage());
         }
 
         return $wallet;
