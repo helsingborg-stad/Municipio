@@ -308,7 +308,7 @@ class Images implements ImagesInterface
         if (class_exists('\DOM\HTMLDocument')) {
             $imageNormalizer = new \Municipio\Content\Images\Images();
         } else {
-            $imageNormalizer = new \Municipio\Content\Images\ImagesDeprecated();
+            $imageNormalizer = new \Municipio\Content\Images\ImagesDeprecated(\Municipio\Helper\WpService::get());
         }
 
         return $imageNormalizer;

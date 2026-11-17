@@ -4,80 +4,52 @@ declare(strict_types=1);
 
 namespace Municipio\Content\Images;
 
+use Municipio\Helper\RenderBladeView\RenderBladeViewInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-
-/*
- * Stubs for the WordPress functions used by ImagesDeprecated. They are declared in the
- * namespace of the class under test, so they take precedence over the global functions.
- */
-if (!function_exists(__NAMESPACE__ . '\\add_action')) {
-    function add_action(): bool
-    {
-        return true;
-    }
-}
-
-if (!function_exists(__NAMESPACE__ . '\\add_filter')) {
-    function add_filter(): bool
-    {
-        return true;
-    }
-}
-
-if (!function_exists(__NAMESPACE__ . '\\attachment_url_to_postid')) {
-    function attachment_url_to_postid(): int
-    {
-        return 0;
-    }
-}
-
-if (!function_exists(__NAMESPACE__ . '\\apply_filters')) {
-    function apply_filters(...$args)
-    {
-        return $args[1] ?? null;
-    }
-}
-
-if (!function_exists(__NAMESPACE__ . '\\wp_strip_all_tags')) {
-    function wp_strip_all_tags($text): string
-    {
-        return trim(strip_tags((string) $text));
-    }
-}
-
-if (!function_exists(__NAMESPACE__ . '\\render_blade_view')) {
-    /**
-     * Minimal stand-in for the image component: a figure with the class list and caption.
-     */
-    function render_blade_view(...$args): string
-    {
-        $data = $args[1];
-        ImagesDeprecatedTest::$renderedClassLists[] = $data['classList'];
-
-        return sprintf(
-            '<figure class="c-image %s"><img src="%s" alt="%s">%s</figure>',
-            implode(' ', $data['classList']),
-            $data['src'],
-            $data['alt'],
-            $data['caption'] ? '<figcaption>' . $data['caption'] . '</figcaption>' : ''
-        );
-    }
-}
+use WpService\Implementations\FakeWpService;
 
 class ImagesDeprecatedTest extends TestCase
 {
-    /** @var array<int, array<int, string>> Class lists passed to the image component. */
-    public static array $renderedClassLists = [];
+    /**
+     * Minimal stand-in for the image component: a figure with the class list and caption.
+     * Keeps the class lists it was given in $classLists.
+     */
+    private RenderBladeViewInterface $renderer;
 
     protected function setUp(): void
     {
-        self::$renderedClassLists = [];
+        $this->renderer = new class implements RenderBladeViewInterface {
+            /** @var array<int, array<int, string>> */
+            public array $classLists = [];
+
+            public function renderBladeView($view, $data = [], $overrideViewPaths = false, $formatError = true): string
+            {
+                $this->classLists[] = $data['classList'];
+
+                return sprintf(
+                    '<figure class="c-image %s"><img src="%s" alt="%s">%s</figure>',
+                    implode(' ', $data['classList']),
+                    $data['src'],
+                    $data['alt'],
+                    $data['caption'] ? '<figcaption>' . $data['caption'] . '</figcaption>' : ''
+                );
+            }
+        };
     }
 
     private function normalize(string $content): string
     {
-        return (new ImagesDeprecated())->normalizeImages($content);
+        $wpService = new FakeWpService([
+            'addAction'             => true,
+            'addFilter'             => true,
+            'hasBlocks'             => false,
+            'attachmentUrlToPostid' => 0,
+            'applyFilters'          => fn ($hookName, $value) => $value,
+            'wpStripAllTags'        => fn ($text) => trim(strip_tags($text)),
+        ]);
+
+        return (new ImagesDeprecated($wpService, $this->renderer))->normalizeImages($content);
     }
 
     private function loadBody(string $html): \DOMXPath
@@ -130,10 +102,10 @@ class ImagesDeprecatedTest extends TestCase
             . '</figure>'
         );
 
-        $this->assertCount(1, self::$renderedClassLists);
+        $this->assertCount(1, $this->renderer->classLists);
         $this->assertSame(
             [...ImageAlignment::getClassesForAlignment(ImageAlignment::RIGHT), ImageAlignment::CONTENT_IMAGE_CLASS],
-            self::$renderedClassLists[0]
+            $this->renderer->classLists[0]
         );
     }
 

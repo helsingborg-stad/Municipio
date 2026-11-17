@@ -3,24 +3,41 @@
 namespace Municipio\Content\Images;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Helper\RenderBladeView\RenderBladeView;
+use Municipio\Helper\RenderBladeView\RenderBladeViewInterface;
 use Municipio\Integrations\Component\ImageResolver;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\AttachmentUrlToPostid;
+use WpService\Contracts\GetPostField;
+use WpService\Contracts\GetTheID;
+use WpService\Contracts\GetThemeMod;
+use WpService\Contracts\HasBlocks;
+use WpService\Contracts\WpGetAttachmentImageSrc;
+use WpService\Contracts\WpStripAllTags;
 
 class ImagesDeprecated implements ImagesInterface
 {
-    public function __construct()
-    {
-        add_action('wp', function () {
-            add_filter('the_content', [$this, 'normalizeImages'], has_blocks(get_post_field('post_content', get_the_ID())) ? 5 : 11);
+    public function __construct(
+        private AddAction&AddFilter&ApplyFilters&AttachmentUrlToPostid&GetPostField&GetTheID&GetThemeMod&HasBlocks&WpGetAttachmentImageSrc&WpStripAllTags $wpService,
+        private RenderBladeViewInterface $renderBladeView = new RenderBladeView(),
+    ) {
+        $this->wpService->addAction('wp', function () {
+            $postId    = $this->wpService->getTheID();
+            $hasBlocks = $postId !== false && $this->wpService->hasBlocks($this->wpService->getPostField('post_content', $postId));
+
+            $this->wpService->addFilter('the_content', [$this, 'normalizeImages'], $hasBlocks ? 5 : 11);
         });
 
-        add_filter('Municipio/Content/ImageNormalized', [$this, 'imageHasBeenNormalized'], 10, 2);
+        $this->wpService->addFilter('Municipio/Content/ImageNormalized', [$this, 'imageHasBeenNormalized'], 10, 2);
     }
 
     public function normalizeImages($content)
     {
         $encoding = '<?xml encoding="utf-8" ?>';
 
-        if (!has_blocks($content) && str_contains($content, '<img')) {
+        if (!$this->wpService->hasBlocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument();
             $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
             $xpath = new \DOMXPath($dom);
@@ -68,7 +85,7 @@ class ImagesDeprecated implements ImagesInterface
             return;
 
         foreach ($images as $image) {
-            if (apply_filters('Municipio/Content/ImageNormalized', false, $image))
+            if ($this->wpService->applyFilters('Municipio/Content/ImageNormalized', false, $image))
                 continue;
 
             $captionText = $this->extractCaption($image->parentNode);
@@ -91,7 +108,7 @@ class ImagesDeprecated implements ImagesInterface
 
         if ($parentNode instanceof \DOMElement && $parentNode->getElementsByTagName('figcaption')->length > 0) {
             foreach ($parentNode->getElementsByTagName('figcaption') as $caption) {
-                $captionText = wp_strip_all_tags($caption->textContent);
+                $captionText = $this->wpService->wpStripAllTags($caption->textContent);
 
                 if ($caption->parentNode instanceof \DOMNode) {
                     $caption->parentNode->removeChild($caption);
@@ -105,9 +122,9 @@ class ImagesDeprecated implements ImagesInterface
     private function replaceWithBladeTemplate($dom, $element, $image, $altText, $captionText)
     {
         $url = $this->sanitizeRequestUrl($image->getAttribute('src'));
-        $attachmentId = attachment_url_to_postid($url);
+        $attachmentId = $this->wpService->attachmentUrlToPostid($url);
 
-        $captionFigure = $this->getCaptionFigure($image);
+        $captionFigure = CaptionFigure::find($image);
         $wrapper       = $captionFigure ?? $image->parentNode;
 
         $classes = ImageAlignment::resolveClassList(
@@ -120,10 +137,10 @@ class ImagesDeprecated implements ImagesInterface
 
         if (is_numeric($attachmentId) && !empty($attachmentId)) {
             $contentContainerWidth = $this->getPageWidth();
-            $imageSrc = wp_get_attachment_image_src($attachmentId, [$contentContainerWidth, false]);
+            $imageSrc = $this->wpService->wpGetAttachmentImageSrc($attachmentId, [$contentContainerWidth, false]);
 
             if ($imageSrc && isset($imageSrc[0])) {
-                $html = render_blade_view('partials.content.image', [
+                $html = $this->renderBladeView->renderBladeView('partials.content.image', [
                     'src' => ImageComponentContract::factory(
                         (int) $attachmentId,
                         [$contentContainerWidth, false],
@@ -144,7 +161,7 @@ class ImagesDeprecated implements ImagesInterface
         }
 
         if (empty($attachmentId)) {
-            $html = render_blade_view('partials.content.image', [
+            $html = $this->renderBladeView->renderBladeView('partials.content.image', [
                 'src' => $url,
                 'alt' => $altText,
                 'caption' => $captionText,
@@ -165,77 +182,9 @@ class ImagesDeprecated implements ImagesInterface
                 $image->replaceWith($newNode);
 
             if ($captionFigure !== null) {
-                $this->unwrap($captionFigure);
+                CaptionFigure::unwrap($captionFigure);
             }
         }
-    }
-
-    /**
-     * Get the caption figure (classic editor [caption] shortcode) that wraps an image,
-     * if the figure contains nothing but the image, optionally wrapped in a link,
-     * and its figcaption.
-     *
-     * The rendered image component is itself a <figure> with caption and alignment
-     * classes. Keeping the caption figure around it would nest two floating figures,
-     * which collapses the image to zero width, so the caption figure is unwrapped.
-     *
-     * @param \DOMElement $image
-     * @return \DOMElement|null
-     */
-    private function getCaptionFigure(\DOMElement $image): ?\DOMElement
-    {
-        $inner  = $image;
-        $figure = $image->parentNode;
-
-        if ($figure instanceof \DOMElement && strtolower($figure->nodeName) === 'a') {
-            $inner  = $figure;
-            $figure = $figure->parentNode;
-        }
-
-        $isCaptionFigure = $figure instanceof \DOMElement
-            && strtolower($figure->nodeName) === 'figure'
-            && $figure->parentNode instanceof \DOMNode
-            && $this->containsOnly($figure, $inner);
-
-        return $isCaptionFigure ? $figure : null;
-    }
-
-    /**
-     * Whether an element contains nothing but the given node, a figcaption and whitespace.
-     *
-     * @param \DOMElement $element
-     * @param \DOMNode $node
-     * @return bool
-     */
-    private function containsOnly(\DOMElement $element, \DOMNode $node): bool
-    {
-        foreach ($element->childNodes as $child) {
-            $isAllowed = $child === $node
-                || ($child instanceof \DOMElement && strtolower($child->nodeName) === 'figcaption')
-                || ($child instanceof \DOMText && trim($child->textContent) === '')
-                || $child instanceof \DOMComment;
-
-            if (!$isAllowed) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Replace an element with its children.
-     *
-     * @param \DOMElement $element
-     * @return void
-     */
-    private function unwrap(\DOMElement $element): void
-    {
-        while ($element->firstChild) {
-            $element->parentNode->insertBefore($element->firstChild, $element);
-        }
-
-        $element->parentNode->removeChild($element);
     }
 
     public function imageHasBeenNormalized($normalized, $image): bool
@@ -259,6 +208,6 @@ class ImagesDeprecated implements ImagesInterface
 
     private function getPageWidth(): int
     {
-        return (int) ceil(get_theme_mod('container_content', 900) / 100) * 100;
+        return (int) ceil($this->wpService->getThemeMod('container_content', 900) / 100) * 100;
     }
 }
