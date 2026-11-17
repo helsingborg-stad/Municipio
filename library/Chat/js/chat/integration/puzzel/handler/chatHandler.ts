@@ -38,6 +38,12 @@ class ChatHandler {
 		);
 	}
 
+	public setErrorData(): void {
+		this.chat.setBannerContent(
+			this.getLocalizedString("errorMessage", "Something went wrong, please try again later"),
+		);
+	}
+
 	public addInfoFromType(type: string, senderRole: string = 'agent'): void {
 		switch (type) {
 			case "participantJoinEvent":

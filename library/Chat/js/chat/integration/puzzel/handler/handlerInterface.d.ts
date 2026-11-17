@@ -39,4 +39,5 @@ interface ChatHandlerInterface {
 	displayBanner(show: boolean): void;
 	setQueueBannerData(position: number): void;
 	setChatInactiveData(): void;
+	setErrorData(): void;
 }

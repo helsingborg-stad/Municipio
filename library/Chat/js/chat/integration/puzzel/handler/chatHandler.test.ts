@@ -49,6 +49,7 @@ describe("ChatHandler", () => {
 		// Act
 		handler.setQueueBannerData(3);
 		handler.setChatInactiveData();
+		handler.setErrorData();
 		handler.addAgentJoinedInfo();
 		handler.addAgentLeftInfo();
 
@@ -56,6 +57,7 @@ describe("ChatHandler", () => {
 		expect(chat.setBannerContent.mock.calls).toEqual([
 			["Queue position: 3"],
 			["The agent has left and the chat is now inactive"],
+			["Something went wrong, please try again later"],
 		]);
 		expect(chat.addInfo.mock.calls).toEqual([
 			["Agent has joined the chat"],
@@ -70,6 +72,7 @@ describe("ChatHandler", () => {
 			agentLeftChatInactive: "Inaktiv",
 			agentJoinedChat: "Anslöt",
 			agentLeftChat: "Lämnade",
+			errorMessage: "Något gick fel",
 		});
 		const chat = createChat();
 		const handler = new ChatHandler(chat);
@@ -77,11 +80,12 @@ describe("ChatHandler", () => {
 		// Act
 		handler.setQueueBannerData(2);
 		handler.setChatInactiveData();
+		handler.setErrorData();
 		handler.addAgentJoinedInfo();
 		handler.addAgentLeftInfo();
 
 		// Assert
-		expect(chat.setBannerContent.mock.calls).toEqual([["Köplats: 2"], ["Inaktiv"]]);
+		expect(chat.setBannerContent.mock.calls).toEqual([["Köplats: 2"], ["Inaktiv"], ["Något gick fel"]]);
 		expect(chat.addInfo.mock.calls).toEqual([["Anslöt"], ["Lämnade"]]);
 	});
 
