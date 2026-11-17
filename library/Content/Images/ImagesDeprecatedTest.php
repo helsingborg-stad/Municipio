@@ -7,33 +7,53 @@ namespace Municipio\Content\Images;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-if (!function_exists(__NAMESPACE__ . '\attachment_url_to_postid')) {
-    function attachment_url_to_postid($url): int
+/*
+ * Stubs for the WordPress functions used by ImagesDeprecated. They are declared in the
+ * namespace of the class under test, so they take precedence over the global functions.
+ */
+if (!function_exists(__NAMESPACE__ . '\\add_action')) {
+    function add_action(): bool
+    {
+        return true;
+    }
+}
+
+if (!function_exists(__NAMESPACE__ . '\\add_filter')) {
+    function add_filter(): bool
+    {
+        return true;
+    }
+}
+
+if (!function_exists(__NAMESPACE__ . '\\attachment_url_to_postid')) {
+    function attachment_url_to_postid(): int
     {
         return 0;
     }
 }
 
-if (!function_exists(__NAMESPACE__ . '\apply_filters')) {
-    function apply_filters($hook, $value, ...$args)
+if (!function_exists(__NAMESPACE__ . '\\apply_filters')) {
+    function apply_filters(...$args)
     {
-        return $value;
+        return $args[1] ?? null;
     }
 }
 
-if (!function_exists(__NAMESPACE__ . '\wp_strip_all_tags')) {
+if (!function_exists(__NAMESPACE__ . '\\wp_strip_all_tags')) {
     function wp_strip_all_tags($text): string
     {
         return trim(strip_tags((string) $text));
     }
 }
 
-if (!function_exists(__NAMESPACE__ . '\render_blade_view')) {
+if (!function_exists(__NAMESPACE__ . '\\render_blade_view')) {
     /**
      * Minimal stand-in for the image component: a figure with the class list and caption.
      */
-    function render_blade_view($view, $data): string
+    function render_blade_view(...$args): string
     {
+        $data = $args[1];
+
         return sprintf(
             '<figure class="c-image %s"><img src="%s" alt="%s">%s</figure>',
             implode(' ', $data['classList']),
@@ -48,9 +68,7 @@ class ImagesDeprecatedTest extends TestCase
 {
     private function normalize(string $content): string
     {
-        $normalizer = (new \ReflectionClass(ImagesDeprecated::class))->newInstanceWithoutConstructor();
-
-        return $normalizer->normalizeImages($content);
+        return (new ImagesDeprecated())->normalizeImages($content);
     }
 
     private function loadBody(string $html): \DOMXPath

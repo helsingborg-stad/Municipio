@@ -1,21 +1,27 @@
 @use "../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/mq";
 
  .c-image {
-    
+
      /* Gutenberg fixes to center image */
      &.u-margin__x--auto img,
      .u-margin__x--auto img {
          margin-left: auto;
          margin-right: auto;
      }
-
-     /*
-      * Left/right aligned images in content get an inline width (the width of the
-      * inserted image). On the smallest breakpoint they should take full width.
-      */
-     &.u-width--100\@xs {
-         @include mq.mq($until: sm) {
-             width: 100% !important;
-         }
-     }
  }
+
+/*
+ * Images rendered from post content (see Municipio\Content\Images). They get the
+ * width of the inserted image, but never more than the available space.
+ * Left/right aligned images take full width on the smallest breakpoint.
+ */
+.c-image.municipio-content-image {
+    width: min(var(--municipio-content-image-width, 100%), 100%);
+    height: auto;
+
+    &.u-width--100\@xs {
+        @include mq.mq($until: sm) {
+            width: 100%;
+        }
+    }
+}

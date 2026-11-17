@@ -208,13 +208,13 @@ class Images implements ImagesInterface
             'src'              => $url,
             'alt'              => $altText,
             'caption'          => $captionText,
-            'classList'        => $classes,
+            'classList'        => [...$classes, ImageAlignment::CONTENT_IMAGE_CLASS],
             'imgAttributeList' => [
                 'parsed' => true
             ],
             'attributeList'    => [
                 'style' => sprintf(
-                    'width: min(%s, 100%%); height: auto;',
+                    '--municipio-content-image-width: %s;',
                     ($image->getAttribute('width') ?? 1920) . 'px'
                 )
             ]

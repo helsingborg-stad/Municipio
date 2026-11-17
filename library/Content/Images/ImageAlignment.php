@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Content\Images;
 
 /**
@@ -15,6 +17,12 @@ class ImageAlignment
     public const RIGHT  = 'right';
     public const CENTER = 'center';
     public const NONE   = 'none';
+
+    /**
+     * Class added to images rendered from post content. Their width comes from the
+     * --municipio-content-image-width custom property, see assets/source/sass/image.scss.
+     */
+    public const CONTENT_IMAGE_CLASS = 'municipio-content-image';
 
     /**
      * WordPress alignment class => styleguide utility classes.
@@ -56,7 +64,7 @@ class ImageAlignment
     public static function getAlignment(array $classes): ?string
     {
         foreach (self::ALIGNMENT_MARKERS as $alignment => $markers) {
-            if (!empty(array_intersect($markers, $classes))) {
+            if (array_intersect($markers, $classes) !== []) {
                 return $alignment;
             }
         }
@@ -116,6 +124,8 @@ class ImageAlignment
      */
     public static function splitClassAttribute(?string $classAttribute): array
     {
-        return array_values(array_filter(preg_split('/\s+/', (string) $classAttribute) ?: []));
+        $classes = preg_split('/\s+/', (string) $classAttribute);
+
+        return $classes === false ? [] : array_values(array_filter($classes));
     }
 }

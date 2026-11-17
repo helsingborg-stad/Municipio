@@ -116,6 +116,7 @@ class ImagesDeprecated implements ImagesInterface
                 : [],
             ImageAlignment::splitClassAttribute($image->getAttribute('class'))
         );
+        $classes[] = ImageAlignment::CONTENT_IMAGE_CLASS;
 
         if (is_numeric($attachmentId) && !empty($attachmentId)) {
             $contentContainerWidth = $this->getPageWidth();
@@ -134,7 +135,7 @@ class ImagesDeprecated implements ImagesInterface
                     'imgAttributeList' => ['parsed' => true],
                     'attributeList' => [
                         'style' => sprintf(
-                            'width: min(%s, 100%%); height: auto;',
+                            '--municipio-content-image-width: %s;',
                             ($image->getAttribute('width') ?? 1920) . 'px',
                         ),
                     ],
@@ -151,7 +152,7 @@ class ImagesDeprecated implements ImagesInterface
                 'imgAttributeList' => ['parsed' => true],
                 'attributeList' => [
                     'style' => sprintf(
-                        'width: min(%s, 100%%); height: auto;',
+                        '--municipio-content-image-width: %s;',
                         ($image->getAttribute('width') ?? 1920) . 'px',
                     ),
                 ],
@@ -191,29 +192,35 @@ class ImagesDeprecated implements ImagesInterface
             $figure = $figure->parentNode;
         }
 
-        if (
-            !$figure instanceof \DOMElement
-            || strtolower($figure->nodeName) !== 'figure'
-            || !$figure->parentNode instanceof \DOMNode
-        ) {
-            return null;
+        $isCaptionFigure = $figure instanceof \DOMElement
+            && strtolower($figure->nodeName) === 'figure'
+            && $figure->parentNode instanceof \DOMNode
+            && $this->containsOnly($figure, $inner);
+
+        return $isCaptionFigure ? $figure : null;
+    }
+
+    /**
+     * Whether an element contains nothing but the given node, a figcaption and whitespace.
+     *
+     * @param \DOMElement $element
+     * @param \DOMNode $node
+     * @return bool
+     */
+    private function containsOnly(\DOMElement $element, \DOMNode $node): bool
+    {
+        foreach ($element->childNodes as $child) {
+            $isAllowed = $child === $node
+                || ($child instanceof \DOMElement && strtolower($child->nodeName) === 'figcaption')
+                || ($child instanceof \DOMText && trim($child->textContent) === '')
+                || $child instanceof \DOMComment;
+
+            if (!$isAllowed) {
+                return false;
+            }
         }
 
-        foreach ($figure->childNodes as $child) {
-            if ($child === $inner) {
-                continue;
-            }
-
-            if ($child instanceof \DOMElement && strtolower($child->nodeName) !== 'figcaption') {
-                return null;
-            }
-
-            if ($child instanceof \DOMText && trim($child->textContent) !== '') {
-                return null;
-            }
-        }
-
-        return $figure;
+        return true;
     }
 
     /**
