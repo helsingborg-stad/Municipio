@@ -372,11 +372,9 @@ class App
 
         $id = $currentScreen->id;
         $action = $currentScreen->action;
-        $base = $currentScreen->base;
 
         $isModularityPage = str_contains($id, 'modularity') || str_contains($id, 'mod-');
         $isModularityPage |= isset($_GET['action']) && $_GET['action'] === 'edit' && $action === 'add';
-        $isModularityPage |= in_array($base, ['post', 'widgets']);
 
         return $isModularityPage;
     }
