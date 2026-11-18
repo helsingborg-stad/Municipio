@@ -41,7 +41,16 @@ class ApplePassDownloadController
             exit;
         }
 
-        $pass = $this->applePassGenerator->generate($passData);
+        try {
+            $pass = $this->applePassGenerator->generate($passData);
+        } catch (\Throwable $exception) {
+            error_log('Unable to generate Apple Wallet pass: ' . $exception->getMessage());
+            http_response_code(500);
+            header('Content-Type: text/plain; charset=utf-8');
+            echo 'Unable to create the Apple Wallet pass. Please reload the ticket page and try again.';
+            exit;
+        }
+
         header('Content-Type: application/vnd.apple.pkpass');
         header('Content-Disposition: attachment; filename="kulturkortet.pkpass"');
         header('Content-Length: ' . strlen($pass));

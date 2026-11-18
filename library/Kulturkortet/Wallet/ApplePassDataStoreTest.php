@@ -46,4 +46,22 @@ class ApplePassDataStoreTest extends TestCase
         static::assertNull((new ApplePassDataStore($wpService))->consume(str_repeat('b', 64)));
         static::assertArrayNotHasKey('getTransient', $wpService->methodCalls);
     }
+
+    /** Verifies that a failed transient deletion releases the claim and rejects the request. */
+    public function testReleasesClaimWhenTransientDeletionFails(): void
+    {
+        $wpService = new FakeWpService([
+            'addOption' => true,
+            'getTransient' => ['barcode' => 'ticket-barcode'],
+            'deleteTransient' => false,
+            'deleteOption' => true,
+        ]);
+
+        static::assertNull((new ApplePassDataStore($wpService))->consume(str_repeat('c', 64)));
+        static::assertCount(1, $wpService->methodCalls['deleteOption']);
+        static::assertSame(
+            'kulturkortet_apple_pass_claim_' . hash('sha256', str_repeat('c', 64)),
+            $wpService->methodCalls['deleteOption'][0][0],
+        );
+    }
 }
