@@ -53,7 +53,10 @@ class ModuleUsageById
                 {$wpdb->posts} ON ({$wpdb->postmeta}.post_id = {$wpdb->posts}.ID)
             WHERE
                 {$wpdb->postmeta}.meta_key = 'modularity-modules'
-                AND ({$wpdb->postmeta}.meta_value LIKE '%s:6:\"postid\";s:{$idLength}:\"{$id}\";%')
+                AND (
+                    {$wpdb->postmeta}.meta_value LIKE '%s:6:\"postid\";s:{$idLength}:\"{$id}\";%'
+                    OR {$wpdb->postmeta}.meta_value LIKE '%s:6:\"postid\";i:{$id};%'
+                )
                 AND {$wpdb->posts}.post_type != 'revision'
             ORDER BY {$wpdb->posts}.post_title ASC
         ";
