@@ -42,6 +42,7 @@ class ApplePassDataStore
         }
 
         if (!$this->wpService->deleteTransient($transientKey)) {
+            $this->wpService->deleteOption($claimKey);
             return null;
         }
 
