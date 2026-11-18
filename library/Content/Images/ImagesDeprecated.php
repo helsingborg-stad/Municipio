@@ -85,8 +85,9 @@ class ImagesDeprecated implements ImagesInterface
             return;
 
         foreach ($images as $image) {
-            if ($this->wpService->applyFilters('Municipio/Content/ImageNormalized', false, $image))
+            if ($this->wpService->applyFilters('Municipio/Content/ImageNormalized', false, $image)) {
                 continue;
+            }
 
             $captionText = $this->extractCaption($image->parentNode);
             $altText = $image->getAttribute('alt') ?: $captionText;
