@@ -23,9 +23,13 @@ class ImagesDeprecatedTest extends TestCase
             /** @var array<int, array<int, string>> */
             public array $classLists = [];
 
+            /** @var array<int, array<string, string>> */
+            public array $attributeLists = [];
+
             public function renderBladeView($view, $data = [], $overrideViewPaths = false, $formatError = true): string
             {
-                $this->classLists[] = $data['classList'];
+                $this->classLists[]     = $data['classList'];
+                $this->attributeLists[] = $data['attributeList'];
 
                 return sprintf(
                     '<figure class="c-image %s"><img src="%s" alt="%s">%s</figure>',
@@ -124,6 +128,16 @@ class ImagesDeprecatedTest extends TestCase
         $figure = $xpath->query('//a/figure')->item(0);
         $this->assertNotNull($figure, 'The link must wrap the rendered component');
         $this->assertStringContainsString('u-float--left', $figure->getAttribute('class'));
+    }
+
+    #[TestDox('normalizeImages() does not set an invalid width on an aligned image without width attribute')]
+    public function testImageWithoutWidthGetsNoWidthStyle(): void
+    {
+        $this->normalize(
+            '<p><img class="wp-image-1 alignleft" src="https://example.com/a.png" alt="A">Text</p>'
+        );
+
+        $this->assertSame([], $this->renderer->attributeLists[0]);
     }
 
     #[TestDox('normalizeImages() does not unwrap figures that contain more than the image')]

@@ -140,6 +140,28 @@ class ImageAlignment
     }
 
     /**
+     * Get the attribute list for an image component that replaces an image in the content.
+     *
+     * The width attribute of the image becomes the --municipio-content-image-width custom
+     * property. A missing or non-pixel width (e.g. "50%") is left out, so that the image
+     * falls back to full width. An invalid value would leave a floating image without
+     * width, which collapses it to zero width since the image component is a container.
+     *
+     * @param string|null $width The width attribute of the <img> element.
+     * @return array
+     */
+    public static function getAttributeList(?string $width): array
+    {
+        $width = trim((string) $width);
+
+        if (!ctype_digit($width) || (int) $width === 0) {
+            return [];
+        }
+
+        return ['style' => sprintf('--municipio-content-image-width: %dpx;', (int) $width)];
+    }
+
+    /**
      * Split a class attribute into a list of classes.
      *
      * @param string|null $classAttribute

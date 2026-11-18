@@ -145,6 +145,33 @@ class ImageAlignmentTest extends TestCase
         $this->assertSame([], ImageAlignment::resolveClassList([], ['alignnone']));
     }
 
+    #[TestDox('getAttributeList() sets the width custom property from a pixel width')]
+    public function testGetAttributeListWithPixelWidth(): void
+    {
+        $this->assertSame(
+            ['style' => '--municipio-content-image-width: 300px;'],
+            ImageAlignment::getAttributeList('300')
+        );
+    }
+
+    #[TestDox('getAttributeList() leaves out the width when it is missing or not in pixels, so the image does not collapse')]
+    #[DataProvider('invalidWidthProvider')]
+    public function testGetAttributeListWithoutValidWidth(?string $width): void
+    {
+        $this->assertSame([], ImageAlignment::getAttributeList($width));
+    }
+
+    public static function invalidWidthProvider(): array
+    {
+        return [
+            'null'    => [null],
+            'empty'   => [''],
+            'percent' => ['50%'],
+            'zero'    => ['0'],
+            'auto'    => ['auto'],
+        ];
+    }
+
     #[TestDox('splitClassAttribute() splits on any whitespace and drops empty values')]
     public function testSplitClassAttribute(): void
     {

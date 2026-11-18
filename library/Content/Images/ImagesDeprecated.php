@@ -150,12 +150,7 @@ class ImagesDeprecated implements ImagesInterface
                     'caption' => $captionText,
                     'classList' => $classes,
                     'imgAttributeList' => ['parsed' => true],
-                    'attributeList' => [
-                        'style' => sprintf(
-                            '--municipio-content-image-width: %s;',
-                            ($image->getAttribute('width') ?? 1920) . 'px',
-                        ),
-                    ],
+                    'attributeList' => ImageAlignment::getAttributeList($image->getAttribute('width')),
                 ]);
             }
         }
@@ -167,12 +162,7 @@ class ImagesDeprecated implements ImagesInterface
                 'caption' => $captionText,
                 'classList' => $classes,
                 'imgAttributeList' => ['parsed' => true],
-                'attributeList' => [
-                    'style' => sprintf(
-                        '--municipio-content-image-width: %s;',
-                        ($image->getAttribute('width') ?? 1920) . 'px',
-                    ),
-                ],
+                'attributeList' => ImageAlignment::getAttributeList($image->getAttribute('width')),
             ]);
         }
 
