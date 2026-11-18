@@ -281,7 +281,7 @@ class App
         // stylesheet is registered on enqueue_block_assets; loading this
         // legacy Modularity admin stylesheet here makes WordPress inject it
         // into the iframe from the wrong context.
-        if (!$this->isModularityPage() || \Modularity\Helper\Wp::isGutenbergEditor()) {
+        if (!$this->isModularityPage()) {
             return;
         }
 
@@ -372,11 +372,9 @@ class App
 
         $id = $currentScreen->id;
         $action = $currentScreen->action;
-        $base = $currentScreen->base;
 
         $isModularityPage = str_contains($id, 'modularity') || str_contains($id, 'mod-');
         $isModularityPage |= isset($_GET['action']) && $_GET['action'] === 'edit' && $action === 'add';
-        $isModularityPage |= in_array($base, ['post', 'widgets']);
 
         return $isModularityPage;
     }
