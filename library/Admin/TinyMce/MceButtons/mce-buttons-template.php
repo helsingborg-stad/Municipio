@@ -1,4 +1,91 @@
-<?php require_once '../View/header.php'; ?>
+<?php
+
+/**
+ * Standalone modal document. WordPress is loaded so button.css and the stored
+ * design tokens can be printed here. Token CSS stays off the iframe URL.
+ */
+$municipioMceStyles = '';
+
+if (!defined('ABSPATH')) {
+    if (!defined('WP_USE_THEMES')) {
+        define('WP_USE_THEMES', false);
+    }
+
+    $municipioWpLoadDirectory = __DIR__;
+    $municipioWpLoad = '';
+    for ($municipioWpLoadDepth = 0; $municipioWpLoadDepth < 8 && $municipioWpLoad === ''; $municipioWpLoadDepth++) {
+        foreach (['/wp-load.php', '/wp/wp-load.php'] as $municipioWpLoadSuffix) {
+            $municipioWpLoadCandidate = $municipioWpLoadDirectory . $municipioWpLoadSuffix;
+            if (is_file($municipioWpLoadCandidate)) {
+                $municipioWpLoad = $municipioWpLoadCandidate;
+                break;
+            }
+        }
+        if ($municipioWpLoad !== '') {
+            break;
+        }
+        $municipioWpLoadParent = dirname($municipioWpLoadDirectory);
+        if ($municipioWpLoadParent === $municipioWpLoadDirectory) {
+            break;
+        }
+        $municipioWpLoadDirectory = $municipioWpLoadParent;
+    }
+
+    if ($municipioWpLoad !== '') {
+        $municipioWpLoadLevel = ob_get_level();
+        ob_start();
+        require_once $municipioWpLoad;
+        while (ob_get_level() > $municipioWpLoadLevel) {
+            ob_end_clean();
+        }
+    }
+}
+
+if (defined('ABSPATH')) {
+    $municipioStyleguideUrl = isset($_GET['styleguideUrl']) ? esc_url((string) wp_unslash($_GET['styleguideUrl'])) : '';
+    if ($municipioStyleguideUrl !== '') {
+        $municipioMceStyles .= '<link rel="stylesheet" type="text/css" href="' . $municipioStyleguideUrl . '">' . "\n";
+    }
+
+    $municipioButtonRelative = (new \Municipio\Helper\StyleguideCacheBust())->name('css/components/button.css');
+    $municipioButtonPath = get_template_directory() . '/assets/dist/styleguide/' . $municipioButtonRelative;
+    $municipioButtonUrl = get_template_directory_uri() . '/assets/dist/styleguide/' . $municipioButtonRelative;
+    if (is_file($municipioButtonPath)) {
+        $municipioButtonUrl .= '?ver=' . (string) filemtime($municipioButtonPath);
+    }
+    $municipioMceStyles .= '<link rel="stylesheet" id="mce-button-component-css" type="text/css" href="'
+        . esc_url($municipioButtonUrl) . '">' . "\n";
+
+    try {
+        $municipioTokenCss = (new \Municipio\Styleguide\Customize\ApplyStyles\ApplyStyles(
+            \Municipio\Helper\WpService::get()
+        ))->getBareDocumentTokensAsCss();
+    } catch (\Throwable) {
+        $municipioTokenCss = '';
+    }
+
+    if ($municipioTokenCss !== '') {
+        $municipioMceStyles .= '<style id="mce-button-design-tokens" type="text/css">'
+            . str_replace('</', '<\/', $municipioTokenCss)
+            . '</style>' . "\n";
+    }
+
+    if (isset($_GET['inlineStyles'])) {
+        $municipioLegacyCss = str_replace('</', '<\/', (string) wp_unslash($_GET['inlineStyles']));
+        if (trim($municipioLegacyCss) !== '') {
+            $municipioMceStyles .= '<style id="mce-button-legacy-inline" type="text/css">'
+                . $municipioLegacyCss
+                . '</style>' . "\n";
+        }
+    }
+}
+
+require_once '../View/header.php';
+
+if ($municipioMceStyles !== '') {
+    echo $municipioMceStyles;
+}
+?>
             <div class="grid">
                 <div class="grid-xs-12">
                     <div id="preview">
@@ -136,18 +223,6 @@
                         } catch (error) {
                             // Ignore postMessage errors silently to avoid breaking the modal UI.
                         }
-                    }
-
-                    var templateParams = new URLSearchParams(window.location.search);
-                    var styleguideUrl = templateParams.get('styleguideUrl');
-                    var inlineStyles = templateParams.get('inlineStyles');
-
-                    if (styleguideUrl) {
-                        $('head').append('<link rel="stylesheet" type="text/css" href="' + styleguideUrl + '">');
-                    }
-
-                    if (inlineStyles) {
-                        $('head').append('<style type="text/css">' + inlineStyles + '</style>');
                     }
 
                     $('#btnText').keyup(function() {
