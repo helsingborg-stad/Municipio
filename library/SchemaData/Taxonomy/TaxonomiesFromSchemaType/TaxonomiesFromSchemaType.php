@@ -44,6 +44,10 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
             'Preschool' => $this->getPreschoolTaxonomies(),
         ][$schemaType] ?? [];
 
+        if (in_array($schemaType, ['SponsorDemand', 'SponsorOffer'], true)) {
+            $taxonomies = $this->getSponsorTaxonomies($schemaType);
+        }
+
         $taxonomies = $this->wpService->applyFilters(
             'Municipio/Schema/Taxonomy/' . $schemaType,
             $taxonomies,
@@ -54,6 +58,44 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
 
         if (!is_array($taxonomies)) {
             return [];
+        }
+
+        return $taxonomies;
+    }
+
+    private function getSponsorTaxonomies(string $schemaType): array
+    {
+        $postTypes = array_unique(array_merge(
+            $this->schemaToPostTypeResolver->resolve('SponsorDemand'),
+            $this->schemaToPostTypeResolver->resolve('SponsorOffer'),
+        ));
+        $taxonomies = [new TaxonomyFilteredBySubProperty(
+            $this->taxonomyFactory->create(
+                $schemaType,
+                'keywords.name',
+                array_values($postTypes),
+                $this->wpService->__('Resources', 'municipio'),
+                $this->wpService->__('Resource', 'municipio'),
+            ),
+            'keywords',
+            'inDefinedTermSet.name',
+            'resource',
+            'sponsor_resource',
+        )];
+
+        if ($schemaType === 'SponsorDemand') {
+            $taxonomies[] = new TaxonomyFilteredBySubProperty(
+                $this->createTaxonomy(
+                    $schemaType,
+                    '@reverse.seeks.keywords.name',
+                    $this->wpService->__('Activities', 'municipio'),
+                    $this->wpService->__('Activity', 'municipio'),
+                ),
+                '@reverse.seeks.keywords',
+                'inDefinedTermSet.name',
+                'activity',
+                'sponsor_activity',
+            );
         }
 
         return $taxonomies;
