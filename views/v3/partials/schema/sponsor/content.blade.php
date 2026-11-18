@@ -1,19 +1,13 @@
 <div id="article" class="c-sponsor u-width--100" tabindex="-1">
     @typography(['element' => 'p', 'classList' => ['c-typography__variant--lead', 'u-margin__top--0', 'u-margin__bottom--2']])
-        {{ $sponsorTypeLabel }}@if($organizationNames = implode(', ', array_filter(array_column($sponsor['organizations'], 'name'))))<span class="u-margin__x--1">/</span>{{ $organizationNames }}@endif
+        {{ $sponsorTypeLabel }}@if($sponsor['organization']['name'])<span class="u-margin__x--1">/</span>{{ $sponsor['organization']['name'] }}@endif
     @endtypography
     @typography(['element' => 'h1', 'variant' => 'h1', 'id' => 'page-title'])
         {{ $post->getTitle() }}
     @endtypography
 
-    @foreach($sponsor['images'] as $image)
-        @include('partials.schema.sponsor.image', [
-            'imageSrc' => $image['src'],
-            'imageAlt' => $image['alt'],
-        ])
-    @endforeach
-    @if(!$sponsor['images'] && $post->getImage()?->getUrl())
-        @include('partials.schema.sponsor.image', ['imageSrc' => $post->getImage(), 'imageAlt' => ''])
+    @if($image = $post->getImage())
+        @include('partials.schema.sponsor.image', ['imageSrc' => $image, 'imageAlt' => ''])
     @endif
 
     @if($sponsor['description'])
