@@ -42,7 +42,7 @@ class WalletService
         $token = bin2hex(random_bytes(32));
         $tokenHash = hash('sha256', $token);
         $passData = [
-            'id' => is_scalar($ticket['id'] ?? null) ? (string) $ticket['id'] : $barcode,
+            'id' => $ticket['id'] ?? $barcode,
             'firstname' => is_string($ticket['firstname'] ?? null) ? $ticket['firstname'] : '',
             'lastname' => is_string($ticket['lastname'] ?? null) ? $ticket['lastname'] : '',
             'validFrom' => is_string($ticket['validFrom'] ?? null) ? $ticket['validFrom'] : '',

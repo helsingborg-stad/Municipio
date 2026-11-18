@@ -31,11 +31,12 @@ class GoogleWalletLinkFactory
         $issuerId = $this->config->getIssuerId();
         $classId = $issuerId . '.' . $this->config->getClassSuffix();
         $ticketId = $ticket['id'] ?? null;
-        $objectSuffix = substr(hash('sha256', is_scalar($ticketId) ? (string) $ticketId : $barcode), 0, 40);
+        $objectSuffix = substr(hash('sha256', (is_scalar($ticketId) ? (string) $ticketId : '') . "\0" . $barcode), 0, 40);
         $firstName = is_string($ticket['firstname'] ?? null) ? trim($ticket['firstname']) : '';
         $lastName = is_string($ticket['lastname'] ?? null) ? trim($ticket['lastname']) : '';
         $fullName = trim($firstName . ' ' . $lastName);
         $expiryDate = WalletDateFormatter::formatDate($ticket['validUntil'] ?? null);
+        $expirationDateTime = WalletDateFormatter::formatDateTime($ticket['validUntil'] ?? null);
 
         $payload = [
             'iss' => $this->config->getServiceAccountEmail(),
@@ -47,6 +48,11 @@ class GoogleWalletLinkFactory
                     'id' => $issuerId . '.' . $objectSuffix,
                     'classId' => $classId,
                     'state' => 'ACTIVE',
+                    ...($expirationDateTime === null ? [] : [
+                        'validTimeInterval' => [
+                            'end' => ['dateTime' => $expirationDateTime],
+                        ],
+                    ]),
                     'cardTitle' => [
                         'defaultValue' => [
                             'language' => 'sv-SE',

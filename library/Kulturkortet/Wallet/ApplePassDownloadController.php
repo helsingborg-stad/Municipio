@@ -15,6 +15,7 @@ class ApplePassDownloadController
      */
     public function __construct(
         private WpService $wpService,
+        private ApplePassDataStore $applePassDataStore,
         private ApplePassGenerator $applePassGenerator,
     ) {}
 
@@ -30,12 +31,9 @@ class ApplePassDownloadController
             return;
         }
 
-        $transientKey = WalletService::APPLE_PASS_TRANSIENT_PREFIX . hash('sha256', $token);
-        $passData = $this->wpService->getTransient($transientKey);
-        $this->wpService->deleteTransient($transientKey);
-
         header('Cache-Control: no-store, private, max-age=0');
         header('Pragma: no-cache');
+        $passData = $this->applePassDataStore->consume($token);
         if (!is_array($passData)) {
             http_response_code(404);
             header('Content-Type: text/plain; charset=utf-8');

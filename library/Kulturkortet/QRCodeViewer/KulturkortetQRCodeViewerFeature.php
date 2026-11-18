@@ -15,6 +15,7 @@ use Municipio\Kulturkortet\Vitec\VitecConfig;
 use Municipio\Kulturkortet\Vitec\VitecService;
 use Municipio\Kulturkortet\Wallet\ApplePassGenerator;
 use Municipio\Kulturkortet\Wallet\ApplePassDownloadController;
+use Municipio\Kulturkortet\Wallet\ApplePassDataStore;
 use Municipio\Kulturkortet\Wallet\AppleWalletConfig;
 use Municipio\Kulturkortet\Wallet\GoogleWalletLinkFactory;
 use Municipio\Kulturkortet\Wallet\GoogleWalletConfig;
@@ -129,6 +130,10 @@ class KulturkortetQRCodeViewerFeature implements Hookable
     public function handleApplePassDownload(): void
     {
         $appleWalletConfig = new AppleWalletConfig($this->acfService);
-        (new ApplePassDownloadController($this->wpService, new ApplePassGenerator($appleWalletConfig)))->handle();
+        (new ApplePassDownloadController(
+            $this->wpService,
+            new ApplePassDataStore($this->wpService),
+            new ApplePassGenerator($appleWalletConfig),
+        ))->handle();
     }
 }

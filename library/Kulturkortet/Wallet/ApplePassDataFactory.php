@@ -21,11 +21,16 @@ class ApplePassDataFactory
      */
     public function create(array $ticket, string $barcode): array
     {
+        $ticketId = $ticket['id'] ?? null;
+        $serialNumber = is_scalar($ticketId) && (string) $ticketId !== '' ? (string) $ticketId : $barcode;
+        $expirationDate = WalletDateFormatter::formatDateTime($ticket['validUntil'] ?? null);
+
         return [
             'formatVersion' => 1,
             'passTypeIdentifier' => $this->config->getPassTypeIdentifier(),
-            'serialNumber' => substr(hash('sha256', is_scalar($ticket['id'] ?? null) ? (string) $ticket['id'] : $barcode), 0, 40),
+            'serialNumber' => substr(hash('sha256', $serialNumber), 0, 40),
             'teamIdentifier' => $this->config->getTeamIdentifier(),
+            ...($expirationDate !== null ? ['expirationDate' => $expirationDate] : []),
             'organizationName' => 'Kulturkortet',
             'description' => 'Kulturkortet',
             'storeCard' => [
