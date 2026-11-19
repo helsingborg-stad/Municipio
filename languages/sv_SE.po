@@ -31495,3 +31495,54 @@ msgstr "En kort beskrivning av personuppgiftspolicyn som används av sökmotorer
 
 msgid "Use {{website_name}} to display the current website's name. Use {{website_domain}} to display the current website's domain."
 msgstr "Använd {{website_name}} för att visa webbplatsens namn. Använd {{website_domain}} för att visa webbplatsens domän."
+
+msgid "Sponsorship request"
+msgstr "Sponsoruppdrag"
+
+msgid "Sponsorship offer"
+msgstr "Sponsorerbjudande"
+
+msgid "Support needed by"
+msgstr "Backningen behövs senast"
+
+msgid "Sponsorship date"
+msgstr "Datum för backningen"
+
+msgid "Sponsorship location"
+msgstr "Plats för backningen"
+
+msgid "What the association needs"
+msgstr "Det här behöver föreningen"
+
+msgid "What the company wants to contribute"
+msgstr "Det här vill företaget bidra med"
+
+msgid "Main activity of the association"
+msgstr "Föreningens huvudsakliga verksamhet"
+
+msgid "What the association looks for in a sponsor"
+msgstr "Det här söker föreningen hos en backare"
+
+msgid "Things to keep in mind"
+msgstr "Särskilt att tänka på"
+
+msgid "What the association can offer in return"
+msgstr "Det här kan föreningen erbjuda som tack"
+
+msgid "What the company would like in return"
+msgstr "Det här önskar företaget i gengäld"
+
+msgid "Go to contact details"
+msgstr "Till kontaktuppgifter"
+
+msgid "About the activity"
+msgstr "Om aktiviteten"
+
+msgid "Sponsorship at a glance"
+msgstr "Backningen i korthet"
+
+msgid "Visit the association’s website"
+msgstr "Besök Föreningens webbplats"
+
+msgid "Visit the company’s website"
+msgstr "Besök Företagets webbplats"
