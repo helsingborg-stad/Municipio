@@ -4,130 +4,92 @@ declare(strict_types=1);
 
 namespace Municipio\Chat\Render;
 
-use Municipio\Chat\Config\ChatConfigInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 class ChatRenderConfigTest extends TestCase
 {
-    #[TestDox('getChatId() returns an assistant specific slug id')]
-    public function testGetChatIdReturnsAssistantSpecificSlugId(): void
+    #[TestDox('getAttributeList() maps lowercased assistant names to their integration type in field order')]
+    public function testGetAttributeListMapsAssistantNamesToIntegrationTypes(): void
     {
-        $assistantName = 'City Guide Assistant';
         $renderConfig = $this->createRenderConfig([
-            ['name' => $assistantName],
-        ], $assistantName);
+            ['name' => 'Noah', 'acf_fc_layout' => 'puzzel'],
+            ['name' => 'Ava', 'acf_fc_layout' => 'eneo'],
+        ]);
 
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('{"noah":"puzzel","ava":"eneo"}', $attributeList['data-js-chat-assistants']);
+        static::assertSame('1', $attributeList['data-js-municipio-chat']);
+    }
+
+    #[TestDox('getAttributeList() excludes assistants without a name or integration type')]
+    public function testGetAttributeListExcludesInvalidAssistants(): void
+    {
+        $renderConfig = $this->createRenderConfig([
+            ['name' => 'Valid Assistant', 'acf_fc_layout' => 'eneo'],
+            ['name' => '', 'acf_fc_layout' => 'puzzel'],
+            ['name' => 'Missing Type'],
+            ['acf_fc_layout' => 'puzzel'],
+            'not-an-array',
+        ]);
+
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('{"valid-assistant":"eneo"}', $attributeList['data-js-chat-assistants']);
+    }
+
+    #[TestDox('getAttributeList() returns an empty JSON list when there are no assistants')]
+    public function testGetAttributeListReturnsEmptyObjectWithoutAssistants(): void
+    {
+        $attributeList = $this->createRenderConfig([])->getAttributeList();
+
+        static::assertSame('[]', $attributeList['data-js-chat-assistants']);
+    }
+
+    #[TestDox('getChatId() is prefixed and stable for the same instance but unique across instances')]
+    public function testGetChatIdIsStablePerInstanceAndUniqueAcrossInstances(): void
+    {
+        $first = $this->createRenderConfig([]);
+        $second = $this->createRenderConfig([]);
+
+        static::assertStringStartsWith('chat-', $first->getChatId());
+        static::assertSame($first->getChatId(), $first->getChatId());
+        static::assertNotSame($first->getChatId(), $second->getChatId());
+    }
+
+    #[TestDox('getters return the constructor values')]
+    public function testGettersReturnConstructorValues(): void
+    {
+        $assistants = [['name' => 'Ava', 'acf_fc_layout' => 'eneo']];
+        $renderConfig = $this->createRenderConfig($assistants, 'class="wp-block"');
+
+        static::assertSame('fab', $renderConfig->getView());
+        static::assertSame($assistants, $renderConfig->getAssistants());
+        static::assertSame('class="wp-block"', $renderConfig->getWrapperAttributes());
+    }
+
+    #[TestDox('getLang() returns translated labels for the chat UI')]
+    public function testGetLangReturnsTranslatedLabels(): void
+    {
+        $lang = $this->createRenderConfig([])->getLang();
+
+        static::assertSame('Chat', $lang['chat']);
+        static::assertSame('Write your question here', $lang['placeholder']);
+        static::assertSame('Minimize', $lang['minimize']);
         static::assertSame(
-            sprintf('global-chat-city-guide-assistant-%s', substr(md5($assistantName), 0, 8)),
-            $renderConfig->getChatId(),
+            ['chat', 'close', 'closeChat', 'cancel', 'send', 'placeholder', 'newConversation', 'like', 'dislike', 'minimize'],
+            array_keys($lang),
         );
     }
 
-    #[TestDox('getChatId() returns a deterministic hash id when assistant name cannot be slugged')]
-    public function testGetChatIdReturnsDeterministicHashIdWhenAssistantNameCannotBeSlugged(): void
-    {
-        $renderConfig = $this->createRenderConfig([
-            ['name' => '---'],
-        ], '---');
-
-        static::assertMatchesRegularExpression('/^global-chat-[a-f0-9]{8}$/', $renderConfig->getChatId());
-    }
-
-    #[TestDox('getChatId() falls back to default when assistant cannot be resolved')]
-    public function testGetChatIdFallsBackToDefaultWhenAssistantCannotBeResolved(): void
-    {
-        $renderConfig = $this->createRenderConfig([
-            ['name' => 'Known Assistant'],
-        ], 'Unknown Assistant');
-
-        static::assertSame('global-chat-default', $renderConfig->getChatId());
-    }
-
-    #[TestDox('guest cannot render a restricted named or default assistant')]
-    public function testGuestCannotRenderRestrictedAssistant(): void
-    {
-        $assistants = [['name' => 'Private', 'logged_in_only' => 1]];
-
-        static::assertNull($this->createRenderConfig($assistants, 'Private')->getAssistant());
-        static::assertNull($this->createRenderConfig($assistants, 'Default')->getAssistant());
-        static::assertSame($assistants[0], $this->createRenderConfig($assistants, 'Private', true)->getAssistant());
-    }
-
-    private function createRenderConfig(array $assistants, string $assistantName, bool $isUserLoggedIn = false): ChatRenderConfig
+    private function createRenderConfig(array $assistants, ?string $wrapperAttributes = ''): ChatRenderConfig
     {
         $wpService = new FakeWpService([
             '__' => static fn(string $string): string => $string,
         ]);
 
-        $chatConfig = new class($assistants, $isUserLoggedIn) implements ChatConfigInterface {
-            public function __construct(
-                private array $assistants,
-            private bool $isUserLoggedIn,
-            ) {}
-
-            public function isEnabled(): bool
-            {
-                return true;
-            }
-
-            public function isGlobalChatEnabled(): bool
-            {
-                return true;
-            }
-
-            public function getDefaultAssistant(): ?array
-            {
-                return $this->assistants[0] ?? null;
-            }
-
-            public function getAssistantForActiveQuery(): ?array
-            {
-                return $this->getDefaultAssistant();
-            }
-
-            public function getAssistants(): array
-            {
-                return $this->assistants;
-            }
-
-            public function isAssistantAllowed(array $assistant): bool
-            {
-                return empty($assistant['logged_in_only']) || $this->isUserLoggedIn;
-            }
-
-            public function isPresidioEnabled(): bool
-            {
-                return false;
-            }
-
-            public function getPresidioAnalyzerHost(): ?string
-            {
-                return null;
-            }
-
-            public function getPresidioAnonymizerHost(): ?string
-            {
-                return null;
-            }
-
-            public function getPresidioLanguage(): ?string
-            {
-                return null;
-            }
-
-            public function getPresidioAnonymizerConfig(): ?array
-            {
-                return null;
-            }
-
-            public function getPresidioAllowList(): array
-            {
-                return [];
-            }
-        };
-
-        return new ChatRenderConfig($wpService, $chatConfig, 'fab', $assistantName);
+        return new ChatRenderConfig($wpService, 'fab', $assistants, $wrapperAttributes);
     }
 }

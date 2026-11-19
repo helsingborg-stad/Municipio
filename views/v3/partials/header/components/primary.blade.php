@@ -6,7 +6,7 @@
         'direction' => 'horizontal',
         'classList' => array_merge(
             $menuItem->getCssClasses(),
-            ['s-nav-primary', 'u-flex-wrap--no-wrap']
+            ['s-nav-primary', 'u-flex-wrap--no-wrap', $alignment === 'center' ? 'u-justify-content--center' : '', $alignment === 'right' ? 'u-justify-content--end' : '']
         ),
         'depth' => $depth ?? 1,
         'context' => ['site.header.nav'],

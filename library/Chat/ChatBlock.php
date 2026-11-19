@@ -13,6 +13,8 @@ use WpService\Contracts\RegisterBlockType;
 
 class ChatBlock implements Hookable
 {
+    private const UNSUPPORTED_INTEGRATIONS = ['puzzel'];
+
     public function __construct(
         private RegisterBlockType&AddAction&__&GetBlockWrapperAttributes $wpService,
         private ChatConfigInterface $config,
@@ -26,11 +28,13 @@ class ChatBlock implements Hookable
 
     public function registerBlock()
     {
-        if (empty($this->config->getAssistants())) {
+        $assistants = $this->getBlockAssistants();
+
+        if (empty($assistants)) {
             return;
         }
 
-        $result = array_column($this->config->getAssistants(), 'name', 'name');
+        $result = array_column($assistants, 'name', 'name');
         $result = array_merge(['Default' => __('Default', 'municipio')], $result);
 
         $this->wpService->registerBlockType(
@@ -47,17 +51,22 @@ class ChatBlock implements Hookable
                     ],
                 ],
                 'render_callback' => function ($attributes) {
-                    $config = new ChatRenderConfig(
-                        $this->wpService,
-                        $this->config,
-                        'block',
-                        $attributes['assistant'] ?? 'Default',
-                        $this->wpService->getBlockWrapperAttributes(),
-                    );
+                    $assistant = $this->resolveAssistant($attributes['assistant'] ?? 'Default');
 
-                    if ($config->getAssistant() === null) {
+                    if (
+                        $assistant === null
+                        || !$this->isSupportedInBlock($assistant)
+                        || !$this->config->isAssistantAllowed($assistant)
+                    ) {
                         return '';
                     }
+
+                    $config = new ChatRenderConfig(
+                        $this->wpService,
+                        'block',
+                        [$assistant],
+                        $this->wpService->getBlockWrapperAttributes(),
+                    );
 
                     return $this->renderer->render($config);
                 },
@@ -66,5 +75,37 @@ class ChatBlock implements Hookable
                 ),
             ],
         );
+    }
+
+    private function resolveAssistant(string $assistantName): ?array
+    {
+        if ($assistantName === '' || $assistantName === 'Default') {
+            return $this->config->getDefaultAssistant();
+        }
+
+        foreach ($this->getBlockAssistants() as $assistant) {
+            if (($assistant['name'] ?? null) === $assistantName) {
+                return $assistant;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Assistants that can be used in the block. Puzzel is excluded because its
+     * conversation state is global and belongs to the chat bubble.
+     */
+    private function getBlockAssistants(): array
+    {
+        return array_values(array_filter(
+            $this->config->getAssistants(),
+            fn($assistant) => is_array($assistant) && $this->isSupportedInBlock($assistant),
+        ));
+    }
+
+    private function isSupportedInBlock(array $assistant): bool
+    {
+        return !in_array($assistant['acf_fc_layout'] ?? null, self::UNSUPPORTED_INTEGRATIONS, true);
     }
 }

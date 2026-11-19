@@ -17,8 +17,16 @@ class ChatBubbleTest extends TestCase
     {
         $assistant = ['name' => 'Private', 'logged_in_only' => 1, 'chat_assistant_pages' => [123]];
 
-        static::assertSame('', $this->renderBubble($assistant, false, false));
-        static::assertSame('bubble', $this->renderBubble($assistant, true, false));
+        static::assertSame('', $this->renderBubble($assistant, false, true));
+        static::assertSame('bubble', $this->renderBubble($assistant, true, true));
+    }
+
+    #[TestDox('no bubble is rendered when global chat is disabled, even with a matching assistant')]
+    public function testNoBubbleWhenGlobalChatDisabled(): void
+    {
+        $assistant = ['name' => 'Public', 'chat_assistant_pages' => [123]];
+
+        static::assertSame('', $this->renderBubble($assistant, true, false));
     }
 
     #[TestDox('guest sees no bubble when the global default requires login')]
@@ -40,7 +48,7 @@ class ChatBubbleTest extends TestCase
         ]);
         $acfService = new FakeAcfService([
             'getField' => static fn(string $name) => match ($name) {
-                'chat_assistants' => [$assistant],
+                'chat_integrations' => [$assistant],
                 'chat_default_assistant' => $assistant['name'],
                 default => null,
             },

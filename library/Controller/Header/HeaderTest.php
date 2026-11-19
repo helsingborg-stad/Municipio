@@ -83,6 +83,37 @@ class HeaderTest extends TestCase
         static::assertNotContains('c-header__item--mobile-center', $primaryClasses);
     }
 
+    public function testMobileItemsFallbackToDesktopMetadataWhenResponsiveMetadataIsMissing(): void
+    {
+        $header = $this->createHeader((object) [
+            'headerSortableSectionMainUpper' => json_encode(['logotype', 'search-modal', 'language', 'drawer']),
+            'headerSortableSectionMainUpperResponsive' => json_encode(['logotype', 'drawer']),
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_upper' => [
+                    'logotype' => ['align' => 'left', 'margin' => 'none'],
+                    'search-modal' => ['align' => 'left', 'margin' => 'none'],
+                    'language' => ['align' => 'right', 'margin' => 'none'],
+                    'drawer' => ['align' => 'right', 'margin' => 'none'],
+                ],
+                'header_sortable_section_main_upper_responsive' => [],
+            ]),
+            'headerSticky' => '',
+        ]);
+
+        $groupedItems = $header->getMenuItemsByAlignment();
+
+        static::assertArrayHasKey('logotype', $groupedItems['left']);
+        static::assertArrayHasKey('drawer', $groupedItems['right']);
+
+        $logotypeClasses = $groupedItems['left']['logotype']->getCssClasses();
+        $drawerClasses = $groupedItems['right']['drawer']->getCssClasses();
+
+        static::assertContains('u-display--flex', $logotypeClasses);
+        static::assertContains('u-display--flex', $drawerClasses);
+        static::assertContains('c-header__item--mobile-left', $logotypeClasses);
+        static::assertContains('c-header__item--mobile-right', $drawerClasses);
+    }
+
     private function createHeader(object $customizer): Header
     {
         $extractMenuItems = new ExtractMenuItems($customizer);

@@ -109,7 +109,7 @@ export const postsListAsync = (
 	const setupPagination = () => {
 		container.addEventListener("click", (e) => {
 			const target = e.target as HTMLElement;
-			const link = target.closest('a[href*="page"]');
+			const link = target.closest(".c-pagination a[href]");
 
 			if (!link) return;
 
