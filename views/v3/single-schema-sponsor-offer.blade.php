@@ -1,5 +1,5 @@
 @extends('templates.grid', ['layoutData' => [
-    'addToDefaultClassList' => ['o-container--content', 'u-margin__bottom--4']
+    'addToDefaultClassList' => ['u-margin__bottom--4']
 ]])
 
 @section('hero-top-sidebar')
@@ -15,6 +15,6 @@
     @stop
 
     @include('templates.sections.grid.content', [
-        'addToArticleClassList' => ['c-article', 'c-article--readable-width', 's-article']
+        'addToArticleClassList' => ['c-article', 'u-width--100', 's-article']
     ])
 @stop

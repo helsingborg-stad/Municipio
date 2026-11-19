@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0ce490618bd63e917dc0f10c0690c31",
+    "content-hash": "876b373456b71436d2dbab1d38d15390",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1364,16 +1364,16 @@
         },
         {
             "name": "helsingborg-stad/schema-library",
-            "version": "0.5.8",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/schema-library.git",
-                "reference": "a1342a4c031a0e2fba113bc9ff771a9ecc04cb79"
+                "reference": "56969acaeb72b1d9e02b6dc3ef38afd0b792745f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/a1342a4c031a0e2fba113bc9ff771a9ecc04cb79",
-                "reference": "a1342a4c031a0e2fba113bc9ff771a9ecc04cb79",
+                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/56969acaeb72b1d9e02b6dc3ef38afd0b792745f",
+                "reference": "56969acaeb72b1d9e02b6dc3ef38afd0b792745f",
                 "shasum": ""
             },
             "require-dev": {
@@ -1395,9 +1395,10 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/schema-library/issues",
-                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.8"
+                "source": "https://github.com/helsingborg-stad/schema-library/tree/1.0.0"
             },
-            "time": "2026-09-25T07:39:35+00:00"
+            "time": "2026-11-19T13:33:19+00:00",
+            "published-time": "2026-11-19T13:33:24+00:00"
         },
         {
             "name": "helsingborg-stad/styleguide",
@@ -7650,11 +7651,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "johannheyne/advanced-custom-fields-table-field": 20,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "jeradin/acf-website-field": 20,
-        "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7663,6 +7664,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.11.0"
 }
