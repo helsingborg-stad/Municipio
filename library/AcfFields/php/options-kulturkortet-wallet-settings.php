@@ -47,13 +47,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Absolute path to the Apple WWDR certificate in PEM format.', 'municipio'),
             ],
             [
-                'key' => 'field_6a2301c000008',
-                'label' => __('Apple Wallet icon path', 'municipio'),
-                'name' => 'kulturkortet_wallet_apple_icon',
-                'type' => 'text',
-                'instructions' => __('Absolute path to a PNG icon for the pass.', 'municipio'),
-            ],
-            [
                 'key' => 'field_6a2301c000009',
                 'label' => __('Enable Google Wallet', 'municipio'),
                 'name' => 'kulturkortet_wallet_google_enabled',

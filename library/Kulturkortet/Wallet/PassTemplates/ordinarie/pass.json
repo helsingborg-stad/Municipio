@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "{{APPLE_PASS_TYPE_IDENTIFIER}}",
+  "teamIdentifier": "{{APPLE_TEAM_ID}}",
+  "organizationName": "Helsingborgs stad",
+  "description": "Kulturkortet – Ordinarie",
+  "serialNumber": "{{kortnummer}}",
+  "expirationDate": "{{giltigtTom_ISO8601}}",
+  "sharingProhibited": true,
+  "backgroundColor": "rgb(179, 48, 45)",
+  "foregroundColor": "rgb(255, 255, 255)",
+  "labelColor": "rgb(255, 255, 255)",
+  "storeCard": {
+    "headerFields": [
+      {
+        "key": "giltig",
+        "label": "GILTIGT T.O.M.",
+        "value": "{{giltigtTom_ISO8601}}",
+        "dateStyle": "PKDateStyleShort",
+        "timeStyle": "PKDateStyleNone"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "kategori",
+        "label": "KATEGORI",
+        "value": "Ordinarie"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "namn",
+        "label": "NAMN",
+        "value": "{{fornamn}} {{efternamn}}"
+      },
+      {
+        "key": "kortnummer",
+        "label": "KORTNUMMER",
+        "value": "{{kortnummer}}"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "fri-entre",
+        "label": "Fri entré",
+        "value": "Dunkers kulturhus, Fredriksdal museer och trädgårdar, Kärnan, Sofiero och Helsingborgs idrottsmuseum"
+      },
+      {
+        "key": "rabatter",
+        "label": "Rabatter",
+        "value": "Konserter, teater, scenkonst, utställningar och hos samarbetspartners. Se alla på https://kulturkortet.se/har-galler-kortet/"
+      },
+      {
+        "key": "personligt",
+        "label": "Personligt kort",
+        "value": "Kortet är registrerat på ditt personnummer och får inte lånas ut. Visa giltig legitimation om personalen ber om det."
+      },
+      {
+        "key": "giltighet",
+        "label": "Giltighet",
+        "value": "365 dagar från köpdatum"
+      },
+      {
+        "key": "fornya",
+        "label": "Förnya kortet",
+        "value": "https://helsingborg.entryevent.se/ticketshop/kulturkortet"
+      },
+      {
+        "key": "kalender",
+        "label": "Kulturkalender",
+        "value": "https://kulturkortet.se/kalender/"
+      },
+      {
+        "key": "kontakt",
+        "label": "Frågor om kortet",
+        "value": "kulturkortet@helsingborg.se"
+      },
+      {
+        "key": "utfardare",
+        "label": "Utfärdat av",
+        "value": "Kulturförvaltningen, Helsingborgs stad"
+      }
+    ]
+  },
+  "barcodes": [
+    {
+      "format": "PKBarcodeFormatQR",
+      "message": "{{kortnummer}}",
+      "messageEncoding": "iso-8859-1",
+      "altText": "{{kortnummer}}"
+    }
+  ]
+}

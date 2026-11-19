@@ -4,77 +4,77 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
-/** Builds Apple Wallet JSON data from an active Vitec ticket. */
+use RuntimeException;
+
+/** Builds Apple Wallet JSON data from an active Vitec ticket and a category pass template. */
 class ApplePassDataFactory
 {
     /**
      * @param AppleWalletConfig $config Apple pass identifiers.
+     * @param ApplePassTemplateLoader $templateLoader Loads category pass templates.
      */
-    public function __construct(private AppleWalletConfig $config) {}
+    public function __construct(
+        private AppleWalletConfig $config,
+        private ApplePassTemplateLoader $templateLoader,
+    ) {}
 
     /**
-     * Creates Apple Wallet payload data from the Vitec ticket.
+     * Creates Apple Wallet payload data by filling the category template placeholders from the Vitec ticket.
      *
      * @param array $ticket Active Vitec ticket data.
-     * @param string $barcode Ticket barcode.
+     * @param string $barcode Ticket barcode, used as the card number.
+     * @param string $category Category slug selecting the pass template.
      * @return array Pass data.
+     * @throws RuntimeException When the ticket has no usable expiration date.
      */
-    public function create(array $ticket, string $barcode): array
+    public function create(array $ticket, string $barcode, string $category): array
     {
-        $ticketId = $ticket['id'] ?? null;
-        $serialNumber = is_scalar($ticketId) && (string) $ticketId !== '' ? (string) $ticketId : $barcode;
         $expirationDate = WalletDateFormatter::formatDateTime($ticket['validUntil'] ?? null);
-        $barcodeData = [
-            'message' => $barcode,
-            'format' => 'PKBarcodeFormatQR',
-            'messageEncoding' => 'iso-8859-1',
+        if ($expirationDate === null) {
+            throw new RuntimeException('The ticket does not contain a valid expiration date.');
+        }
+
+        $placeholders = [
+            '{{APPLE_PASS_TYPE_IDENTIFIER}}' => $this->config->getPassTypeIdentifier(),
+            '{{APPLE_TEAM_ID}}' => $this->config->getTeamIdentifier(),
+            '{{kortnummer}}' => $barcode,
+            '{{fornamn}}' => $this->getTicketString($ticket, 'firstname'),
+            '{{efternamn}}' => $this->getTicketString($ticket, 'lastname'),
+            '{{giltigtTom_ISO8601}}' => $expirationDate,
         ];
 
-        return [
-            'formatVersion' => 1,
-            'passTypeIdentifier' => $this->config->getPassTypeIdentifier(),
-            'serialNumber' => substr(hash('sha256', $serialNumber), 0, 40),
-            'teamIdentifier' => $this->config->getTeamIdentifier(),
-            ...($expirationDate !== null ? ['expirationDate' => $expirationDate] : []),
-            'organizationName' => 'Kulturkortet',
-            'description' => 'Kulturkortet',
-            'storeCard' => [
-                'primaryFields' => [[
-                    'key' => 'cardholder',
-                    'label' => 'KORTHAVARE',
-                    'value' => trim(
-                        (is_string($ticket['firstname'] ?? null) ? trim($ticket['firstname']) : '')
-                        . ' '
-                        . (is_string($ticket['lastname'] ?? null) ? trim($ticket['lastname']) : ''),
-                    ),
-                ]],
-                'secondaryFields' => $this->getDateFields($ticket),
-            ],
-            'barcode' => $barcodeData,
-            'barcodes' => [$barcodeData],
-        ];
+        return $this->replacePlaceholders($this->templateLoader->loadPassDefinition($category), $placeholders);
     }
 
     /**
-     * Returns pass fields for ticket dates that can be parsed.
+     * Returns a trimmed string ticket value, or an empty string when it is missing.
      *
      * @param array $ticket Active Vitec ticket data.
-     * @return array Formatted date fields.
+     * @param string $key Ticket key.
+     * @return string The trimmed value.
      */
-    private function getDateFields(array $ticket): array
+    private function getTicketString(array $ticket, string $key): string
     {
-        $fields = [];
-        foreach (['validFrom' => 'GILTIG FRÅN', 'validUntil' => 'GILTIG TILL'] as $key => $label) {
-            $value = WalletDateFormatter::formatDate($ticket[$key] ?? null);
-            if ($value !== null) {
-                $fields[] = [
-                    'key' => $key,
-                    'label' => $label,
-                    'value' => $value,
-                ];
+        return is_string($ticket[$key] ?? null) ? trim($ticket[$key]) : '';
+    }
+
+    /**
+     * Replaces placeholders in every string value of a decoded template, leaving keys untouched.
+     *
+     * @param array $data Decoded template data.
+     * @param array<string, string> $placeholders Placeholder replacements keyed by placeholder.
+     * @return array Data with placeholders replaced.
+     */
+    private function replacePlaceholders(array $data, array $placeholders): array
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = $this->replacePlaceholders($value, $placeholders);
+            } elseif (is_string($value)) {
+                $data[$key] = strtr($value, $placeholders);
             }
         }
 
-        return $fields;
+        return $data;
     }
 }

@@ -45,12 +45,6 @@ class AppleWalletConfig
         return $this->getString('kulturkortet_wallet_apple_wwdr_certificate');
     }
 
-    /** @return string The local path to the Apple Wallet PNG icon. */
-    public function getIconPath(): string
-    {
-        return $this->getString('kulturkortet_wallet_apple_icon');
-    }
-
     /** @return bool Whether Apple Wallet is enabled and all required settings are available. */
     public function hasConfiguration(): bool
     {
@@ -61,8 +55,7 @@ class AppleWalletConfig
             && $this->getPassTypeIdentifier() !== ''
             && $this->getTeamIdentifier() !== ''
             && is_readable($this->getCertificatePath())
-            && is_readable($this->getWwdrCertificatePath())
-            && is_readable($this->getIconPath());
+            && is_readable($this->getWwdrCertificatePath());
     }
 
     /**

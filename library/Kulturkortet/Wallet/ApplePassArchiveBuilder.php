@@ -23,17 +23,16 @@ class ApplePassArchiveBuilder
      * Builds a signed pass archive.
      *
      * @param array $pass Pass JSON data.
-     * @param string $iconContents PNG icon bytes.
+     * @param array<string, string> $images Image bytes keyed by file name, e.g. "icon@2x.png".
      * @param string $workingDirectory Private temporary directory.
      * @return string The complete .pkpass archive.
      * @throws RuntimeException When archive creation fails.
      */
-    public function build(array $pass, string $iconContents, string $workingDirectory): string
+    public function build(array $pass, array $images, string $workingDirectory): string
     {
         $files = [
             'pass.json' => json_encode($pass, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
-            'icon.png' => $iconContents,
-            'icon@2x.png' => $iconContents,
+            ...$images,
         ];
         foreach ($files as $name => $contents) {
             $this->writeFile($workingDirectory . '/' . $name, $contents);
@@ -50,17 +49,18 @@ class ApplePassArchiveBuilder
         $signer = $this->signer ?? new ApplePassSigner($this->config);
         $this->writeFile($workingDirectory . '/signature', $signer->sign($manifestPath, $workingDirectory));
 
-        return $this->createArchive($workingDirectory);
+        return $this->createArchive($workingDirectory, [...array_keys($files), 'manifest.json', 'signature']);
     }
 
     /**
      * Adds generated pass files to a ZIP archive and returns its bytes.
      *
      * @param string $workingDirectory Private temporary directory.
+     * @param string[] $fileNames Names of the files to add, relative to the working directory.
      * @return string The .pkpass archive bytes.
      * @throws RuntimeException When a file cannot be archived.
      */
-    private function createArchive(string $workingDirectory): string
+    private function createArchive(string $workingDirectory, array $fileNames): string
     {
         $archivePath = $workingDirectory . '/pass.pkpass';
         $archive = new ZipArchive();
@@ -69,7 +69,7 @@ class ApplePassArchiveBuilder
             throw new RuntimeException('Unable to create the Apple Wallet pass archive.');
         }
 
-        foreach (['pass.json', 'manifest.json', 'signature', 'icon.png', 'icon@2x.png'] as $file) {
+        foreach ($fileNames as $file) {
             if ($archive->addFile($workingDirectory . '/' . $file, $file)) {
                 continue;
             }

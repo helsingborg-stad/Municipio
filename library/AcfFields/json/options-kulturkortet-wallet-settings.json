@@ -45,13 +45,6 @@
         "instructions": "Absolute path to the Apple WWDR certificate in PEM format."
       },
       {
-        "key": "field_6a2301c000008",
-        "label": "Apple Wallet icon path",
-        "name": "kulturkortet_wallet_apple_icon",
-        "type": "text",
-        "instructions": "Absolute path to a PNG icon for the pass."
-      },
-      {
         "key": "field_6a2301c000009",
         "label": "Enable Google Wallet",
         "name": "kulturkortet_wallet_google_enabled",

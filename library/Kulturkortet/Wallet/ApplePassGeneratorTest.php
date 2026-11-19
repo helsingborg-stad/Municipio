@@ -46,7 +46,6 @@ class ApplePassGeneratorTest extends TestCase
         $config->method('getCertificatePath')->willReturn($paths['certificate']);
         $config->method('getCertificatePassword')->willReturn('passphrase');
         $config->method('getWwdrCertificatePath')->willReturn($paths['wwdr']);
-        $config->method('getIconPath')->willReturn($paths['icon']);
 
         $contents = (new ApplePassGenerator($config))->generate([
             'id' => 'ticket-1',
@@ -67,9 +66,12 @@ class ApplePassGeneratorTest extends TestCase
         static::assertIsString($signature);
 
         static::assertSame('pass.example.kulturkortet', $pass['passTypeIdentifier']);
-        static::assertSame('ticket-barcode', $pass['barcode']['message']);
-        static::assertSame($pass['barcode'], $pass['barcodes'][0]);
+        static::assertSame('ticket-barcode', $pass['barcodes'][0]['message']);
+        static::assertSame('Ada Lovelace', $pass['storeCard']['auxiliaryFields'][0]['value']);
         static::assertSame("\x30", $signature[0]);
+        static::assertContains('strip@2x.png', $this->getArchiveNames($archive));
+        static::assertContains('logo@3x.png', $this->getArchiveNames($archive));
+        static::assertArrayHasKey('icon.png', $manifest);
         static::assertArrayHasKey('signature', array_fill_keys($this->getArchiveNames($archive), true));
         static::assertArrayHasKey('pass.json', $manifest);
         static::assertMatchesRegularExpression('/^[a-f0-9]{40}$/', $manifest['pass.json']);
@@ -102,15 +104,12 @@ class ApplePassGeneratorTest extends TestCase
 
         $certificatePath = $this->temporaryDirectory . '/certificate.p12';
         $wwdrPath = $this->temporaryDirectory . '/wwdr.pem';
-        $iconPath = $this->temporaryDirectory . '/icon.png';
         file_put_contents($certificatePath, $p12);
         file_put_contents($wwdrPath, $pemCertificate);
-        file_put_contents($iconPath, "\x89PNG\r\n\x1a\nwallet-icon");
 
         return [
             'certificate' => $certificatePath,
             'wwdr' => $wwdrPath,
-            'icon' => $iconPath,
         ];
     }
 
