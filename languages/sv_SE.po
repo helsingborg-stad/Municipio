@@ -4411,7 +4411,7 @@ msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. F
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:57
 #: Modularity/source/php/Module/Posts/Posts.php:257
 msgid "Change the lists content"
-msgstr ""
+msgstr "Ändra listans innehåll"
 
 #: library/Customizer/PanelsRegistry.php:342
 #: Modularity/source/php/Module/Map/Map.php:27
