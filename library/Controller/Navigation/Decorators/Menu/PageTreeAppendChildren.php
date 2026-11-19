@@ -3,15 +3,13 @@
 namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
-use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
-use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
+use Municipio\Controller\Navigation\Helper\GetChildrenIndicators;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
-use Municipio\Controller\Navigation\Helper\IsUserLoggedIn;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
-use Municipio\Helper\GetGlobal;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetPostType;
+use WpService\Contracts\IsPostTypeHierarchical;
 
 /**
  * Append children to page tree
@@ -21,7 +19,7 @@ class PageTreeAppendChildren implements MenuInterface
     /**
      * Constructor
      */
-    public function __construct(private MenuInterface $inner, private GetPostType&ApplyFilters $wpService)
+    public function __construct(private MenuInterface $inner, private GetPostType&ApplyFilters&IsPostTypeHierarchical $wpService)
     {
     }
 
@@ -39,6 +37,11 @@ class PageTreeAppendChildren implements MenuInterface
         }
 
         $menuItemsIdAsKey = $this->getIdStructuredMenuItems($menu['items']);
+        $childrenIndicators = GetChildrenIndicators::getChildrenIndicators(
+            $menu['items'],
+            CurrentPostId::get(),
+            $this->wpService
+        );
 
         $newMenuItems = [];
         foreach ($menu['items'] as &$menuItem) {
@@ -46,7 +49,7 @@ class PageTreeAppendChildren implements MenuInterface
                 continue;
             }
 
-            $children = $this->getChildrenForMenuItem($menuItem);
+            $children = $this->getChildrenForMenuItem($menuItem, $childrenIndicators);
 
             $menuItem['children'] = is_array($children) ?
             $this->processChildren($children, $menuItemsIdAsKey, $newMenuItems) :
@@ -150,9 +153,10 @@ class PageTreeAppendChildren implements MenuInterface
      * Retrieves the children for a given menu item.
      *
      * @param array $menuItem The menu item data.
+     * @param array $childrenIndicators Child-existence indicators keyed by menu item ID.
      * @return array|bool The children of the menu item, or false if there are no children.
      */
-    private function getChildrenForMenuItem(array $menuItem): array|bool
+    private function getChildrenForMenuItem(array $menuItem, array $childrenIndicators): array|bool
     {
         if ($menuItem['id'] == CurrentPostId::get()) {
             $children = GetPostsByParent::getPostsByParent(
@@ -173,67 +177,7 @@ class PageTreeAppendChildren implements MenuInterface
             return is_array($translatedChildren) ? $translatedChildren : [];
         }
 
-        return $this->indicateChildren($menuItem['id']);
-    }
-
-    /**
-     * Indicates whether a post has children or not.
-     *
-     * @param MenuConfigInterface $menuConfig The menu configuration object.
-     * @param int $postId The ID of the post.
-     * @return bool Returns true if the post has children, false otherwise.
-     */
-    private function indicateChildren($postId): bool
-    {
-        //Define to omit error
-        $postTypeHasPosts = null;
-
-        $localWpdb = GetGlobal::getGlobal('wpdb');
-
-        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
-            "post_status IN('publish', 'private')" :
-            "post_status = 'publish'";
-
-        $hiddenPostIds = implode(", ", GetHiddenPostIds::getHiddenPostIds());
-
-        $currentPostTypeChildren = $localWpdb->get_var(
-            $localWpdb->prepare("
-        SELECT ID
-        FROM {$localWpdb->posts}
-        WHERE post_parent = %d
-        AND {$postStatus}
-        AND ID NOT IN({$hiddenPostIds})
-        LIMIT 1
-      ", $postId)
-        );
-
-        //Check if posttype has content
-        $pageForPostTypeIds = GetPageForPostTypeIds::getPageForPostTypeIds();
-        if (
-            array_key_exists($postId, $pageForPostTypeIds) &&
-            is_post_type_hierarchical($pageForPostTypeIds[$postId])
-        ) {
-            $postTypeHasPosts = $localWpdb->get_var(
-                $localWpdb->prepare("
-                    SELECT ID
-                    FROM {$localWpdb->posts}
-                    WHERE post_parent = 0
-                    AND {$postStatus}
-                    AND post_type = %s
-                    AND ID NOT IN({$hiddenPostIds})
-                    LIMIT 1
-                ", $pageForPostTypeIds[$postId])
-            );
-        }
-
-        //Return indication boolean
-        if (!is_null($currentPostTypeChildren)) {
-            return true;
-        } elseif (!is_null($postTypeHasPosts)) {
-            return true;
-        } else {
-            return false;
-        }
+        return $childrenIndicators[$menuItem['id']] ?? false;
     }
 
     /**
