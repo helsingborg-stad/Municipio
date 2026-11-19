@@ -1,19 +1,19 @@
 @php
     $isDemand = $post->getSchema() instanceof \Municipio\Schema\SponsorDemand;
-    $typeLabel = $isDemand ? 'Sponsoruppdrag' : 'Sponsorerbjudande';
+    $typeLabel = $isDemand ? __('Sponsorship request', 'municipio') : __('Sponsorship offer', 'municipio');
 
     $image = $post->getImage();
     $facts = [
-        ['label' => $isDemand ? 'Backningen behövs senast' : 'Datum för backningen', 'value' => $sponsor['supportDate'], 'icon' => 'event'],
-        ['label' => 'Plats för backningen', 'value' => $sponsor['location'], 'icon' => 'location_on'],
-        ['label' => $isDemand ? 'Det här behöver föreningen' : 'Det här vill företaget bidra med', 'value' => $sponsor['resources'], 'icon' => 'category'],
-        ['label' => 'Föreningens huvudsakliga verksamhet', 'value' => $sponsor['activities'], 'icon' => 'local_activity'],
+        ['label' => $isDemand ? __('Support needed by', 'municipio') : __('Sponsorship date', 'municipio'), 'value' => $sponsor['supportDate'], 'icon' => 'event'],
+        ['label' => __('Sponsorship location', 'municipio'), 'value' => $sponsor['location'], 'icon' => 'location_on'],
+        ['label' => $isDemand ? __('What the association needs', 'municipio') : __('What the company wants to contribute', 'municipio'), 'value' => $sponsor['resources'], 'icon' => 'category'],
+        ['label' => __('Main activity of the association', 'municipio'), 'value' => $sponsor['activities'], 'icon' => 'local_activity'],
     ];
 
     $conditions = [
-        ['label' => 'Det här söker föreningen hos en backare', 'value' => $sponsor['preferences']],
-        ['label' => 'Särskilt att tänka på', 'value' => $sponsor['practicalInformation']],
-        ['label' => $isDemand ? 'Det här kan föreningen erbjuda som tack' : 'Det här önskar företaget i gengäld', 'value' => $sponsor['counterPerformance']],
+        ['label' => __('What the association looks for in a sponsor', 'municipio'), 'value' => $sponsor['preferences']],
+        ['label' => __('Things to keep in mind', 'municipio'), 'value' => $sponsor['practicalInformation']],
+        ['label' => $isDemand ? __('What the association can offer in return', 'municipio') : __('What the company would like in return', 'municipio'), 'value' => $sponsor['counterPerformance']],
     ];
 
 @endphp
@@ -26,7 +26,7 @@
             @endtypography
             @typography(['element' => 'h1', 'variant' => 'h1', 'id' => 'page-title']){{ $post->getTitle() }}@endtypography
             @if($sponsor['contacts'])
-                <a class="u-display--inline-block u-margin__top--2" href="#sponsor-contact"><strong>Till kontaktuppgifter</strong></a>
+                <a class="u-display--inline-block u-margin__top--2" href="#sponsor-contact"><strong>{{ __('Go to contact details', 'municipio') }}</strong></a>
             @endif
         </div>
         @if($image)

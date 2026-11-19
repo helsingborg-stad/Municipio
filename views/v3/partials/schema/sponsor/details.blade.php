@@ -1,7 +1,7 @@
 @if($sponsor['description'])
     <section class="u-margin__top--5">
         @typography(['element' => 'h2', 'variant' => 'h3'])
-            {{ $isDemand ? 'Om aktiviteten' : 'Om erbjudandet' }}
+            {{ $isDemand ? __('About the activity', 'municipio') : __('About the offer', 'municipio') }}
         @endtypography
         {!! $sponsor['description'] !!}
     </section>
@@ -19,7 +19,7 @@
 @if(array_filter(array_column($facts, 'value')))
     <div class="u-margin__top--5">
         @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['u-margin__top--2']])
-            Backningen i korthet
+            {{ __('Sponsorship at a glance', 'municipio') }}
         @endtypography
         @collection(['unbox' => true, 'bordered' => true, 'classList' => ['u-margin__top--2']])
             @foreach($facts as $fact)
@@ -39,7 +39,7 @@
 @if($sponsor['contacts'])
     <section class="u-margin__top--5" id="sponsor-contact" tabindex="-1">
         @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['u-margin__bottom--2']])
-            Kontaktuppgifter
+            {{ __('Contact details', 'municipio') }}
         @endtypography
         @card([])
             @include('partials.schema.sponsor.contacts', ['contacts' => $sponsor['contacts']])
@@ -50,14 +50,14 @@
 @if(array_filter($sponsor['organization']))
     <section class="u-margin__top--5">
         @typography(['element' => 'h2', 'variant' => 'h3'])
-            {{ $isDemand ? 'Om föreningen' : 'Om företaget' }}
+            {{ $isDemand ? __('About the association', 'municipio') : __('About the company', 'municipio') }}
         @endtypography
         @if($sponsor['organization']['name'])
             @typography(['element' => 'p'])<strong>{{ $sponsor['organization']['name'] }}</strong>@endtypography
         @endif
         {!! $sponsor['organization']['description'] !!}
         @if($sponsor['organization']['url'])
-            <p><a href="{{ $sponsor['organization']['url'] }}" target="_blank" rel="noopener noreferrer">Besök {{ $isDemand ? 'Föreningens' : 'Företagets' }} webbplats</a></p>
+            <p><a href="{{ $sponsor['organization']['url'] }}" target="_blank" rel="noopener noreferrer">{{ $isDemand ? __('Visit the association’s website', 'municipio') : __('Visit the company’s website', 'municipio') }}</a></p>
         @endif
     </section>
 @endif
