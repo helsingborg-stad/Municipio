@@ -68,6 +68,7 @@ class ApplePassGeneratorTest extends TestCase
 
         static::assertSame('pass.example.kulturkortet', $pass['passTypeIdentifier']);
         static::assertSame('ticket-barcode', $pass['barcode']['message']);
+        static::assertSame($pass['barcode'], $pass['barcodes'][0]);
         static::assertSame("\x30", $signature[0]);
         static::assertArrayHasKey('signature', array_fill_keys($this->getArchiveNames($archive), true));
         static::assertArrayHasKey('pass.json', $manifest);

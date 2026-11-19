@@ -24,6 +24,11 @@ class ApplePassDataFactory
         $ticketId = $ticket['id'] ?? null;
         $serialNumber = is_scalar($ticketId) && (string) $ticketId !== '' ? (string) $ticketId : $barcode;
         $expirationDate = WalletDateFormatter::formatDateTime($ticket['validUntil'] ?? null);
+        $barcodeData = [
+            'message' => $barcode,
+            'format' => 'PKBarcodeFormatQR',
+            'messageEncoding' => 'iso-8859-1',
+        ];
 
         return [
             'formatVersion' => 1,
@@ -45,16 +50,8 @@ class ApplePassDataFactory
                 ]],
                 'secondaryFields' => $this->getDateFields($ticket),
             ],
-            'barcode' => [
-                'message' => $barcode,
-                'format' => 'PKBarcodeFormatQR',
-                'messageEncoding' => 'iso-8859-1',
-            ],
-            'barcodes' => [[
-                'message' => $barcode,
-                'format' => 'PKBarcodeFormatQR',
-                'messageEncoding' => 'iso-8859-1',
-            ]],
+            'barcode' => $barcodeData,
+            'barcodes' => [$barcodeData],
         ];
     }
 
