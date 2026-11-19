@@ -25,13 +25,13 @@ class SponsorPresentation
 
         return [
             'description' => $this->richText($data['description'] ?? ''),
-            'supportDate' => $this->date($data[$isDemand ? 'municipio:supportNeededBy' : 'municipio:sponsorshipDate'] ?? ''),
-            'location' => $data['municipio:supportLocation'] ?? '',
+            'supportDate' => $this->date($data[$isDemand ? 'sponsor:supportNeededBy' : 'sponsor:sponsorshipDate'] ?? ''),
+            'location' => $data['sponsor:supportLocation'] ?? '',
             'resources' => $this->terms($data['keywords'] ?? [], 'resource'),
             'activities' => $isDemand ? $this->terms($organization['keywords'] ?? [], 'activity') : '',
-            'preferences' => $data['municipio:sponsorPreferences'] ?? '',
-            'practicalInformation' => $data['municipio:practicalInformation'] ?? '',
-            'counterPerformance' => $data[$isDemand ? 'municipio:counterPerformance' : 'municipio:requestedCounterPerformance'] ?? '',
+            'preferences' => $data['sponsor:sponsorPreferences'] ?? '',
+            'practicalInformation' => $data['sponsor:practicalInformation'] ?? '',
+            'counterPerformance' => $data[$isDemand ? 'sponsor:counterPerformance' : 'sponsor:requestedCounterPerformance'] ?? '',
             'organization' => [
                 'name' => $organization['name'] ?? '',
                 'description' => $this->richText($organization['description'] ?? ''),
