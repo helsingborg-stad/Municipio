@@ -1,21 +1,42 @@
-<div id="article" class="c-sponsor u-width--100" tabindex="-1">
-    @typography(['element' => 'p', 'classList' => ['c-typography__variant--lead', 'u-margin__top--0', 'u-margin__bottom--2']])
-        {{ $sponsorTypeLabel }}@if($sponsor['organization']['name'])<span class="u-margin__x--1">/</span>{{ $sponsor['organization']['name'] }}@endif
-    @endtypography
-    @typography(['element' => 'h1', 'variant' => 'h1', 'id' => 'page-title'])
-        {{ $post->getTitle() }}
-    @endtypography
+@php
+    $isDemand = $post->getSchema() instanceof \Municipio\Schema\SponsorDemand;
+    $typeLabel = $isDemand ? 'Sponsoruppdrag' : 'Sponsorerbjudande';
 
-    @if($image = $post->getImage())
-        @include('partials.schema.sponsor.image', ['imageSrc' => $image, 'imageAlt' => ''])
-    @endif
+    $image = $post->getImage();
+    $facts = [
+        ['label' => $isDemand ? 'Backningen behövs senast' : 'Datum för backningen', 'value' => $sponsor['supportDate'], 'icon' => 'event'],
+        ['label' => 'Plats för backningen', 'value' => $sponsor['location'], 'icon' => 'location_on'],
+        ['label' => $isDemand ? 'Det här behöver föreningen' : 'Det här vill företaget bidra med', 'value' => $sponsor['resources'], 'icon' => 'category'],
+        ['label' => 'Föreningens huvudsakliga verksamhet', 'value' => $sponsor['activities'], 'icon' => 'local_activity'],
+    ];
 
-    @if($sponsor['description'])
-        <section class="c-stack u-margin__top--4">
-            @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['u-margin__bottom--0']]){{ $sponsorDescriptionHeading }}@endtypography
-            <div>{!! $sponsor['description'] !!}</div>
-        </section>
-    @endif
+    $conditions = [
+        ['label' => 'Det här söker föreningen hos en backare', 'value' => $sponsor['preferences']],
+        ['label' => 'Särskilt att tänka på', 'value' => $sponsor['practicalInformation']],
+        ['label' => $isDemand ? 'Det här kan föreningen erbjuda som tack' : 'Det här önskar företaget i gengäld', 'value' => $sponsor['counterPerformance']],
+    ];
 
-    @include('partials.schema.sponsor.details')
+@endphp
+
+<div id="article" class="u-width--100 o-grid o-grid--no-gutter u-justify-content--center" tabindex="-1">
+    <header class="o-grid-12 o-grid-8@md">
+        <div>
+            @typography(['element' => 'p', 'variant' => 'lead', 'classList' => ['u-margin__bottom--2']])
+                {{ $typeLabel }}@if($sponsor['organization']['name']) · {{ $sponsor['organization']['name'] }}@endif
+            @endtypography
+            @typography(['element' => 'h1', 'variant' => 'h1', 'id' => 'page-title']){{ $post->getTitle() }}@endtypography
+            @if($sponsor['contacts'])
+                <a class="u-display--inline-block u-margin__top--2" href="#sponsor-contact"><strong>Till kontaktuppgifter</strong></a>
+            @endif
+        </div>
+        @if($image)
+            <div>
+                @include('partials.schema.sponsor.image', ['imageSrc' => $image, 'imageAlt' => ''])
+            </div>
+        @endif
+    </header>
+
+    <div class="o-grid-12 o-grid-6@md">
+        @include('partials.schema.sponsor.details')
+    </div>
 </div>
