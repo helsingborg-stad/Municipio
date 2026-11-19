@@ -12,18 +12,7 @@ class GoogleWalletLinkFactoryTest extends TestCase
     /** Verifies that ticket data is included in the signed save link. */
     public function testCreatesGoogleWalletSaveLinkWithTicketBarcode(): void
     {
-        $key = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_RSA, 'private_key_bits' => 2048]);
-        static::assertNotFalse($key);
-        static::assertTrue(openssl_pkey_export($key, $privateKey));
-
-        $config = $this->createMock(GoogleWalletConfig::class);
-        $config->method('hasConfiguration')->willReturn(true);
-        $config->method('getIssuerId')->willReturn('123456789');
-        $config->method('getClassSuffix')->willReturn('kulturkortet');
-        $config->method('getServiceAccountEmail')->willReturn('wallet@example.com');
-        $config->method('getServiceAccountPrivateKey')->willReturn($privateKey);
-
-        $link = (new GoogleWalletLinkFactory($config))->createLink([
+        $link = $this->createGoogleWalletLinkFactory()->createLink([
             'id' => 'ticket-1',
             'firstname' => 'Ada',
             'lastname' => 'Lovelace',
@@ -50,17 +39,7 @@ class GoogleWalletLinkFactoryTest extends TestCase
     /** Verifies that renewed tickets receive distinct objects with their original expiration time. */
     public function testUsesBarcodeForObjectIdentityAndPreservesExpirationDateTime(): void
     {
-        $key = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_RSA, 'private_key_bits' => 2048]);
-        static::assertNotFalse($key);
-        static::assertTrue(openssl_pkey_export($key, $privateKey));
-
-        $config = $this->createMock(GoogleWalletConfig::class);
-        $config->method('hasConfiguration')->willReturn(true);
-        $config->method('getIssuerId')->willReturn('123456789');
-        $config->method('getClassSuffix')->willReturn('kulturkortet');
-        $config->method('getServiceAccountEmail')->willReturn('wallet@example.com');
-        $config->method('getServiceAccountPrivateKey')->willReturn($privateKey);
-        $factory = new GoogleWalletLinkFactory($config);
+        $factory = $this->createGoogleWalletLinkFactory();
 
         $firstTicket = ['id' => 'customer-1', 'barcode' => 'ticket-old', 'validUntil' => '2030-12-31T23:59:58+02:00'];
         $renewedTicket = [...$firstTicket, 'barcode' => 'ticket-renewed'];
@@ -108,5 +87,22 @@ class GoogleWalletLinkFactoryTest extends TestCase
         $claims = json_decode($decodedPayload, true, flags: JSON_THROW_ON_ERROR);
 
         return $claims['payload']['genericObjects'][0];
+    }
+
+    /** Creates a Google Wallet factory with a temporary RSA signing key. */
+    private function createGoogleWalletLinkFactory(): GoogleWalletLinkFactory
+    {
+        $key = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_RSA, 'private_key_bits' => 2048]);
+        static::assertNotFalse($key);
+        static::assertTrue(openssl_pkey_export($key, $privateKey));
+
+        $config = $this->createMock(GoogleWalletConfig::class);
+        $config->method('hasConfiguration')->willReturn(true);
+        $config->method('getIssuerId')->willReturn('123456789');
+        $config->method('getClassSuffix')->willReturn('kulturkortet');
+        $config->method('getServiceAccountEmail')->willReturn('wallet@example.com');
+        $config->method('getServiceAccountPrivateKey')->willReturn($privateKey);
+
+        return new GoogleWalletLinkFactory($config);
     }
 }
