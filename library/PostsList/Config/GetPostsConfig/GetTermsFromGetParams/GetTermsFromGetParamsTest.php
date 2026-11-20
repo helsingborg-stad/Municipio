@@ -62,4 +62,47 @@ class GetTermsFromGetParamsTest extends TestCase
         $this->assertSame('term1', $terms[0]->slug);
         $this->assertSame('term2', $terms[1]->slug);
     }
+
+    #[TestDox('returns a term with id 0 when none of the requested terms exist, so the filter is not dropped')]
+    public function testGetTermsReturnsUnmatchedTermWhenNoTermsFound(): void
+    {
+        $prefix         = 'prefix_';
+        $getParams      = [$prefix . 'category' => 'missing-term'];
+        $taxonomy       = new \WP_Taxonomy([], 'category');
+        $taxonomy->name = 'category';
+        $taxonomies     = [new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT)];
+        $filterConfig   = new TestFilterConfig($taxonomies);
+        $wpService      = new TestGetTermsService();
+
+        $terms = (new GetTermsFromGetParams($getParams, $filterConfig, $prefix, $wpService))->getTerms();
+
+        $this->assertCount(1, $terms);
+        $this->assertSame(0, $terms[0]->term_id);
+        $this->assertSame('category', $terms[0]->taxonomy);
+        $this->assertSame('missing-term', $terms[0]->slug);
+    }
+
+    #[TestDox('ignores empty filter values')]
+    public function testGetTermsIgnoresEmptyValues(): void
+    {
+        $taxonomy       = new \WP_Taxonomy([], 'category');
+        $taxonomy->name = 'category';
+        $filterConfig   = new TestFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT)]);
+
+        $terms = (new GetTermsFromGetParams(['prefix_category' => ['', ''], 'prefix_category2' => ''], $filterConfig, 'prefix_', new TestGetTermsService()))->getTerms();
+
+        $this->assertSame([], $terms);
+    }
+
+    #[TestDox('returns no terms when no filter parameters are present')]
+    public function testGetTermsReturnsEmptyArrayWithoutFilterParams(): void
+    {
+        $taxonomy       = new \WP_Taxonomy([], 'category');
+        $taxonomy->name = 'category';
+        $filterConfig   = new TestFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT)]);
+
+        $terms = (new GetTermsFromGetParams(['other' => 'value'], $filterConfig, 'prefix_', new TestGetTermsService()))->getTerms();
+
+        $this->assertSame([], $terms);
+    }
 }
