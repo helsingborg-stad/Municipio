@@ -75,6 +75,21 @@ function isIgnored(issue: ValidatorIssue, bundle: CssBundle): boolean {
 }
 
 describe('CssBuiltOutputValidation', () => {
+	it('resolves the Material Symbols font URL relative to the built stylesheet', async () => {
+		const dist = path.join(projectRoot, 'assets/dist');
+		const manifest = JSON.parse(await readFile(path.join(dist, 'manifest.json'), 'utf8')) as ValidatorManifest;
+		const stylesheet = path.join(dist, manifest['css/material-symbols.css']);
+		const css = await readFile(stylesheet, 'utf8');
+
+		const fontUrl = css.match(/url\(\s*["']?([^"')\s]+\.woff2)["']?\s*\)/)?.[1];
+		if (!fontUrl) {
+			throw new Error(`No WOFF2 font URL found in ${stylesheet}`);
+		}
+		const font = await readFile(path.resolve(path.dirname(stylesheet), fontUrl));
+
+		expect(font.toString('ascii', 0, 4)).toBe('wOF2');
+	});
+
 	it('validates built Municipio and Modularity CSS bundles with CSSTree', async () => {
 		const bundles = await getBuiltCssBundles();
 		expect(bundles.length).toBeGreaterThan(0);
