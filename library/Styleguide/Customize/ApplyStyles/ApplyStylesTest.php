@@ -213,6 +213,27 @@ class ApplyStylesTest extends TestCase
         static::assertStringContainsString('--color--primary: #667b50;', $settings['styles'][1]['css']);
     }
 
+    #[TestDox('bare document tokens are unlayered root declarations')]
+    public function testBareDocumentTokensAreUnlayeredRootDeclarations(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [
+                '--color--primary' => '#667b50',
+                '--color--secondary' => '#d5dec8',
+            ],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        $subject = new ApplyStyles($wpService);
+        $css = $subject->getBareDocumentTokensAsCss();
+
+        static::assertStringContainsString(':root {', $css);
+        static::assertStringContainsString('--color--primary: #667b50;', $css);
+        static::assertStringContainsString('--color--secondary: #d5dec8;', $css);
+        static::assertStringNotContainsString('@layer', $css);
+        static::assertStringNotContainsString('.editor-styles-wrapper', $css);
+    }
+
     #[TestDox('emits optional colour schemes after base tokens and ignores derived scheme tokens')]
     public function testEmitsOptionalColourSchemes(): void
     {
