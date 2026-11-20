@@ -17,7 +17,8 @@
         "label": "GILTIGT T.O.M.",
         "value": "{{giltigtTom_ISO8601}}",
         "dateStyle": "PKDateStyleShort",
-        "timeStyle": "PKDateStyleNone"
+        "timeStyle": "PKDateStyleNone",
+        "ignoresTimeZone": true
       }
     ],
     "secondaryFields": [
