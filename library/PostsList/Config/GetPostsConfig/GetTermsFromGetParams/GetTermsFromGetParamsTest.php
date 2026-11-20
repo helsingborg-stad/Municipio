@@ -89,7 +89,7 @@ class GetTermsFromGetParamsTest extends TestCase
         $taxonomy->name = 'category';
         $filterConfig   = new TestFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT)]);
 
-        $terms = (new GetTermsFromGetParams(['prefix_category' => ['', ''], 'prefix_category2' => ''], $filterConfig, 'prefix_', new TestGetTermsService()))->getTerms();
+        $terms = (new GetTermsFromGetParams(['prefix_category' => ['', '']], $filterConfig, 'prefix_', new TestGetTermsService()))->getTerms();
 
         $this->assertSame([], $terms);
     }

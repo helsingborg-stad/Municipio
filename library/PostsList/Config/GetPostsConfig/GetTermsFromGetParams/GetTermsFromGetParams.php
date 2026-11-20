@@ -81,7 +81,6 @@ class GetTermsFromGetParams
         $term->term_id  = 0;
         $term->taxonomy = $taxonomy;
         $term->slug     = $slug;
-        $term->name     = $slug;
 
         return $term;
     }
