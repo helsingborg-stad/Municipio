@@ -34,7 +34,7 @@
     "dompdf/dompdf": "v3.1.6",
     "helsingborg-stad/wpservice": "^2.0",
     "helsingborg-stad/acfservice": "^1.0.0",
-    "helsingborg-stad/schema-library": "0.5.8",
+    "helsingborg-stad/schema-library": "1.0.0",
     "johannheyne/advanced-custom-fields-table-field": "dev-master",
     "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
     "jeradin/acf-website-field": "dev-master",
@@ -64,7 +64,7 @@
     "clear:blade-cache": "@php utils/clear-blade-cache.php",
     "post-update-cmd": [],
     "pre-autoload-dump": "HelsingborgStad\\MaterialSymbols\\Script\\Composer\\Prune::run",
-    "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,assets/dist/blocks,Modularity/source/php",
+    "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,assets/dist/blocks,Modularity/source/php,views/v3/partials/schema/sponsor",
     "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
     "make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root",
     "pin-all-latest": [
