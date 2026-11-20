@@ -7,9 +7,9 @@
   "serialNumber": "{{kortnummer}}",
   "expirationDate": "{{giltigtTom_ISO8601}}",
   "sharingProhibited": true,
-  "backgroundColor": "rgb(179, 48, 45)",
-  "foregroundColor": "rgb(255, 255, 255)",
-  "labelColor": "rgb(255, 255, 255)",
+  "backgroundColor": "rgb(235, 94, 91)",
+  "foregroundColor": "rgb(26, 26, 26)",
+  "labelColor": "rgb(26, 26, 26)",
   "storeCard": {
     "headerFields": [
       {
@@ -22,22 +22,12 @@
       }
     ],
     "secondaryFields": [
-      {
-        "key": "kategori",
-        "label": "KATEGORI",
-        "value": "Ordinarie"
-      }
     ],
     "auxiliaryFields": [
       {
         "key": "namn",
         "label": "NAMN",
         "value": "{{fornamn}} {{efternamn}}"
-      },
-      {
-        "key": "kortnummer",
-        "label": "KORTNUMMER",
-        "value": "{{kortnummer}}"
       }
     ],
     "backFields": [
@@ -63,8 +53,8 @@
       },
       {
         "key": "fornya",
-        "label": "Förnya kortet",
-        "value": "https://helsingborg.entryevent.se/ticketshop/kulturkortet"
+        "label": "Förläng kortet",
+        "value": "Förläng kortet på nätet i Helsingborgs kulturbutik: https://helsingborg.entryevent.se/ticketshop/kulturkortet\n\nDu kan också förlänga i biljettkassan på Dunkers kulturhus året om, och på Fredriksdal museer och trädgårdar, Kärnan och Sofiero slott och slottsträdgård när de har säsongsöppet.\n\nSka du förlänga någon annans kort? Ta med personens nuvarande kort. På grund av GDPR kan personalen inte söka på någon annans personnummer."
       },
       {
         "key": "kalender",
