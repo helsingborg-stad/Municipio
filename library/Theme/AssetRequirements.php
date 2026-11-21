@@ -45,6 +45,24 @@ class AssetRequirements
         self::$instance?->add($requirement);
     }
 
+    /**
+     * Prints an already enqueued script with the late scripts.
+     *
+     * Use this for scripts enqueued by other asset managers while Blade
+     * renders, after wp_footer() has been captured.
+     */
+    public static function requireLateScript(string $handle): void
+    {
+        self::$instance?->addLateScript($handle);
+    }
+
+    public function addLateScript(string $handle): void
+    {
+        if (!in_array($handle, $this->scriptHandles, true)) {
+            $this->scriptHandles[] = $handle;
+        }
+    }
+
     public function add(string $requirement): void
     {
         if (array_key_exists($requirement, $this->requested)) {
