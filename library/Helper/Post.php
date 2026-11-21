@@ -590,15 +590,13 @@ class Post
      */
     public static function replaceBuiltinClasses($content)
     {
+        $content = \Municipio\Content\Images\ImageAlignment::replaceAlignmentClasses((string) $content);
+
         return str_replace(
             [
                 'wp-caption',
                 'c-image-text',
                 'wp-image-',
-                'alignleft',
-                'alignright',
-                'alignnone',
-                'aligncenter',
 
                 //Old inline transition button
                 'btn-theme-first',
@@ -616,10 +614,6 @@ class Post
                 'c-image',
                 'c-image__caption',
                 'c-image__image wp-image-',
-                'u-margin__y--2 u-width--100@xs u-margin__right--auto',
-                'u-margin__y--2 u-width--100@xs u-margin__left--auto',
-                '',
-                'u-margin__y--2 u-margin__x--auto u-text-align--center',
 
                 //Old inline transition button
                 'c-button c-button__filled c-button__filled--primary c-button--md',

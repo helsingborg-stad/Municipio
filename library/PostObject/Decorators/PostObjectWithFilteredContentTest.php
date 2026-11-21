@@ -120,4 +120,25 @@ class PostObjectWithFilteredContentTest extends TestCase
         $this->assertEquals(123, $decoratedPost->getId());
         $this->assertEquals('http://example.com/test', $decoratedPost->getPermalink());
     }
+
+    #[TestDox('getContent replaces classic editor alignment classes with float utility classes')]
+    public function testGetContentReplacesAlignmentClassesWithFloatClasses(): void
+    {
+        $rawContent = '<p><img class="wp-image-1 size-thumbnail alignright" src="image.jpg" alt="" /></p><p>Text</p>';
+
+        $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject->method('getContent')->willReturn($rawContent);
+        $postObject->method('getId')->willReturn(456);
+
+        $wpService = new FakeWpService([
+            'getCurrentBlogId' => 1,
+            'applyFilters'     => fn($hook, $content) => $content,
+        ]);
+
+        $result = (new PostObjectWithFilteredContent($postObject, $wpService))->getContent();
+
+        $this->assertStringContainsString('u-float--right', $result);
+        $this->assertStringNotContainsString('alignright', $result);
+        $this->assertStringNotContainsString('u-margin__left--auto', $result);
+    }
 }
