@@ -6,6 +6,8 @@ use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\ViewCallableProviders\Filter\TermPostCounts\StoredTermPostCounts;
+use Municipio\PostsList\ViewCallableProviders\Filter\TermPostCounts\TermPostCountsInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetTerms;
@@ -16,6 +18,8 @@ use WP_Term;
  *
  * Taxonomies using the checkbox filter type get a `checkboxes` key holding the arguments for one
  * option component per term, instead of the select options.
+ *
+ * Which terms are shown, and the post count shown for each, is decided by the term post counts.
  */
 class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProviderInterface
 {
@@ -24,12 +28,14 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
      *
      * @param FilterConfigInterface $filterConfig
      * @param GetTerms&ApplyFilters $wpService
+     * @param TermPostCountsInterface $termPostCounts
      */
     public function __construct(
         private FilterConfigInterface $filterConfig,
         private GetPostsConfigInterface $getPostsConfig,
         private GetTerms&ApplyFilters $wpService,
-        private string $queryVarNamePrefix
+        private string $queryVarNamePrefix,
+        private TermPostCountsInterface $termPostCounts = new StoredTermPostCounts(),
     ) {
     }
 
@@ -99,24 +105,25 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         $allSelectArguments = [];
         foreach ($taxonomyFilterConfigs as $taxonomyConfig) {
             $taxonomyName = $taxonomyConfig->getTaxonomy()->name;
+            $preselected  = $this->getPreselectedTermSlugs($taxonomyName);
+            $terms        = $this->termPostCounts->applyToTerms($taxonomyName, $termsByTaxonomy[$taxonomyName] ?? [], $preselected);
 
-            if (empty($termsByTaxonomy[$taxonomyName])) {
+            if (empty($terms)) {
                 continue;
             }
 
-            $label       = $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Label', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy());
-            $name        = $this->queryVarNamePrefix . $taxonomyName;
-            $preselected = $this->getPreselectedTermSlugs($taxonomyName);
+            $label = $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Label', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy());
+            $name  = $this->queryVarNamePrefix . $taxonomyName;
 
             if ($taxonomyConfig->getFilterType() === TaxonomyFilterType::CHECKBOX) {
                 $allSelectArguments[] = [
                     'label'      => $label,
-                    'checkboxes' => $this->buildCheckboxes($termsByTaxonomy[$taxonomyName], $name, $preselected),
+                    'checkboxes' => $this->buildCheckboxes($terms, $name, $preselected),
                 ];
                 continue;
             }
 
-            $options         = $this->buildOptions($termsByTaxonomy[$taxonomyName]);
+            $options         = $this->buildOptions($terms);
             $selectArguments = [
                 'label'       => $label,
                 'name'        => $name,
