@@ -49,5 +49,6 @@
         ])
             <!-- QR code will be rendered here by JavaScript -->
         @endelement
+        @include('partials.wallet-buttons')
     @endelement
 @endelement

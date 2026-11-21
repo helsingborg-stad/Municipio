@@ -34,6 +34,14 @@ class KulturkortetFeature implements Hookable
         ))->addHooks();
 
         /**
+         * Setup Kulturkortet Wallet options page
+         */
+        (new \Municipio\Kulturkortet\Wallet\WalletOptionsPage(
+            $this->wpService,
+            $this->acfService,
+        ))->addHooks();
+
+        /**
          * Setup Kulturkortet QR Code Viewer
          */
         (new \Municipio\Kulturkortet\QRCodeViewer\KulturkortetQRCodeViewerFeature(

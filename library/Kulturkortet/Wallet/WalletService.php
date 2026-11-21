@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Municipio\Kulturkortet\Wallet;
+
+use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
+use RuntimeException;
+use WpService\WpService;
+
+/** Creates short-lived Apple pass URLs. */
+class WalletService
+{
+    public const APPLE_PASS_QUERY_VAR = 'kulturkortet_apple_pass';
+    public const APPLE_PASS_TRANSIENT_PREFIX = 'kulturkortet_apple_pass_';
+    private const TOKEN_EXPIRATION = 300;
+
+    /**
+     * @param AppleWalletConfig $config Wallet configuration.
+     * @param WpService $wpService WordPress transient and query-var services.
+     */
+    public function __construct(
+        private AppleWalletConfig $config,
+        private WpService $wpService,
+    ) {}
+
+    /**
+     * Creates a one-time URL for an Apple pass.
+     *
+     * @param array $ticket Active Vitec ticket data.
+     * @param MunicipioAuthNavigationInterface $navigation Builds the current-page URL.
+     * @return string|null The pass URL, or null when Apple Wallet is unavailable.
+     * @throws RuntimeException When the temporary pass data cannot be stored.
+     */
+    public function createApplePassUrl(array $ticket, MunicipioAuthNavigationInterface $navigation): ?string
+    {
+        $barcode = $ticket['barcode'] ?? null;
+        if (!$this->config->hasConfiguration() || !is_string($barcode) || $barcode === '') {
+            return null;
+        }
+
+        $token = bin2hex(random_bytes(32));
+        $tokenHash = hash('sha256', $token);
+        $passData = [
+            'id' => $ticket['id'] ?? $barcode,
+            'firstname' => is_string($ticket['firstname'] ?? null) ? $ticket['firstname'] : '',
+            'lastname' => is_string($ticket['lastname'] ?? null) ? $ticket['lastname'] : '',
+            'validFrom' => is_string($ticket['validFrom'] ?? null) ? $ticket['validFrom'] : '',
+            'validUntil' => is_string($ticket['validUntil'] ?? null) ? $ticket['validUntil'] : '',
+            'barcode' => $barcode,
+        ];
+
+        if (!$this->wpService->setTransient(self::APPLE_PASS_TRANSIENT_PREFIX . $tokenHash, $passData, self::TOKEN_EXPIRATION)) {
+            throw new RuntimeException('Unable to create a temporary Apple Wallet pass link.');
+        }
+
+        return $navigation->getModifiedHomeUrl(addQueryArgs: [self::APPLE_PASS_QUERY_VAR => $token]);
+    }
+}

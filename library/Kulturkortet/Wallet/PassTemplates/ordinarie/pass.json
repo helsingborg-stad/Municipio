@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "{{APPLE_PASS_TYPE_IDENTIFIER}}",
+  "teamIdentifier": "{{APPLE_TEAM_ID}}",
+  "organizationName": "Helsingborgs stad",
+  "description": "Kulturkortet – Ordinarie",
+  "serialNumber": "{{kortnummer}}",
+  "expirationDate": "{{giltigtTom_ISO8601}}",
+  "sharingProhibited": true,
+  "backgroundColor": "rgb(235, 94, 91)",
+  "foregroundColor": "rgb(26, 26, 26)",
+  "labelColor": "rgb(26, 26, 26)",
+  "storeCard": {
+    "headerFields": [
+      {
+        "key": "giltig",
+        "label": "GILTIGT T.O.M.",
+        "value": "{{giltigtTom_ISO8601}}",
+        "dateStyle": "PKDateStyleShort",
+        "timeStyle": "PKDateStyleNone",
+        "ignoresTimeZone": true
+      }
+    ],
+    "secondaryFields": [
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "namn",
+        "label": "NAMN",
+        "value": "{{fornamn}} {{efternamn}}"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "fri-entre",
+        "label": "Fri entré",
+        "value": "Dunkers kulturhus, Fredriksdal museer och trädgårdar, Kärnan, Sofiero och Helsingborgs idrottsmuseum"
+      },
+      {
+        "key": "rabatter",
+        "label": "Rabatter",
+        "value": "Konserter, teater, scenkonst, utställningar och hos samarbetspartners. Se alla på https://kulturkortet.se/har-galler-kortet/"
+      },
+      {
+        "key": "personligt",
+        "label": "Personligt kort",
+        "value": "Kortet är registrerat på ditt personnummer och får inte lånas ut. Visa giltig legitimation om personalen ber om det."
+      },
+      {
+        "key": "giltighet",
+        "label": "Giltighet",
+        "value": "365 dagar från köpdatum"
+      },
+      {
+        "key": "fornya",
+        "label": "Förläng kortet",
+        "value": "Förläng kortet på nätet i Helsingborgs kulturbutik: https://helsingborg.entryevent.se/ticketshop/kulturkortet\n\nDu kan också förlänga i biljettkassan på Dunkers kulturhus året om, och på Fredriksdal museer och trädgårdar, Kärnan och Sofiero slott och slottsträdgård när de har säsongsöppet.\n\nSka du förlänga någon annans kort? Ta med personens nuvarande kort. På grund av GDPR kan personalen inte söka på någon annans personnummer."
+      },
+      {
+        "key": "kalender",
+        "label": "Kulturkalender",
+        "value": "https://kulturkortet.se/kalender/"
+      },
+      {
+        "key": "kontakt",
+        "label": "Frågor om kortet",
+        "value": "kulturkortet@helsingborg.se"
+      },
+      {
+        "key": "utfardare",
+        "label": "Utfärdat av",
+        "value": "Kulturförvaltningen, Helsingborgs stad"
+      }
+    ]
+  },
+  "barcodes": [
+    {
+      "format": "PKBarcodeFormatQR",
+      "message": "{{kortnummer}}",
+      "messageEncoding": "iso-8859-1",
+      "altText": "{{kortnummer}}"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+[
+  {
+    "key": "group_6a2301c000001",
+    "title": "Kulturkortet Wallet",
+    "fields": [
+      {
+        "key": "field_6a2301c000002",
+        "label": "Enable Apple Wallet",
+        "name": "kulturkortet_wallet_apple_enabled",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_6a2301c000003",
+        "label": "Apple Pass Type Identifier",
+        "name": "kulturkortet_wallet_apple_pass_type_identifier",
+        "type": "text",
+        "instructions": "The Pass Type ID registered with Apple Developer."
+      },
+      {
+        "key": "field_6a2301c000004",
+        "label": "Apple Team Identifier",
+        "name": "kulturkortet_wallet_apple_team_identifier",
+        "type": "text"
+      },
+      {
+        "key": "field_6a2301c000005",
+        "label": "Apple signing certificate path",
+        "name": "kulturkortet_wallet_apple_certificate",
+        "type": "text",
+        "instructions": "Absolute path to the Pass Type ID .p12 file. Keep this file outside the public web root."
+      },
+      {
+        "key": "field_6a2301c000006",
+        "label": "Apple certificate password",
+        "name": "kulturkortet_wallet_apple_certificate_password",
+        "type": "password"
+      },
+      {
+        "key": "field_6a2301c000007",
+        "label": "Apple WWDR certificate path",
+        "name": "kulturkortet_wallet_apple_wwdr_certificate",
+        "type": "text",
+        "instructions": "Absolute path to the Apple WWDR certificate in PEM format."
+      },
+      {
+        "key": "field_6a2301c000009",
+        "label": "Enable Google Wallet",
+        "name": "kulturkortet_wallet_google_enabled",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_6a2301c00000a",
+        "label": "Google Wallet issuer ID",
+        "name": "kulturkortet_wallet_google_issuer_id",
+        "type": "text"
+      },
+      {
+        "key": "field_6a2301c00000b",
+        "label": "Google Wallet class suffix",
+        "name": "kulturkortet_wallet_google_class_suffix",
+        "type": "text"
+      },
+      {
+        "key": "field_6a2301c00000c",
+        "label": "Google service account email",
+        "name": "kulturkortet_wallet_google_service_account_email",
+        "type": "email"
+      },
+      {
+        "key": "field_6a2301c00000d",
+        "label": "Google service account private key",
+        "name": "kulturkortet_wallet_google_service_account_private_key",
+        "type": "textarea",
+        "instructions": "Paste the private key in PEM format. Keep the corresponding service-account JSON file outside the public web root.",
+        "rows": 8
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "kulturkortet-wallet-settings"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "show_in_rest": 0
+  }
+]

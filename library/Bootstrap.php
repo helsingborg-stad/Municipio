@@ -130,6 +130,7 @@ add_action('init', function () use ($wpService) {
         'options-login-redirect' => 'group_675aecfbf2f3d',
         'options-vitec-settings' => 'group_6a21211157be7',
         'options-visma-settings' => 'group_6a215f59d5550',
+        'options-kulturkortet-wallet-settings' => 'group_6a2301c000001',
         'post-icon' => 'group_6784bb5c51d70',
         'user-author-image' => 'group_56c714b46105e',
         'theme-version-preview' => 'group_5aa14b41551ae',

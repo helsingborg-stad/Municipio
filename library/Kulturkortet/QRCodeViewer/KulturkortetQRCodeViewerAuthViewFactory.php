@@ -12,6 +12,7 @@ use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInter
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
 use Municipio\Kulturkortet\Vitec\VitecServiceInterface;
+use Municipio\Kulturkortet\Wallet\WalletButtonDataFactory;
 use WpService\Contracts\__;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
@@ -22,6 +23,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         private WpCacheGet&WpCacheSet&__ $wpService,
         private VitecServiceInterface $vitecService,
         private array $attributes = [],
+        private ?WalletButtonDataFactory $walletButtonDataFactory = null,
     ) {}
 
     public static function getTemplateDir(): string
@@ -59,6 +61,8 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
             'lang' => [
                 'days' => $this->wpService->__('Days', 'municipio'),
                 'yourCultureCard' => $this->wpService->__('Your Kulturkort', 'municipio'),
+                'appleWallet' => $this->wpService->__('Add to Apple Wallet', 'municipio'),
+                'googleWallet' => $this->wpService->__('Add to Google Wallet', 'municipio'),
             ],
             'actions' => $this->getActions($navigation, true),
             'profile' => [
@@ -70,7 +74,8 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 'validFrom' => $this->formatDate($ticket['validFrom'] ?? null),
                 'validTo' => $this->formatDate($ticket['validUntil'] ?? null),
                 'daysLeft' => $this->calculateDaysLeft($ticket['validUntil'] ?? null),
-            ]
+            ],
+            'wallet' => $this->walletButtonDataFactory?->create($ticket, $navigation) ?? [],
         ]);
     }
 
