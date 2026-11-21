@@ -523,6 +523,23 @@ class BlockManager
 
             $cache->stop(); //Stop cache
         }
+
+        $this->printEditorComponentStyles();
+    }
+
+    /**
+     * Component styles are only printed by the frontend page template. Block previews in the editor are
+     * rendered through admin-ajax, so print the styles of the components used by the block alongside it.
+     */
+    private function printEditorComponentStyles(): void
+    {
+        if (!is_admin()) {
+            return;
+        }
+
+        $assets = \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance();
+
+        echo $assets?->renderStyles('') ?? ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
