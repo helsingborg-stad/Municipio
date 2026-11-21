@@ -53,12 +53,36 @@ class GetTermsFromGetParams
                 'slug'       => $termSlugs,
             ]);
 
-            if (is_array($foundTerms)) {
+            if (is_array($foundTerms) && !empty($foundTerms)) {
                 $terms = array_merge($terms, $foundTerms);
+                continue;
             }
+
+            // None of the requested terms exist (e.g. an empty term that has been cleaned up).
+            // Keep the filter active so the query yields no posts instead of silently dropping it.
+            $terms[] = $this->createUnmatchedTerm($taxonomy, (string) reset($termSlugs));
         }
 
         return $terms;
+    }
+
+    /**
+     * Create a placeholder term representing a requested term that does not exist.
+     *
+     * The term id 0 never matches any post, so a tax query using it returns no results.
+     *
+     * @param string $taxonomy
+     * @param string $slug
+     * @return \WP_Term
+     */
+    private function createUnmatchedTerm(string $taxonomy, string $slug): \WP_Term
+    {
+        $term           = new \WP_Term((object) []);
+        $term->term_id  = 0;
+        $term->taxonomy = $taxonomy;
+        $term->slug     = $slug;
+
+        return $term;
     }
 
     /**
@@ -101,6 +125,9 @@ class GetTermsFromGetParams
         if (!isset($this->getParams[$taxonomyKey])) {
             return [];
         }
-        return (array) $this->getParams[$taxonomyKey];
+        return array_values(array_filter(
+            (array) $this->getParams[$taxonomyKey],
+            static fn($slug) => is_scalar($slug) && (string) $slug !== ''
+        ));
     }
 }
