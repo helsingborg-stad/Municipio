@@ -25,6 +25,7 @@
             @endtypography
             @include('partials.actions')
         @endelement
+        @include('partials.wallet-notice')
         @include('partials.ticket')
     @endelement
 @endelement

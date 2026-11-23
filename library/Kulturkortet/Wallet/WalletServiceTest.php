@@ -18,9 +18,11 @@ class WalletServiceTest extends TestCase
         $config = $this->createMock(AppleWalletConfig::class);
         $config->method('hasConfiguration')->willReturn(true);
         $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
-        $navigation->method('getModifiedHomeUrl')->willReturnCallback(
-            static fn(array $removeQueryArgs = [], array $addQueryArgs = []): string => 'https://example.test/?' . http_build_query($addQueryArgs),
-        );
+        $navigation->expects(static::once())->method('getModifiedHomeUrl')
+            ->with([WalletService::APPLE_PASS_EXPIRED_QUERY_VAR], static::arrayHasKey(WalletService::APPLE_PASS_QUERY_VAR))
+            ->willReturnCallback(
+                static fn(array $removeQueryArgs, array $addQueryArgs): string => 'https://example.test/?' . http_build_query($addQueryArgs),
+            );
 
         $url = (new WalletService($config, $wpService))
             ->createApplePassUrl([

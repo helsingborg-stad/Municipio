@@ -12,6 +12,10 @@
             'href' => $wallet['apple'],
             'text' => $lang['appleWallet'],
             'classList' => ['kulturkortet-wallet-buttons__button'],
+            'attributeList' => [
+                'data-no-instant' => 'true',
+                'data-kulturkortet-apple-wallet' => 'true',
+            ],
         ])
         @endbutton
         @endif

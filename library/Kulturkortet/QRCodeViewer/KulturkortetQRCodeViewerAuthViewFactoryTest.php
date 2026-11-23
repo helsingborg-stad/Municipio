@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\QRCodeViewer;
 
+use ComponentLibrary\Renderer\RendererInterface;
+use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigation;
+use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUser;
 use Municipio\Kulturkortet\Vitec\VitecServiceInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\__;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
+use WpService\Implementations\FakeWpService;
 
 class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
 {
@@ -67,7 +72,56 @@ class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
         static::assertNull($result);
     }
 
-    private function createFactory(): KulturkortetQRCodeViewerAuthViewFactory
+    /** Checks what the login view receives when an expired pass sends the user back. */
+    #[DataProvider('loginNoticeCases')]
+    public function testLoginViewReceivesNoticeOnlyForExpiredLink(string $query, ?string $expectedNotice): void
+    {
+        $navigation = new MunicipioAuthNavigation(new FakeWpService([]), 'https://example.test/ticket/' . $query);
+        $renderer = $this->createMock(RendererInterface::class);
+        $renderer->expects(static::once())->method('render')->with(
+            'kulturkortet-qr-simple',
+            static::callback(static fn(array $model): bool =>
+                array_key_exists('walletError', $model) && $model['walletError'] === $expectedNotice
+            ),
+        );
+        $factory = $this->createFactory($renderer);
+
+        $factory->whenAnonymous('/login', $navigation);
+    }
+
+    /** Provides ordinary, expired, and malformed ticket page URLs. */
+    public static function loginNoticeCases(): array
+    {
+        return [
+            'expired' => [
+                '?kulturkortet_apple_pass_expired=1',
+                'Länken till Apple Wallet-kortet har gått ut eller har redan använts.',
+            ],
+            'ordinary' => ['', null],
+            'malformed' => ['?kulturkortet_apple_pass_expired%5B%5D=1', null],
+        ];
+    }
+
+    /** A sign-out confirmation must not display a stale notice, even when opened with the old flag. */
+    public function testLogoutViewDoesNotDisplayStaleNotice(): void
+    {
+        $navigation = new MunicipioAuthNavigation(
+            new FakeWpService([]),
+            'https://example.test/ticket/?action=logout&kulturkortet_apple_pass_expired=1',
+        );
+        $renderer = $this->createMock(RendererInterface::class);
+        $renderer->expects(static::once())->method('render')->with(
+            'kulturkortet-qr-simple',
+            static::callback(static fn(array $model): bool =>
+                array_key_exists('walletError', $model) && $model['walletError'] === null
+            ),
+        );
+        $factory = $this->createFactory($renderer);
+
+        $factory->whenLogOut(new MunicipioAuthenticatedUser(null, '', 'Test User', 'Test', 'User'), $navigation, '/login');
+    }
+
+    private function createFactory(?RendererInterface $renderer = null): KulturkortetQRCodeViewerAuthViewFactory
     {
         $wpService = new class implements WpCacheGet, WpCacheSet, __ {
             public function wpCacheGet(int|string $key, string $group = '', bool $force = false, bool &$found = null): mixed
@@ -89,6 +143,6 @@ class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
 
         $vitecService = $this->createMock(VitecServiceInterface::class);
 
-        return new KulturkortetQRCodeViewerAuthViewFactory($wpService, $vitecService);
+        return new KulturkortetQRCodeViewerAuthViewFactory($wpService, $vitecService, renderer: $renderer);
     }
 }

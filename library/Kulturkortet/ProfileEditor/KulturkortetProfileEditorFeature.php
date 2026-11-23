@@ -13,6 +13,7 @@ use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthController;
 use Municipio\Kulturkortet\Vitec\VitecConfig;
 use Municipio\Kulturkortet\Vitec\VitecService;
+use Municipio\Kulturkortet\Wallet\WalletService;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\ApplyFilters;
@@ -83,7 +84,10 @@ class KulturkortetProfileEditorFeature implements Hookable
         header('Pragma: no-cache');
         header('Expires: 0');
 
-        $navigation = new MunicipioAuthNavigation($this->wpService);
+        $navigation = new MunicipioAuthNavigation(
+            $this->wpService,
+            requestOnlyQueryArgs: [WalletService::APPLE_PASS_EXPIRED_QUERY_VAR],
+        );
         $vismaAuthController = VismaAuthController::createDefault($this->wpService, new VismaAuthConfig($this->acfService));
 
         $secureController = SecureMunicipioAuthController::createDefault(

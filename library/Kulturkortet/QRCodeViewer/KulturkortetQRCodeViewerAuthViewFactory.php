@@ -6,6 +6,7 @@ namespace Municipio\Kulturkortet\QRCodeViewer;
 
 use Municipio\Helper\ComponentBladeService;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
+use ComponentLibrary\Renderer\RendererInterface;
 use Municipio\Helper\DateFormat;
 use Municipio\Kulturkortet\Helper\ActionCreator;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
@@ -13,6 +14,7 @@ use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterfac
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
 use Municipio\Kulturkortet\Vitec\VitecServiceInterface;
 use Municipio\Kulturkortet\Wallet\WalletButtonDataFactory;
+use Municipio\Kulturkortet\Wallet\WalletService;
 use WpService\Contracts\__;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
@@ -24,6 +26,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         private VitecServiceInterface $vitecService,
         private array $attributes = [],
         private ?WalletButtonDataFactory $walletButtonDataFactory = null,
+        private ?RendererInterface $renderer = null,
     ) {}
 
     public static function getTemplateDir(): string
@@ -36,7 +39,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         $ticket = $this->vitecService->tryGetTicket($user->getSSN());
 
         if (!$ticket) {
-            return $this->renderWithModel('kulturkortet-qr-simple', [
+            return $this->renderWithModel($navigation, 'kulturkortet-qr-simple', [
                 'lang' => [
                     'heading' => $this->wpService->__('Your Kulturkort', 'municipio'),
                     'content' => '',
@@ -57,7 +60,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
             ]);
         }
 
-        return $this->renderWithModel('kulturkortet-vitec-user', [
+        return $this->renderWithModel($navigation, 'kulturkortet-vitec-user', [
             'lang' => [
                 'days' => $this->wpService->__('Days', 'municipio'),
                 'yourCultureCard' => $this->wpService->__('Your Kulturkort', 'municipio'),
@@ -81,7 +84,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
 
     public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
     {
-        return $this->renderWithModel('kulturkortet-qr-simple', [
+        return $this->renderWithModel($navigation, 'kulturkortet-qr-simple', [
             'lang' => [
                 'heading' => $this->wpService->__('Log in to view your kulturkort', 'municipio'),
                 'content' => $this->wpService->__('To view your kulturkort, you must log in with BankId.', 'municipio'),
@@ -95,7 +98,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         $loginUrl = $loginUrl ?? $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']);
 
-        return $this->renderWithModel('kulturkortet-qr-simple', [
+        return $this->renderWithModel($navigation, 'kulturkortet-qr-simple', [
             'lang' => [
                 'heading' => $this->wpService->__('You have been successfully logged out', 'municipio'),
                 'content' => $this->wpService->__('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
@@ -109,7 +112,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         $loginUrl = $loginUrl ?? $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']);
 
-        return $this->renderWithModel('kulturkortet-qr-simple', [
+        return $this->renderWithModel($navigation, 'kulturkortet-qr-simple', [
             'lang' => [
                 'heading' => $this->wpService->__('An error occurred', 'municipio'),
                 'content' => $error,
@@ -119,12 +122,29 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         ]);
     }
 
-    private function renderWithModel(string $template, array $model): string
-    {
-        $bladeRenderer = new BladeRenderer(ComponentBladeService::create([self::getTemplateDir()], $this->wpService));
+    /**
+     * Renders the viewer and any expired-pass notice from the current URL, regardless of login state.
+     *
+     * @param MunicipioAuthNavigationInterface $navigation The viewer's current URL.
+     * @param string $template The viewer template to render.
+     * @param array $model Data specific to the viewer state.
+     * @return string The rendered viewer.
+     */
+    private function renderWithModel(
+        MunicipioAuthNavigationInterface $navigation,
+        string $template,
+        array $model,
+    ): string {
+        $renderer = $this->renderer ?? new BladeRenderer(
+            ComponentBladeService::create([self::getTemplateDir()], $this->wpService)
+        );
 
-        return $bladeRenderer->render($template, [
+        return $renderer->render($template, [
             'attributes' => $this->attributes,
+            'walletError' => $navigation->getQueryParameter('action') !== 'logout'
+                && $navigation->getQueryParameter(WalletService::APPLE_PASS_EXPIRED_QUERY_VAR) === '1'
+                ? 'Länken till Apple Wallet-kortet har gått ut eller har redan använts.'
+                : null,
             ...$model,
         ]);
     }

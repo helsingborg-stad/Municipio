@@ -12,6 +12,7 @@ use WpService\WpService;
 class WalletService
 {
     public const APPLE_PASS_QUERY_VAR = 'kulturkortet_apple_pass';
+    public const APPLE_PASS_EXPIRED_QUERY_VAR = 'kulturkortet_apple_pass_expired';
     public const APPLE_PASS_TRANSIENT_PREFIX = 'kulturkortet_apple_pass_';
     private const TOKEN_EXPIRATION = 300;
 
@@ -54,6 +55,9 @@ class WalletService
             throw new RuntimeException('Unable to create a temporary Apple Wallet pass link.');
         }
 
-        return $navigation->getModifiedHomeUrl(addQueryArgs: [self::APPLE_PASS_QUERY_VAR => $token]);
+        return $navigation->getModifiedHomeUrl(
+            removeQueryArgs: [self::APPLE_PASS_EXPIRED_QUERY_VAR],
+            addQueryArgs: [self::APPLE_PASS_QUERY_VAR => $token],
+        );
     }
 }

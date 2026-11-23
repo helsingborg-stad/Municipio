@@ -38,6 +38,7 @@ The QR Code Viewer can show Apple Wallet and Google Wallet buttons when their re
 - Apple Wallet requires a Pass Type ID, Team ID, paths to a `.p12` signing certificate, the Apple WWDR certificate in PEM format, and a PNG icon. The certificate password is optional when the `.p12` file has no password.
 - Google Wallet requires an issuer ID, class suffix, service-account email, and service-account private key. The Google Wallet class must already exist and be accessible to that service account.
 - Keep Apple certificate, WWDR certificate, and icon files outside the public web root. Apple pass links are single-use and expire after five minutes.
+- The Apple Wallet button links directly to the pass so Safari can open it in Wallet. Expired or used links return to the ticket page with a Swedish notice, even if the site uses a different language or the user needs to sign in again. The notice clears on reload or when retrying, and is not carried through sign-out or sign-in. An active ticket gets a fresh pass link.
 - The integrations cannot produce real passes or links until valid Apple/Google credentials and a Google Wallet class are supplied.
 
 ---

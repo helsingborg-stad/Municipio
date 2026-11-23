@@ -6,6 +6,8 @@
         {{ $lang['heading'] }}
     @endtypography
 
+    @include('partials.wallet-notice')
+
     @if(!empty($notice))
         @notice($notice)
         @endnotice

@@ -52,7 +52,11 @@ class KulturkortetQRCodeViewerFeature implements Hookable
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
         $this->wpService->addFilter(
             'query_vars',
-            static fn(array $queryVars): array => array_values(array_unique([...$queryVars, WalletService::APPLE_PASS_QUERY_VAR])),
+            static fn(array $queryVars): array => array_values(array_unique([
+                ...$queryVars,
+                WalletService::APPLE_PASS_QUERY_VAR,
+                WalletService::APPLE_PASS_EXPIRED_QUERY_VAR,
+            ])),
         );
         $this->wpService->addAction('template_redirect', [$this, 'handleApplePassDownload']);
     }
@@ -97,7 +101,10 @@ class KulturkortetQRCodeViewerFeature implements Hookable
 
     function render(array $attributes): string
     {
-        $navigation = new MunicipioAuthNavigation($this->wpService);
+        $navigation = new MunicipioAuthNavigation(
+            $this->wpService,
+            requestOnlyQueryArgs: [WalletService::APPLE_PASS_EXPIRED_QUERY_VAR],
+        );
         $vismaAuthController = VismaAuthController::createDefault($this->wpService, new VismaAuthConfig($this->acfService));
 
         $secureController = SecureMunicipioAuthController::createDefault(
@@ -134,6 +141,6 @@ class KulturkortetQRCodeViewerFeature implements Hookable
             $this->wpService,
             new ApplePassDataStore($this->wpService),
             new ApplePassGenerator($appleWalletConfig),
-        ))->handle();
+        ))->handle(new MunicipioAuthNavigation($this->wpService));
     }
 }

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
+use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use WpService\WpService;
 
 /** Serves short-lived Apple Wallet pass downloads. */
 class ApplePassDownloadController
 {
     /**
-     * @param WpService $wpService WordPress query-var and transient services.
+     * @param WpService $wpService WordPress query-var and redirect services.
+     * @param ApplePassDataStore $applePassDataStore Consumes single-use tokens.
      * @param ApplePassGenerator $applePassGenerator Creates signed Apple passes.
      */
     public function __construct(
@@ -20,25 +22,29 @@ class ApplePassDownloadController
     ) {}
 
     /**
-     * Streams a pass for a valid one-time token and returns for ordinary requests.
+     * Streams a pass or returns expired links to the ticket page.
      *
+     * @param MunicipioAuthNavigationInterface $navigation Builds the current ticket page URL.
      * @return void
      */
-    public function handle(): void
+    public function handle(MunicipioAuthNavigationInterface $navigation): void
     {
         $token = $this->wpService->getQueryVar(WalletService::APPLE_PASS_QUERY_VAR);
         if (!is_string($token) || preg_match('/^[a-f0-9]{64}$/', $token) !== 1) {
             return;
         }
 
-        header('Cache-Control: no-store, private, max-age=0');
-        header('Pragma: no-cache');
+        $this->wpService->nocacheHeaders();
         $passData = $this->applePassDataStore->consume($token);
         if (!is_array($passData)) {
-            http_response_code(404);
-            header('Content-Type: text/plain; charset=utf-8');
-            echo 'This Apple Wallet pass link has expired or has already been used.';
-            exit;
+            $ticketUrl = $navigation->getModifiedHomeUrl(
+                removeQueryArgs: [WalletService::APPLE_PASS_QUERY_VAR],
+                addQueryArgs: [WalletService::APPLE_PASS_EXPIRED_QUERY_VAR => '1'],
+            );
+            if ($this->wpService->wpSafeRedirect($ticketUrl)) {
+                exit;
+            }
+            return;
         }
 
         try {
