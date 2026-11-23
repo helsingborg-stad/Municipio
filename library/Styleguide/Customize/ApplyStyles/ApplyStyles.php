@@ -79,6 +79,20 @@ class ApplyStyles implements Hookable
         return $settings;
     }
 
+    /**
+     * Token CSS for a document that has no editor wrapper.
+     *
+     * Same stored tokens as the block editor, printed unlayered on :root so they
+     * win over the unlayered defaults in styleguide.css.
+     */
+    public function getBareDocumentTokensAsCss(): string
+    {
+        $storedTokens = $this->getStoredTokens();
+        $tokens = array_merge($storedTokens['token'], $storedTokens['component']);
+
+        return (new DesignTokensToCssConverter\DesignTokensToCssConverter())->convert($tokens);
+    }
+
     private function getTokensAsCss(string $editorSelector = ''): string
     {
         $storedTokens = $this->getStoredTokens();
