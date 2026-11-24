@@ -30,6 +30,7 @@ interface ChatHandlerInterface {
 	addInfoFromType(type: string, senderRole?: string): void;
 	addAgentJoinedInfo(): void;
 	addAgentLeftInfo(): void;
+	addUserLeftInfo(): void;
 	disable(): void;
 	enable(): void;
 	addPendingMessage(): any;

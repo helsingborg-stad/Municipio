@@ -63,6 +63,10 @@ class ChatHandler {
 		this.chat.addInfo(this.getLocalizedString("agentJoinedChat", "Agent has joined the chat"));
 	}
 
+	public addUserLeftInfo(): void {
+		this.chat.addInfo(this.getLocalizedString("userLeftChat", "User has left the chat"));
+	}
+
 	public addAgentLeftInfo(): void {
 		this.chat.addInfo(this.getLocalizedString("agentLeftChat", "Agent has left the chat"));
 	}

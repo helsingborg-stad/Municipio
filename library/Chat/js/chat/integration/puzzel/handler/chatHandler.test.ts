@@ -71,6 +71,7 @@ describe("ChatHandler", () => {
 			queuePosition: "Köplats",
 			agentLeftChatInactive: "Inaktiv",
 			agentJoinedChat: "Anslöt",
+			userLeftChat: "Lämnade användaren",
 			agentLeftChat: "Lämnade",
 			errorMessage: "Något gick fel",
 		});
