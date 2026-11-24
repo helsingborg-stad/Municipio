@@ -7,9 +7,15 @@ class GetChatOpen implements GetChatOpenInterface {
     ) {
     }
 
-    public async execute(): Promise<boolean> {
+    public async execute(): Promise<boolean | null> {
+        const timeId = this.puzzelConfig.getTimeId();
+        if (!timeId) {
+            // A missing time ID means no opening-hours schedule is configured.
+            return null;
+        }
+
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
-        const url = `${this.puzzelConfig.getCommunicationUrl()}/api/time/${encodeURIComponent(this.puzzelConfig.getTimeId())}`;
+        const url = `${this.puzzelConfig.getCommunicationUrl()}/api/time/${encodeURIComponent(timeId)}`;
 
         const response = await fetch(url, {
             method: "GET",

@@ -33,7 +33,7 @@ interface GetConversationStatusInterface {
 }
 
 interface GetChatOpenInterface {
-    execute(): Promise<boolean>;
+    execute(): Promise<boolean | null>;
 }
 
 interface GetQueueInfoInterface {
