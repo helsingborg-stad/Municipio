@@ -129,7 +129,11 @@ class Puzzel implements ChatIntegrationInterface {
         this.uiManager.setAvatar(this.puzzelConfig.getAvatar());
         this.uiManager.clearActions();
         this.uiManager.addMinimizeAction();
-        this.uiManager.addCloseAction();
+        this.uiManager.addCloseAction().addListener(() => {
+            this.puzzelConversationManager.sendUserLeaveEvent();
+            this.chatHandler.addUserLeftInfo();
+            this.chatHandler.disable();
+        });
     }
 
     private resetStoredConversation(): void {
@@ -144,6 +148,7 @@ class Puzzel implements ChatIntegrationInterface {
             this.agentJoinedHandler.handleMetaDataEvent(data);
         });
     }
+
 
     private async startConversationListener(): Promise<void> {
         await this.puzzelConversationManager.listenForConversation((data) => {

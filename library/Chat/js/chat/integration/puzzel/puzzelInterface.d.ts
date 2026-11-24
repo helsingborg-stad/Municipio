@@ -19,6 +19,7 @@ interface PuzzelConversationManagerInterface {
     stopListeningForConversation(): void;
     stopListeningForConversationStatus(): void;
     sendUserJoinEventToConversation(): Promise<void>;
+    sendUserLeaveEvent(): Promise<void>;
     listenForMetaData(callback: (data: PuzzelMetaDataEvent) => void): Promise<void>;
     listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void>;
     listenForConversationStatus(callback: (data: PuzzelConversationStatusResponse) => void): Promise<void>;
