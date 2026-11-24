@@ -52,15 +52,15 @@ async function initChatBubble(chat: any) {
 		shouldOpenChatBubbleOnInit(chat) &&
 		!popover.matches(":popover-open")
 	) {
-		scrollToBottom(chat);
 		await initializeChat(chat);
-		popover.showPopover();
+		scrollToBottom(chat);
+		popover?.showPopover();
 		return;
 	}
 
 	if (shouldInitializeChatBubbleOnInit(chat)) {
-		scrollToBottom(chat);
 		await initializeChat(chat);
+		scrollToBottom(chat);
 		persistChatBubbleInitializeState(chat, false);
 		return;
 	}

@@ -5,7 +5,7 @@ interface PuzzelConfigInterface {
     getChatQueueKey(): string;
     getClientId(): string;
     getVisualQueueId(): string;
-    getTimeId(): string;
+    getTimeId(): string | null;
     getName(): string;
     getAvatar(): string|null;
 }

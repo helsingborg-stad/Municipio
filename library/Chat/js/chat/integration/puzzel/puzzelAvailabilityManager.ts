@@ -11,7 +11,8 @@ class PuzzelAvailabilityManager implements PuzzelAvailabilityManagerInterface {
 			this.getQueueInfoApi.execute(),
 		]);
 
-		return isChatOpen && hasLoggedInAgents;
+
+		return (isChatOpen ?? true) && hasLoggedInAgents;
 	}
 }
 

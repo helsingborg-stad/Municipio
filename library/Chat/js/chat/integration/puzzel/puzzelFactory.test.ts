@@ -67,7 +67,25 @@ describe("PuzzelFactory", () => {
 		expect(config.getAvatar()).toBeNull();
 	});
 
-	it.each(Object.keys(validAttributes).filter((key) => !key.endsWith("-avatar")))(
+	it.each(["missing", "empty"])("creates an integration with a %s time ID", async (timeIdState) => {
+		// Arrange
+		const attributes: Record<string, string> = { ...validAttributes };
+		if (timeIdState === "missing") {
+			delete attributes["data-js-chat-puzzel-time-id"];
+		} else {
+			attributes["data-js-chat-puzzel-time-id"] = "";
+		}
+		const factory = new PuzzelFactory();
+
+		// Act
+		const result = await factory.create(createChat(attributes), {} as any, "puzzel");
+
+		// Assert
+		expect(result).toEqual({ integration: true });
+		expect((createPuzzel as jest.Mock).mock.calls[0][2].getTimeId()).toBeNull();
+	});
+
+	it.each(Object.keys(validAttributes).filter((key) => !key.endsWith("-avatar") && !key.endsWith("-time-id")))(
 		"returns false and logs when %s is missing",
 		async (missingAttribute) => {
 			// Arrange
