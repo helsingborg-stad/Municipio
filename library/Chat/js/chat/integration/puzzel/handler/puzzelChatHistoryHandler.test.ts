@@ -1,4 +1,5 @@
 import PuzzelChatHistoryHandler from "./puzzelChatHistoryHandler";
+import ChatHandler from "./chatHandler";
 
 describe("PuzzelChatHistoryHandler", () => {
 	const createChatHandler = () => {
@@ -33,21 +34,47 @@ describe("PuzzelChatHistoryHandler", () => {
 		]);
 	});
 
-	it("filters out visitor metadata and typing events", () => {
+	it("filters visitor joins and typing events while retaining participant leaves", () => {
 		// Arrange
 		const chatHandler = createChatHandler();
 		const handler = new PuzzelChatHistoryHandler(chatHandler as any);
 		const metaDataEvents = [
 			{ type: "participantJoinEvent", senderRole: "visitor", createdAt: "2024-01-01T10:00:00Z" },
 			{ type: "typingEvent", senderRole: "agent", createdAt: "2024-01-01T10:01:00Z" },
+			{ type: "typingEvent", senderRole: "visitor", createdAt: "2024-01-01T10:01:30Z" },
 			{ type: "participantLeaveEvent", senderRole: "agent", createdAt: "2024-01-01T10:02:00Z" },
+			{ type: "participantLeaveEvent", senderRole: "visitor", createdAt: "2024-01-01T10:03:00Z" },
 		];
 
 		// Act
 		handler.load([], metaDataEvents as any);
 
 		// Assert
-		expect(chatHandler.calls).toEqual([["addInfoFromType", "participantLeaveEvent", "agent"]]);
+		expect(chatHandler.calls).toEqual([
+			["addInfoFromType", "participantLeaveEvent", "agent"],
+			["addInfoFromType", "participantLeaveEvent", "visitor"],
+		]);
+	});
+
+	it("restores the user-left message after the agent joined message", () => {
+		// Arrange
+		const chat = { addInfo: jest.fn(), addMessage: jest.fn() };
+		const handler = new PuzzelChatHistoryHandler(new ChatHandler(chat));
+		const metaDataEvents = [
+			{ type: "participantLeaveEvent", senderRole: "visitor", createdAt: "2024-01-01T10:03:00Z" },
+			{ type: "participantJoinEvent", senderRole: "visitor", createdAt: "2024-01-01T10:00:00Z" },
+			{ type: "participantJoinEvent", senderRole: "agent", createdAt: "2024-01-01T10:01:00Z" },
+			{ type: "typingEvent", senderRole: "visitor", createdAt: "2024-01-01T10:02:00Z" },
+		];
+
+		// Act
+		handler.load([], metaDataEvents as any);
+
+		// Assert
+		expect(chat.addInfo.mock.calls).toEqual([
+			["Agent has joined the chat"],
+			["User has left the chat"],
+		]);
 	});
 
 	it("uses an empty string for chat events without a string message", () => {

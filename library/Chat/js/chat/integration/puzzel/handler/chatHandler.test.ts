@@ -108,6 +108,7 @@ describe("ChatHandler", () => {
 	it.each([
 		["participantJoinEvent", "agent", "Agent has joined the chat"],
 		["participantLeaveEvent", "agent", "Agent has left the chat"],
+		["participantLeaveEvent", "visitor", "User has left the chat"],
 		["participantLeaveEvent", undefined, "Agent has left the chat"],
 	])("adds info for %s from %s", (type, role, expected) => {
 		// Arrange
@@ -123,7 +124,7 @@ describe("ChatHandler", () => {
 
 	it.each([
 		["participantJoinEvent", "visitor"],
-		["participantLeaveEvent", "visitor"],
+		["participantLeaveEvent", "other"],
 		["typingEvent", "agent"],
 	])("ignores %s from %s", (type, role) => {
 		// Arrange
@@ -135,6 +136,19 @@ describe("ChatHandler", () => {
 
 		// Assert
 		expect(chat.addInfo).not.toHaveBeenCalled();
+	});
+
+	it("uses the localized user-left message for visitor leave events", () => {
+		// Arrange
+		setLocale({ userLeftChat: "Användaren lämnade chatten" });
+		const chat = createChat();
+		const handler = new ChatHandler(chat);
+
+		// Act
+		handler.addInfoFromType("participantLeaveEvent", "visitor");
+
+		// Assert
+		expect(chat.addInfo).toHaveBeenCalledWith("Användaren lämnade chatten");
 	});
 
 	it("forwards the detail of chat:message-added events to the listener", () => {
