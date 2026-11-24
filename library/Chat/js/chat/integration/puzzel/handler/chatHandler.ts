@@ -1,4 +1,6 @@
 class ChatHandler {
+	private sessionEnded = false;
+
 	public constructor(private chat: any) {}
 
 	private getLocalizedString(key: keyof MunicipioChatLocale, fallback: string): string {
@@ -73,8 +75,21 @@ class ChatHandler {
 		this.chat.disable();
 	}
 
+	/** Permanently disables the current conversation until a new one starts. */
+	public endSession(): void {
+		this.sessionEnded = true;
+		this.disable();
+	}
+
+	/** Clears the terminal lock for a newly created conversation. */
+	public startNewSession(): void {
+		this.sessionEnded = false;
+	}
+
 	public enable(): void {
-		this.chat.enable();
+		if (!this.sessionEnded) {
+			this.chat.enable();
+		}
 	}
 
 	public addPendingMessage(): any {

@@ -33,6 +33,8 @@ interface ChatHandlerInterface {
 	addUserLeftInfo(): void;
 	disable(): void;
 	enable(): void;
+	endSession(): void;
+	startNewSession(): void;
 	addPendingMessage(): any;
 	deleteMessage(message: any): void;
 	onMessageAdded(listener: (message: any) => void): void;

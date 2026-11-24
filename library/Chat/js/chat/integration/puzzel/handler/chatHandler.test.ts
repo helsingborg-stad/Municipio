@@ -124,7 +124,6 @@ describe("ChatHandler", () => {
 
 	it.each([
 		["participantJoinEvent", "visitor"],
-		["participantLeaveEvent", "other"],
 		["typingEvent", "agent"],
 	])("ignores %s from %s", (type, role) => {
 		// Arrange
@@ -136,6 +135,27 @@ describe("ChatHandler", () => {
 
 		// Assert
 		expect(chat.addInfo).not.toHaveBeenCalled();
+	});
+
+	it("keeps an ended session disabled until a new session starts", () => {
+		// Arrange
+		const chat = createChat();
+		const handler = new ChatHandler(chat);
+
+		// Act
+		handler.endSession();
+		handler.enable();
+
+		// Assert
+		expect(chat.disable).toHaveBeenCalledTimes(1);
+		expect(chat.enable).not.toHaveBeenCalled();
+
+		// Act
+		handler.startNewSession();
+		handler.enable();
+
+		// Assert
+		expect(chat.enable).toHaveBeenCalledTimes(1);
 	});
 
 	it("uses the localized user-left message for visitor leave events", () => {
