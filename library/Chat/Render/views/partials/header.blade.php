@@ -81,7 +81,7 @@
         @endbutton
         @button([
             'icon' => 'check',
-            'text' => $lang['closeChat'],
+            'text' => $lang['endChat'],
             'color' => 'primary',
             'reversePositions' => true,
             'attributeList' => [
