@@ -20,8 +20,10 @@ class PuzzelChatHistoryHandler implements PuzzelChatHistoryHandlerInterface {
     }
 
     private filterMetaDataEvents(metaDataEvents: PuzzelMetaDataEvent[]): PuzzelMetaDataEvent[] {
+        console.log(metaDataEvents);
         const filteredMetaDataEvents = metaDataEvents.filter(
-            (event) => event.senderRole !== "visitor" && event.type !== "typingEvent",
+            (event) => event.type !== "typingEvent"
+                && (event.senderRole !== "visitor" || event.type === "participantLeaveEvent"),
         );
 
         return filteredMetaDataEvents;

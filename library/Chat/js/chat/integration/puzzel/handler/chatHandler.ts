@@ -52,9 +52,7 @@ class ChatHandler {
 				}
 				break;
 			case "participantLeaveEvent":
-				if (senderRole === 'agent') {
-					this.addAgentLeftInfo();
-				}
+				senderRole === 'agent' ? this.addAgentLeftInfo() : this.addUserLeftInfo();
 				break;
 		}
 	}
