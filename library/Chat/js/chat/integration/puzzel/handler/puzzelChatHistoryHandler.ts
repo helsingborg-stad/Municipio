@@ -4,6 +4,10 @@ class PuzzelChatHistoryHandler implements PuzzelChatHistoryHandlerInterface {
     public load(conversationEvents: PuzzelConversationEvent[], metaDataEvents: PuzzelMetaDataEvent[]): void {
         const filteredMetaDataEvents = this.filterMetaDataEvents(metaDataEvents);
 
+        if (filteredMetaDataEvents.some(event => event.type === 'participantLeaveEvent')) {
+            this.chatHandler.endSession();
+        }
+
         const allEventsSorted = [...conversationEvents, ...filteredMetaDataEvents].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         allEventsSorted.forEach(event => {
             if (event.type === 'chat') {
@@ -17,6 +21,7 @@ class PuzzelChatHistoryHandler implements PuzzelChatHistoryHandlerInterface {
                 this.chatHandler.addInfoFromType(event.type, event.senderRole)
             }
         });
+
     }
 
     private filterMetaDataEvents(metaDataEvents: PuzzelMetaDataEvent[]): PuzzelMetaDataEvent[] {

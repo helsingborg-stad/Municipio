@@ -24,6 +24,7 @@ const createPuzzel = ({
 			getCurrentMetaData: jest.fn().mockResolvedValue(["meta"]),
 			startConversation: jest.fn().mockResolvedValue({ conversationId: "new-conversation" }),
 			sendUserJoinEventToConversation: jest.fn().mockResolvedValue(undefined),
+			sendUserLeaveEvent: jest.fn().mockResolvedValue(undefined),
 			listenForMetaData: jest.fn().mockResolvedValue(undefined),
 			listenForConversation: jest.fn().mockResolvedValue(undefined),
 			listenForConversationStatus: jest.fn().mockResolvedValue(undefined),
@@ -54,6 +55,9 @@ const createPuzzel = ({
 		},
 		chatHandler: {
 			setDefaultPersistedState: jest.fn(),
+			startNewSession: jest.fn(),
+			endSession: jest.fn(),
+			addUserLeftInfo: jest.fn(),
 			setErrorData: jest.fn(),
 			displayBanner: jest.fn(),
 			disable: jest.fn(),
@@ -65,7 +69,7 @@ const createPuzzel = ({
 			clearActions: jest.fn(),
 			addMinimizeAction: jest.fn(),
 			addClearAction: jest.fn(),
-			addCloseAction: jest.fn(),
+			addCloseAction: jest.fn().mockReturnValue({ addListener: jest.fn() }),
 		},
 		puzzelConfig: {
 			getName: jest.fn().mockReturnValue("Puzzel Assistant"),
@@ -104,12 +108,13 @@ describe("Puzzel", () => {
 
 	describe("without an ongoing conversation", () => {
 		it("starts a new conversation and sets up the chat", async () => {
-			const { puzzel, uiManager, puzzelConversationManager, outgoingChatHandler, getStorage } = createPuzzel();
+			const { puzzel, uiManager, puzzelConversationManager, outgoingChatHandler, chatHandler, getStorage } = createPuzzel();
 
 			const initialized = await puzzel.init();
 
 			expect(initialized).toBe(puzzel);
 			expect(puzzelConversationManager.startConversation).toHaveBeenCalledTimes(1);
+			expect(chatHandler.startNewSession).toHaveBeenCalledTimes(1);
 			expect(puzzelConversationManager.sendUserJoinEventToConversation).toHaveBeenCalledTimes(1);
 			expect(getStorage()).toEqual({
 				conversationData: { conversationId: "new-conversation" },
@@ -135,6 +140,35 @@ describe("Puzzel", () => {
 			expect(outgoingChatHandler.register).not.toHaveBeenCalled();
 			expect(uiManager.addMinimizeAction).not.toHaveBeenCalled();
 			expect(chatHandler.setErrorData).not.toHaveBeenCalled();
+		});
+
+		it("locks the session when close is confirmed", async () => {
+			// Arrange
+			const { puzzel, chatHandler, uiManager, puzzelConversationManager } = createPuzzel();
+			await puzzel.init();
+			const closeAction = uiManager.addCloseAction.mock.results[0].value;
+			const confirm = closeAction.addListener.mock.calls[0][0];
+
+			// Act
+			confirm();
+
+			// Assert
+			expect(chatHandler.endSession).toHaveBeenCalledTimes(1);
+			expect(puzzelConversationManager.sendUserLeaveEvent).toHaveBeenCalledTimes(1);
+			expect(chatHandler.addUserLeftInfo).toHaveBeenCalledTimes(1);
+		});
+
+		it.each(["agent", "visitor", "other"])("locks the session when a %s leaves", async (senderRole) => {
+			// Arrange
+			const { puzzel, chatHandler, puzzelConversationManager } = createPuzzel();
+			await puzzel.init();
+			const onMetadata = puzzelConversationManager.listenForMetaData.mock.calls[0][0];
+
+			// Act
+			onMetadata({ type: "participantLeaveEvent", senderRole });
+
+			// Assert
+			expect(chatHandler.endSession).toHaveBeenCalledTimes(1);
 		});
 
 		it("returns false when authentication throws", async () => {

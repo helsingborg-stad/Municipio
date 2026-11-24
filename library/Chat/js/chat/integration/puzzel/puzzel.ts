@@ -100,6 +100,7 @@ class Puzzel implements ChatIntegrationInterface {
 
         this.authenticated = authenticated;
         this.conversation = await this.puzzelConversationManager.startConversation();
+        this.chatHandler.startNewSession();
         this.conversationStorageManager.setLocalStorage(this.conversation, authenticated);
         await this.puzzelConversationManager.sendUserJoinEventToConversation();
 
@@ -130,9 +131,9 @@ class Puzzel implements ChatIntegrationInterface {
         this.uiManager.clearActions();
         this.uiManager.addMinimizeAction();
         this.uiManager.addCloseAction().addListener(() => {
+            this.chatHandler.endSession();
             this.puzzelConversationManager.sendUserLeaveEvent();
             this.chatHandler.addUserLeftInfo();
-            this.chatHandler.disable();
         });
     }
 
@@ -143,6 +144,9 @@ class Puzzel implements ChatIntegrationInterface {
 
     private async startMetaDataListener(): Promise<void> {
         await this.puzzelConversationManager.listenForMetaData((data) => {
+            if (data?.type === "participantLeaveEvent") {
+                this.chatHandler.endSession();
+            }
             this.typingIndicatorHandler.handleMetaDataEvent(data);
             this.agentLeftHandler.handleMetaDataEvent(data);
             this.agentJoinedHandler.handleMetaDataEvent(data);
