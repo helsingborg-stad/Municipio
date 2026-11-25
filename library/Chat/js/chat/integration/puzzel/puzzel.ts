@@ -21,6 +21,7 @@ class Puzzel implements ChatIntegrationInterface {
         private uiManager: ChatUiManagerInterface,
         private puzzelConfig: PuzzelConfigInterface,
         private bannerDataManager: BannerDataManagerInterface,
+        private infoDataManager: InfoDataManagerInterface,
     ) {
     }
 
@@ -134,7 +135,7 @@ class Puzzel implements ChatIntegrationInterface {
         this.uiManager.addCloseAction().addListener(() => {
             this.chatHandler.endSession();
             this.puzzelConversationManager.sendUserLeaveEvent();
-            this.chatHandler.addUserLeftInfo();
+            this.chatHandler.addInfo(this.infoDataManager.getUserLeftInfoContent());
         });
     }
 

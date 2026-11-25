@@ -4,7 +4,7 @@ describe("PuzzelAgentLeftHandler", () => {
 	const createChatHandler = () => ({
 		setBannerContent: jest.fn(),
 		displayBanner: jest.fn(),
-		addAgentLeftInfo: jest.fn(),
+		addInfo: jest.fn(),
 		endSession: jest.fn(),
 	});
 
@@ -14,10 +14,17 @@ describe("PuzzelAgentLeftHandler", () => {
 		getErrorBannerContent: jest.fn(),
 	};
 
+	const infoDataManager = {
+		getAgentJoinedInfoContent: jest.fn(),
+		getAgentLeftInfoContent: () => "Left",
+		getUserLeftInfoContent: jest.fn(),
+		getInfoContentFromType: jest.fn(),
+	};
+
 	it("shows the inactive banner, adds left info and disables chat when an agent leaves", () => {
 		// Arrange
 		const chatHandler = createChatHandler();
-		const handler = new PuzzelAgentLeftHandler(chatHandler as any, bannerDataManager);
+		const handler = new PuzzelAgentLeftHandler(chatHandler as any, bannerDataManager, infoDataManager);
 
 		// Act
 		const result = handler.handleMetaDataEvent({ senderRole: "agent", type: "participantLeaveEvent" } as any);
@@ -26,7 +33,7 @@ describe("PuzzelAgentLeftHandler", () => {
 		expect(result).toBe(true);
 		expect(chatHandler.setBannerContent).toHaveBeenCalledWith("Inactive");
 		expect(chatHandler.displayBanner).toHaveBeenCalledWith(true);
-		expect(chatHandler.addAgentLeftInfo).toHaveBeenCalledTimes(1);
+		expect(chatHandler.addInfo).toHaveBeenCalledWith("Left");
 		expect(chatHandler.endSession).toHaveBeenCalledTimes(1);
 	});
 
@@ -37,7 +44,7 @@ describe("PuzzelAgentLeftHandler", () => {
 	])("ignores %s", (_label, data) => {
 		// Arrange
 		const chatHandler = createChatHandler();
-		const handler = new PuzzelAgentLeftHandler(chatHandler as any, bannerDataManager);
+		const handler = new PuzzelAgentLeftHandler(chatHandler as any, bannerDataManager, infoDataManager);
 
 		// Act
 		const result = handler.handleMetaDataEvent(data as any);

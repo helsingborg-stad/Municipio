@@ -16,6 +16,13 @@ interface BannerDataManagerInterface {
     getErrorBannerContent(): string;
 }
 
+interface InfoDataManagerInterface {
+    getAgentJoinedInfoContent(): string;
+    getAgentLeftInfoContent(): string;
+    getUserLeftInfoContent(): string;
+    getInfoContentFromType(type: string, senderRole?: string): string | null;
+}
+
 interface PuzzelConversationManagerInterface {
     startConversation(): Promise<RouteConversationResponse>;
     getConversationId(): string;

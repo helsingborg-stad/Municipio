@@ -19,14 +19,6 @@ describe("ChatHandler", () => {
 		};
 	};
 
-	const setLocale = (value: unknown) => {
-		Object.defineProperty(globalThis, "municipioChatLocale", { value, configurable: true, writable: true });
-	};
-
-	afterEach(() => {
-		delete (globalThis as any).municipioChatLocale;
-	});
-
 	it("forwards banner content to the chat", () => {
 		// Arrange
 		const chat = createChat();
@@ -53,83 +45,16 @@ describe("ChatHandler", () => {
 		expect(chat.hideBanner).toHaveBeenCalledTimes(1);
 	});
 
-	it("uses fallback strings when no locale is defined", () => {
+	it("forwards info content to the chat", () => {
 		// Arrange
 		const chat = createChat();
 		const handler = new ChatHandler(chat);
 
 		// Act
-		handler.addAgentJoinedInfo();
-		handler.addAgentLeftInfo();
-
-		// Assert
-		expect(chat.addInfo.mock.calls).toEqual([
-			["Agent has joined the chat"],
-			["Agent has left the chat"],
-		]);
-	});
-
-	it("uses localized strings when available", () => {
-		// Arrange
-		setLocale({
-			agentJoinedChat: "Anslöt",
-			userLeftChat: "Lämnade användaren",
-			agentLeftChat: "Lämnade",
-		});
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
-
-		// Act
-		handler.addAgentJoinedInfo();
-		handler.addAgentLeftInfo();
-
-		// Assert
-		expect(chat.addInfo.mock.calls).toEqual([["Anslöt"], ["Lämnade"]]);
-	});
-
-	it("falls back when a localized string is empty or not a string", () => {
-		// Arrange
-		setLocale({ agentJoinedChat: 42 });
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
-
-		// Act
-		handler.addAgentJoinedInfo();
+		handler.addInfo("Agent has joined the chat");
 
 		// Assert
 		expect(chat.addInfo).toHaveBeenCalledWith("Agent has joined the chat");
-	});
-
-	it.each([
-		["participantJoinEvent", "agent", "Agent has joined the chat"],
-		["participantLeaveEvent", "agent", "Agent has left the chat"],
-		["participantLeaveEvent", "visitor", "User has left the chat"],
-		["participantLeaveEvent", undefined, "Agent has left the chat"],
-	])("adds info for %s from %s", (type, role, expected) => {
-		// Arrange
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
-
-		// Act
-		handler.addInfoFromType(type, role);
-
-		// Assert
-		expect(chat.addInfo).toHaveBeenCalledWith(expected);
-	});
-
-	it.each([
-		["participantJoinEvent", "visitor"],
-		["typingEvent", "agent"],
-	])("ignores %s from %s", (type, role) => {
-		// Arrange
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
-
-		// Act
-		handler.addInfoFromType(type, role);
-
-		// Assert
-		expect(chat.addInfo).not.toHaveBeenCalled();
 	});
 
 	it("keeps an ended session disabled until a new session starts", () => {
@@ -151,19 +76,6 @@ describe("ChatHandler", () => {
 
 		// Assert
 		expect(chat.enable).toHaveBeenCalledTimes(1);
-	});
-
-	it("uses the localized user-left message for visitor leave events", () => {
-		// Arrange
-		setLocale({ userLeftChat: "Användaren lämnade chatten" });
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
-
-		// Act
-		handler.addInfoFromType("participantLeaveEvent", "visitor");
-
-		// Assert
-		expect(chat.addInfo).toHaveBeenCalledWith("Användaren lämnade chatten");
 	});
 
 	it("forwards the detail of chat:message-added events to the listener", () => {

@@ -1,5 +1,8 @@
 class PuzzelChatHistoryHandler implements PuzzelChatHistoryHandlerInterface {
-    public constructor(private chatHandler: ChatHandlerInterface) {}
+    public constructor(
+        private chatHandler: ChatHandlerInterface,
+        private infoDataManager: InfoDataManagerInterface,
+    ) {}
 
     public load(conversationEvents: PuzzelConversationEvent[], metaDataEvents: PuzzelMetaDataEvent[]): void {
         const filteredMetaDataEvents = this.filterMetaDataEvents(metaDataEvents);
@@ -18,7 +21,11 @@ class PuzzelChatHistoryHandler implements PuzzelChatHistoryHandlerInterface {
                     event.senderRole === 'agent' ? true : false,
                 );
             } else {
-                this.chatHandler.addInfoFromType(event.type, event.senderRole)
+                const info = this.infoDataManager.getInfoContentFromType(event.type, event.senderRole);
+
+                if (info) {
+                    this.chatHandler.addInfo(info);
+                }
             }
         });
 
