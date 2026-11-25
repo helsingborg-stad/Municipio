@@ -3,7 +3,10 @@
 ])
     @if(!empty($organizers))
         @slot('belowContent')
-            @element(['classList' => ['u-display--flex', 'o-layout-grid--gap-8', 'u-flex-direction--column']])
+            @element([
+                'classList' => ['u-display--flex', 'o-layout-grid--gap-8', 'u-flex-direction--column'],
+                'attributeList' => ['style' => 'overflow-wrap: anywhere;']
+            ])
                 @foreach($organizers as $organizer)
                     @element(['classList' => $loop->first ? ['u-margin__top--2'] : []])
                         @if(!empty($organizer['name']))
