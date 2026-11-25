@@ -80,7 +80,7 @@ class ChatRenderConfigTest extends TestCase
         static::assertSame('Write your question here', $lang['placeholder']);
         static::assertSame('Minimize', $lang['minimize']);
         static::assertSame(
-            ['chat', 'close', 'endChat', 'cancel', 'send', 'placeholder', 'newConversation', 'like', 'dislike', 'minimize'],
+            ['chat', 'close', 'endChat', 'cancel', 'send', 'placeholder', 'clear', 'like', 'dislike', 'minimize'],
             array_keys($lang),
         );
     }

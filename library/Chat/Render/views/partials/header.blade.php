@@ -12,8 +12,8 @@
         'reversePositions' => true,
         'attributeList' => [
             'data-js-chat-clear' => true,
-            'aria-label' => $lang['newConversation'],
-            'data-tooltip' => $lang['newConversation']
+            'aria-label' => $lang['clear'],
+            'data-tooltip' => $lang['clear']
         ],
     ])
     @endbutton
