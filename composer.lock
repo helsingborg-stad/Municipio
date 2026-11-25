@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "876b373456b71436d2dbab1d38d15390",
+    "content-hash": "91f7fb25474d19845680c91a290ed0e3",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
-            "version": "4.54.0",
+            "version": "4.55.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/algolia/algoliasearch-client-php.git",
-                "reference": "c2ffaae6d366b64bb4e3ad1825c6bdb54106493e"
+                "reference": "c56139f8ce95165af6f0cf0939726267b02f66b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/c2ffaae6d366b64bb4e3ad1825c6bdb54106493e",
-                "reference": "c2ffaae6d366b64bb4e3ad1825c6bdb54106493e",
+                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/c56139f8ce95165af6f0cf0939726267b02f66b3",
+                "reference": "c56139f8ce95165af6f0cf0939726267b02f66b3",
                 "shasum": ""
             },
             "require": {
@@ -71,9 +71,9 @@
             ],
             "support": {
                 "issues": "https://github.com/algolia/algoliasearch-client-php/issues",
-                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.54.0"
+                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.55.0"
             },
-            "time": "2026-11-10T20:39:52+00:00"
+            "time": "2026-11-17T13:47:05+00:00"
         },
         {
             "name": "astrotomic/php-deepface",
@@ -887,16 +887,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v7.2.1",
+            "version": "v7.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/php-jwt.git",
-                "reference": "0501f5729b9e2448516674aff07c7d1727869b8e"
+                "reference": "99efeb17d6def8c0295777f2d45b07ff4fdb4e40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/0501f5729b9e2448516674aff07c7d1727869b8e",
-                "reference": "0501f5729b9e2448516674aff07c7d1727869b8e",
+                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/99efeb17d6def8c0295777f2d45b07ff4fdb4e40",
+                "reference": "99efeb17d6def8c0295777f2d45b07ff4fdb4e40",
                 "shasum": ""
             },
             "require": {
@@ -955,9 +955,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/php-jwt/issues",
-                "source": "https://github.com/googleapis/php-jwt/tree/v7.2.1"
+                "source": "https://github.com/googleapis/php-jwt/tree/v7.2.2"
             },
-            "time": "2026-09-28T17:51:46+00:00"
+            "time": "2026-11-17T00:25:19+00:00"
         },
         {
             "name": "freshleafmedia/autofocus",
@@ -999,16 +999,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "3.4.0",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "180bd6fcebd1dc289cbec5c576135f4b6f576e02"
+                "reference": "1fa0f8319c046b7dec80030460254283d851388e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/180bd6fcebd1dc289cbec5c576135f4b6f576e02",
-                "reference": "180bd6fcebd1dc289cbec5c576135f4b6f576e02",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/1fa0f8319c046b7dec80030460254283d851388e",
+                "reference": "1fa0f8319c046b7dec80030460254283d851388e",
                 "shasum": ""
             },
             "require": {
@@ -1031,6 +1031,7 @@
                 "phpunit/phpunit": "^9.6.34"
             },
             "suggest": {
+                "ext-intl": "Convert internationalized hosts with Idna",
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
@@ -1099,7 +1100,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/3.4.0"
+                "source": "https://github.com/guzzle/psr7/tree/3.6.0"
             },
             "funding": [
                 {
@@ -1115,7 +1116,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-13T03:03:24+00:00"
+            "time": "2026-11-22T00:00:35+00:00"
         },
         {
             "name": "helsingborg-stad/acf-export-manager",
@@ -1397,21 +1398,20 @@
                 "issues": "https://github.com/helsingborg-stad/schema-library/issues",
                 "source": "https://github.com/helsingborg-stad/schema-library/tree/1.0.0"
             },
-            "time": "2026-11-19T13:33:19+00:00",
-            "published-time": "2026-11-19T13:33:24+00:00"
+            "time": "2026-11-19T13:33:19+00:00"
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.48.2",
+            "version": "3.49.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "cffb55ccae2a7ac0547d53b6d4aa9d5259c88101"
+                "reference": "85e77a8a3b8710981f7a9b96b571e9572f87a253"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/helsingborg-stad/styleguide/releases/download/%prettyVersion%/styleguide-%prettyVersion%.zip",
-                "reference": "cffb55ccae2a7ac0547d53b6d4aa9d5259c88101"
+                "reference": "85e77a8a3b8710981f7a9b96b571e9572f87a253"
             },
             "require": {
                 "erusev/parsedown": "^1.7",
@@ -1474,9 +1474,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.48.2"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.49.5"
             },
-            "time": "2026-11-12T12:50:58+00:00"
+            "time": "2026-11-24T15:02:59+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -2268,16 +2268,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.10.7",
+            "version": "2.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "8eb53e906fd60c67038d22f1f1cab420ed58b8be"
+                "reference": "681e662a40c805c567f52d603b64d55282ea356c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/8eb53e906fd60c67038d22f1f1cab420ed58b8be",
-                "reference": "8eb53e906fd60c67038d22f1f1cab420ed58b8be",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/681e662a40c805c567f52d603b64d55282ea356c",
+                "reference": "681e662a40c805c567f52d603b64d55282ea356c",
                 "shasum": ""
             },
             "require": {
@@ -2371,7 +2371,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-31T13:35:37+00:00"
+            "time": "2026-11-24T15:44:47+00:00"
         },
         {
             "name": "league/config",
@@ -7651,11 +7651,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "enshrined/svg-sanitize": 20,
-        "jeradin/acf-dynamic-table-field": 20,
-        "jeradin/acf-website-field": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
+        "clark-nikdel-powell/post-type-select-for-acf": 20,
+        "jeradin/acf-website-field": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "enshrined/svg-sanitize": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7664,6 +7664,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.11.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
