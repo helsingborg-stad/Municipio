@@ -20,6 +20,7 @@ class Puzzel implements ChatIntegrationInterface {
         private chatHandler: ChatHandlerInterface,
         private uiManager: ChatUiManagerInterface,
         private puzzelConfig: PuzzelConfigInterface,
+        private bannerDataManager: BannerDataManagerInterface,
     ) {
     }
 
@@ -120,9 +121,9 @@ class Puzzel implements ChatIntegrationInterface {
 
     private showConnectionError(): void {
         this.setupUi();
-        this.chatHandler.setErrorData();
+        this.chatHandler.setBannerContent(this.bannerDataManager.getErrorBannerContent());
         this.chatHandler.displayBanner(true);
-        this.chatHandler.disable();
+        this.chatHandler.endSession();
     }
 
     private setupUi(): void {

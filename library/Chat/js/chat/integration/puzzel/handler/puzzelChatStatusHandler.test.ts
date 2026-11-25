@@ -3,16 +3,21 @@ import { PUZZEL_CHAT_STATUS } from "../enums";
 
 describe("PuzzelChatStatusHandler", () => {
 	const createChatHandler = () => ({
-		setChatInactiveData: jest.fn(),
+		setBannerContent: jest.fn(),
 		displayBanner: jest.fn(),
-		disable: jest.fn(),
+		endSession: jest.fn(),
 		enable: jest.fn(),
-		setQueueBannerData: jest.fn(),
 	});
+
+	const bannerDataManager = {
+		getQueueBannerContent: (position: number) => `Queue position: ${position}`,
+		getChatInactiveBannerContent: () => "Inactive",
+		getErrorBannerContent: () => "Error",
+	};
 
 	const createHandler = () => {
 		const chatHandler = createChatHandler();
-		const handler = new PuzzelChatStatusHandler(chatHandler as any, {} as any);
+		const handler = new PuzzelChatStatusHandler(chatHandler as any, {} as any, bannerDataManager);
 		return { chatHandler, handler };
 	};
 
@@ -66,9 +71,9 @@ describe("PuzzelChatStatusHandler", () => {
 			handler.handleStatusEvent({ status } as any);
 
 			// Assert
-			expect(chatHandler.setChatInactiveData).toHaveBeenCalledTimes(1);
+			expect(chatHandler.setBannerContent).toHaveBeenCalledWith("Inactive");
 			expect(chatHandler.displayBanner).toHaveBeenCalledWith(true);
-			expect(chatHandler.disable).toHaveBeenCalledTimes(1);
+			expect(chatHandler.endSession).toHaveBeenCalledTimes(1);
 			expect(chatHandler.enable).not.toHaveBeenCalled();
 		},
 	);
@@ -81,7 +86,7 @@ describe("PuzzelChatStatusHandler", () => {
 		handler.handleStatusEvent({ status: PUZZEL_CHAT_STATUS.IN_QUEUE, queuePosition: 5 } as any);
 
 		// Assert
-		expect(chatHandler.setQueueBannerData).toHaveBeenCalledWith(5);
+		expect(chatHandler.setBannerContent).toHaveBeenCalledWith("Queue position: 5");
 		expect(chatHandler.displayBanner).toHaveBeenCalledWith(true);
 		expect(chatHandler.enable).toHaveBeenCalledTimes(1);
 	});
@@ -94,7 +99,7 @@ describe("PuzzelChatStatusHandler", () => {
 		handler.handleStatusEvent({ status: PUZZEL_CHAT_STATUS.ALLOCATED, queuePosition: 9 } as any);
 
 		// Assert
-		expect(chatHandler.setQueueBannerData).toHaveBeenCalledWith(1);
+		expect(chatHandler.setBannerContent).toHaveBeenCalledWith("Queue position: 1");
 		expect(chatHandler.displayBanner).toHaveBeenCalledWith(true);
 		expect(chatHandler.enable).toHaveBeenCalledTimes(1);
 	});
@@ -109,7 +114,7 @@ describe("PuzzelChatStatusHandler", () => {
 		// Assert
 		expect(chatHandler.displayBanner).toHaveBeenCalledWith(false);
 		expect(chatHandler.enable).toHaveBeenCalledTimes(1);
-		expect(chatHandler.setQueueBannerData).not.toHaveBeenCalled();
+		expect(chatHandler.setBannerContent).not.toHaveBeenCalled();
 	});
 
 	it.each([[null], [{ status: "Unknown" }]])("does nothing for %p", (status) => {

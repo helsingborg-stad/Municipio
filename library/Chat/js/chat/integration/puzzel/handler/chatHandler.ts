@@ -1,14 +1,8 @@
-class ChatHandler {
+import { getLocalizedString } from "../../../helper/translations";
+class ChatHandler implements ChatHandlerInterface {
 	private sessionEnded = false;
 
 	public constructor(private chat: any) {}
-
-	private getLocalizedString(key: keyof MunicipioChatLocale, fallback: string): string {
-		const locale = (globalThis as { municipioChatLocale?: Partial<MunicipioChatLocale> }).municipioChatLocale;
-		const translated = locale?.[key];
-
-		return typeof translated === "string" && translated.length > 0 ? translated : fallback;
-	}
 
 	public setDefaultPersistedState(state: boolean): void {
 		this.chat.setDefaultShouldPersist(state);
@@ -26,24 +20,8 @@ class ChatHandler {
 		show ? this.chat.showBanner() : this.chat.hideBanner();
 	}
 
-	public setQueueBannerData(position: number): void {
-		const queuePositionLabel = this.getLocalizedString("queuePosition", "Queue position");
-		this.chat.setBannerContent(`${queuePositionLabel}: ${position}`);
-	}
-
-	public setChatInactiveData(): void {
-		this.chat.setBannerContent(
-			this.getLocalizedString(
-				"agentLeftChatInactive",
-				"The agent has left and the chat is now inactive",
-			),
-		);
-	}
-
-	public setErrorData(): void {
-		this.chat.setBannerContent(
-			this.getLocalizedString("errorMessage", "Something went wrong, please try again later"),
-		);
+	public setBannerContent(content: string|Node): void {
+		this.chat.setBannerContent(content);
 	}
 
 	public addInfoFromType(type: string, senderRole: string = 'agent'): void {
@@ -60,15 +38,15 @@ class ChatHandler {
 	}
 
 	public addAgentJoinedInfo(): void {
-		this.chat.addInfo(this.getLocalizedString("agentJoinedChat", "Agent has joined the chat"));
+		this.chat.addInfo(getLocalizedString("agentJoinedChat", "Agent has joined the chat"));
 	}
 
 	public addUserLeftInfo(): void {
-		this.chat.addInfo(this.getLocalizedString("userLeftChat", "User has left the chat"));
+		this.chat.addInfo(getLocalizedString("userLeftChat", "User has left the chat"));
 	}
 
 	public addAgentLeftInfo(): void {
-		this.chat.addInfo(this.getLocalizedString("agentLeftChat", "Agent has left the chat"));
+		this.chat.addInfo(getLocalizedString("agentLeftChat", "Agent has left the chat"));
 	}
 
 	public disable(): void {

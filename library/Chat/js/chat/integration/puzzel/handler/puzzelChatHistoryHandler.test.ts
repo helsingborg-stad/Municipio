@@ -1,3 +1,4 @@
+import BannerDataManager from "../bannerDataManager";
 import PuzzelChatHistoryHandler from "./puzzelChatHistoryHandler";
 import ChatHandler from "./chatHandler";
 import PuzzelChatStatusHandler from "./puzzelChatStatusHandler";
@@ -88,7 +89,7 @@ describe("PuzzelChatHistoryHandler", () => {
 		const chat = { addInfo: jest.fn(), addMessage: jest.fn(), disable: jest.fn(), enable: jest.fn(), hideBanner: jest.fn(), showBanner: jest.fn(), setBannerContent: jest.fn() };
 		const chatHandler = new ChatHandler(chat);
 		const handler = new PuzzelChatHistoryHandler(chatHandler);
-		const statusHandler = new PuzzelChatStatusHandler(chatHandler, {} as any);
+		const statusHandler = new PuzzelChatStatusHandler(chatHandler, {} as any, new BannerDataManager());
 		const joinedHandler = new PuzzelAgentJoinedHandler(chatHandler);
 
 		// Act
