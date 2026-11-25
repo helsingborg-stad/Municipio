@@ -10,6 +10,8 @@
             @include('partials.header')
         @endslot
     @endif
-
-    @include('partials.feedback')
+    @slot('belowChatArea')
+        @include('partials.template')
+        @include('partials.feedback')
+    @endslot
 @endchat
