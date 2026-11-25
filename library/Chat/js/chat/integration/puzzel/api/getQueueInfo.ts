@@ -24,7 +24,7 @@ class GetQueueInfo implements GetQueueInfoInterface {
         const data: PuzzelQueueInfoResponse = await response.json();
 
         const queueOpenForWeb = data.openForWebAccess === true;
-        const availableAgents = data.agentsReady ?? data.agentsLoggedIn ?? 0;
+        const availableAgents = (data.agentsReady || data.agentsLoggedIn) ?? 0;
 
         return queueOpenForWeb && availableAgents > 0;
     }
