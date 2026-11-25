@@ -10,6 +10,12 @@ interface PuzzelConfigInterface {
     getAvatar(): string|null;
 }
 
+interface BannerDataManagerInterface {
+    getQueueBannerContent(position: number): string;
+    getChatInactiveBannerContent(): string;
+    getErrorBannerContent(): string;
+}
+
 interface PuzzelConversationManagerInterface {
     startConversation(): Promise<RouteConversationResponse>;
     getConversationId(): string;

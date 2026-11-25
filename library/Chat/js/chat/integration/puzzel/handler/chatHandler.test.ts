@@ -27,6 +27,18 @@ describe("ChatHandler", () => {
 		delete (globalThis as any).municipioChatLocale;
 	});
 
+	it("forwards banner content to the chat", () => {
+		// Arrange
+		const chat = createChat();
+		const handler = new ChatHandler(chat);
+
+		// Act
+		handler.setBannerContent("Queue position: 2");
+
+		// Assert
+		expect(chat.setBannerContent).toHaveBeenCalledWith("Queue position: 2");
+	});
+
 	it("shows or hides the banner", () => {
 		// Arrange
 		const chat = createChat();
@@ -47,18 +59,10 @@ describe("ChatHandler", () => {
 		const handler = new ChatHandler(chat);
 
 		// Act
-		handler.setQueueBannerData(3);
-		handler.setChatInactiveData();
-		handler.setErrorData();
 		handler.addAgentJoinedInfo();
 		handler.addAgentLeftInfo();
 
 		// Assert
-		expect(chat.setBannerContent.mock.calls).toEqual([
-			["Queue position: 3"],
-			["The agent has left and the chat is now inactive"],
-			["Something went wrong, please try again later"],
-		]);
 		expect(chat.addInfo.mock.calls).toEqual([
 			["Agent has joined the chat"],
 			["Agent has left the chat"],
@@ -68,40 +72,31 @@ describe("ChatHandler", () => {
 	it("uses localized strings when available", () => {
 		// Arrange
 		setLocale({
-			queuePosition: "Köplats",
-			agentLeftChatInactive: "Inaktiv",
 			agentJoinedChat: "Anslöt",
 			userLeftChat: "Lämnade användaren",
 			agentLeftChat: "Lämnade",
-			errorMessage: "Något gick fel",
 		});
 		const chat = createChat();
 		const handler = new ChatHandler(chat);
 
 		// Act
-		handler.setQueueBannerData(2);
-		handler.setChatInactiveData();
-		handler.setErrorData();
 		handler.addAgentJoinedInfo();
 		handler.addAgentLeftInfo();
 
 		// Assert
-		expect(chat.setBannerContent.mock.calls).toEqual([["Köplats: 2"], ["Inaktiv"], ["Något gick fel"]]);
 		expect(chat.addInfo.mock.calls).toEqual([["Anslöt"], ["Lämnade"]]);
 	});
 
 	it("falls back when a localized string is empty or not a string", () => {
 		// Arrange
-		setLocale({ queuePosition: "", agentJoinedChat: 42 });
+		setLocale({ agentJoinedChat: 42 });
 		const chat = createChat();
 		const handler = new ChatHandler(chat);
 
 		// Act
-		handler.setQueueBannerData(1);
 		handler.addAgentJoinedInfo();
 
 		// Assert
-		expect(chat.setBannerContent).toHaveBeenCalledWith("Queue position: 1");
 		expect(chat.addInfo).toHaveBeenCalledWith("Agent has joined the chat");
 	});
 

@@ -58,7 +58,7 @@ const createPuzzel = ({
 			startNewSession: jest.fn(),
 			endSession: jest.fn(),
 			addUserLeftInfo: jest.fn(),
-			setErrorData: jest.fn(),
+			setBannerContent: jest.fn(),
 			displayBanner: jest.fn(),
 			disable: jest.fn(),
 			enable: jest.fn(),
@@ -74,6 +74,11 @@ const createPuzzel = ({
 		puzzelConfig: {
 			getName: jest.fn().mockReturnValue("Puzzel Assistant"),
 			getAvatar: jest.fn().mockReturnValue("https://example.com/puzzel.png"),
+		},
+		bannerDataManager: {
+			getQueueBannerContent: jest.fn(),
+			getChatInactiveBannerContent: jest.fn(),
+			getErrorBannerContent: jest.fn().mockReturnValue("Error"),
 		},
 	};
 
@@ -92,6 +97,7 @@ const createPuzzel = ({
 		deps.chatHandler as any,
 		deps.uiManager as any,
 		deps.puzzelConfig as any,
+		deps.bannerDataManager as any,
 	);
 
 	return { puzzel, ...deps, getStorage: () => storage };
@@ -139,7 +145,7 @@ describe("Puzzel", () => {
 			expect(puzzelConversationManager.startConversation).not.toHaveBeenCalled();
 			expect(outgoingChatHandler.register).not.toHaveBeenCalled();
 			expect(uiManager.addMinimizeAction).not.toHaveBeenCalled();
-			expect(chatHandler.setErrorData).not.toHaveBeenCalled();
+			expect(chatHandler.setBannerContent).not.toHaveBeenCalled();
 		});
 
 		it("locks the session when close is confirmed", async () => {
@@ -190,7 +196,7 @@ describe("Puzzel", () => {
 			expect(initialized).toBe(false);
 			expect(puzzelConversationManager.startConversation).toHaveBeenCalledTimes(2);
 			expect(getStorage()).toBeNull();
-			expect(chatHandler.setErrorData).not.toHaveBeenCalled();
+			expect(chatHandler.setBannerContent).not.toHaveBeenCalled();
 		});
 	});
 
@@ -232,7 +238,7 @@ describe("Puzzel", () => {
 			expect(puzzelConversationManager.resetConversationId).toHaveBeenCalledTimes(1);
 			expect(puzzelConversationManager.startConversation).toHaveBeenCalledTimes(1);
 			expect(chatHistoryHandler.load).not.toHaveBeenCalled();
-			expect(chatHandler.setErrorData).not.toHaveBeenCalled();
+			expect(chatHandler.setBannerContent).not.toHaveBeenCalled();
 			expect(getStorage()?.conversationData).toEqual({ conversationId: "new-conversation" });
 		});
 
@@ -258,9 +264,9 @@ describe("Puzzel", () => {
 			const initialized = await puzzel.init();
 
 			expect(initialized).toBe(puzzel);
-			expect(chatHandler.setErrorData).toHaveBeenCalledTimes(1);
+			expect(chatHandler.setBannerContent).toHaveBeenCalledWith("Error");
 			expect(chatHandler.displayBanner).toHaveBeenCalledWith(true);
-			expect(chatHandler.disable).toHaveBeenCalledTimes(1);
+			expect(chatHandler.endSession).toHaveBeenCalledTimes(1);
 			expect(uiManager.setTitle).toHaveBeenCalledWith("Puzzel Assistant");
 			expect(uiManager.addCloseAction).toHaveBeenCalledTimes(1);
 			expect(outgoingChatHandler.register).not.toHaveBeenCalled();

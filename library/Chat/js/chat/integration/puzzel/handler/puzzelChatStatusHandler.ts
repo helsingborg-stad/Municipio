@@ -5,7 +5,8 @@ class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
 
     public constructor(
         private chatHandler: ChatHandlerInterface,
-        private puzzelConversationManager: PuzzelConversationManagerInterface
+        private puzzelConversationManager: PuzzelConversationManagerInterface,
+        private bannerDataManager: BannerDataManagerInterface
     ) {
     }
 
@@ -27,9 +28,9 @@ class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
     }
 
     private handleDisconnected(): void {
-        this.chatHandler.setChatInactiveData();
+        this.chatHandler.setBannerContent(this.bannerDataManager.getChatInactiveBannerContent());
         this.chatHandler.displayBanner(true);
-        this.chatHandler.disable();
+        this.chatHandler.endSession();
     }
 
     private handleInQueue(status: PuzzelConversationStatusResponse): void {
@@ -41,7 +42,7 @@ class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
     }
 
     private enableQueueBanner(position: number): void {
-        this.chatHandler.setQueueBannerData(position);
+        this.chatHandler.setBannerContent(this.bannerDataManager.getQueueBannerContent(position));
         this.chatHandler.displayBanner(true);
         this.chatHandler.enable();
     }

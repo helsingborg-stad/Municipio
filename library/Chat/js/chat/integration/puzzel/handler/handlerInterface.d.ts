@@ -32,6 +32,7 @@ interface ChatHandlerInterface {
 	addAgentLeftInfo(): void;
 	addUserLeftInfo(): void;
 	disable(): void;
+	setBannerContent(content: string|Node): void;
 	enable(): void;
 	endSession(): void;
 	startNewSession(): void;
@@ -40,7 +41,4 @@ interface ChatHandlerInterface {
 	onMessageAdded(listener: (message: any) => void): void;
 	onTyping(listener: () => void): void;
 	displayBanner(show: boolean): void;
-	setQueueBannerData(position: number): void;
-	setChatInactiveData(): void;
-	setErrorData(): void;
 }
