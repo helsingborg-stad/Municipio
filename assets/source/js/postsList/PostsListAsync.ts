@@ -1,4 +1,5 @@
 import { postsListRender } from "../restApi/endpoints/postsListRender";
+import { updateTaxonomyFilters } from "./updateTaxonomyFilters";
 import { updateUrlParams } from "./updateUrlParams";
 
 export const postsListAsync = (
@@ -49,6 +50,7 @@ export const postsListAsync = (
 		);
 		const newContent = temp.querySelector(classNames) as HTMLElement;
 		if (newContent) postsContainer.innerHTML = newContent.innerHTML;
+		updateTaxonomyFilters(form, temp);
 	};
 
 	const setIsLoading = (isLoading: boolean) => {

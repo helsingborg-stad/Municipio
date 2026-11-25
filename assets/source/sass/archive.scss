@@ -13,6 +13,11 @@
     }
 }
 
+// Taxonomy filters are wrapped so they can be replaced after async filtering; keep them as direct grid items.
+.s-archive-filter__taxonomies {
+    display: contents;
+}
+
 // Checkbox taxonomy filters: center the options against the height of the select fields beside them.
 .s-archive-filter__checkboxes {
     display: flex;
