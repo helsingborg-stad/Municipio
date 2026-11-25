@@ -20,6 +20,7 @@ import Puzzel from "./puzzel";
 import PuzzelAvailabilityManager from "./puzzelAvailabilityManager";
 import PuzzelConversationManager from "./puzzelConversationManager";
 import BannerDataManager from "./bannerDataManager";
+import InfoDataManager from "./infoDataManager";
 
 export function createPuzzel(
     chat: any,
@@ -46,6 +47,7 @@ export function createPuzzel(
     );
 
     const bannerDataManager = new BannerDataManager();
+    const infoDataManager = new InfoDataManager();
     const chatHandler = new ChatHandler(chat);
     const puzzelTypingIndicatorHandler = new PuzzelTypingIndicatorHandler(chatHandler);
 
@@ -57,13 +59,14 @@ export function createPuzzel(
         puzzelTypingIndicatorHandler,
         new PuzzelIncomingMessageHandler(chatHandler, puzzelTypingIndicatorHandler),
         new PuzzelOutgoingChatHandler(chatHandler, puzzelConversationManager),
-        new PuzzelAgentLeftHandler(chatHandler, bannerDataManager),
-        new PuzzelAgentJoinedHandler(chatHandler),
-        new PuzzelChatHistoryHandler(chatHandler),
+        new PuzzelAgentLeftHandler(chatHandler, bannerDataManager, infoDataManager),
+        new PuzzelAgentJoinedHandler(chatHandler, infoDataManager),
+        new PuzzelChatHistoryHandler(chatHandler, infoDataManager),
         new PuzzelChatStatusHandler(chatHandler, puzzelConversationManager, bannerDataManager),
         chatHandler,
         uiManager,
         puzzelConfig,
         bannerDataManager,
+        infoDataManager,
     );
 }

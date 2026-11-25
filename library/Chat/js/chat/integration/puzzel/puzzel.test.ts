@@ -57,7 +57,7 @@ const createPuzzel = ({
 			setDefaultPersistedState: jest.fn(),
 			startNewSession: jest.fn(),
 			endSession: jest.fn(),
-			addUserLeftInfo: jest.fn(),
+			addInfo: jest.fn(),
 			setBannerContent: jest.fn(),
 			displayBanner: jest.fn(),
 			disable: jest.fn(),
@@ -80,6 +80,12 @@ const createPuzzel = ({
 			getChatInactiveBannerContent: jest.fn(),
 			getErrorBannerContent: jest.fn().mockReturnValue("Error"),
 		},
+		infoDataManager: {
+			getAgentJoinedInfoContent: jest.fn(),
+			getAgentLeftInfoContent: jest.fn(),
+			getUserLeftInfoContent: jest.fn().mockReturnValue("User left"),
+			getInfoContentFromType: jest.fn(),
+		},
 	};
 
 	const puzzel = new Puzzel(
@@ -98,6 +104,7 @@ const createPuzzel = ({
 		deps.uiManager as any,
 		deps.puzzelConfig as any,
 		deps.bannerDataManager as any,
+		deps.infoDataManager as any,
 	);
 
 	return { puzzel, ...deps, getStorage: () => storage };
@@ -161,7 +168,7 @@ describe("Puzzel", () => {
 			// Assert
 			expect(chatHandler.endSession).toHaveBeenCalledTimes(1);
 			expect(puzzelConversationManager.sendUserLeaveEvent).toHaveBeenCalledTimes(1);
-			expect(chatHandler.addUserLeftInfo).toHaveBeenCalledTimes(1);
+			expect(chatHandler.addInfo).toHaveBeenCalledWith("User left");
 		});
 
 		it.each(["agent", "visitor", "other"])("locks the session when a %s leaves", async (senderRole) => {

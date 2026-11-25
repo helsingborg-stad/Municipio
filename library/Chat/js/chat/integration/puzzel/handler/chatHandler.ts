@@ -1,4 +1,3 @@
-import { getLocalizedString } from "../../../helper/translations";
 class ChatHandler implements ChatHandlerInterface {
 	private sessionEnded = false;
 
@@ -22,31 +21,6 @@ class ChatHandler implements ChatHandlerInterface {
 
 	public setBannerContent(content: string|Node): void {
 		this.chat.setBannerContent(content);
-	}
-
-	public addInfoFromType(type: string, senderRole: string = 'agent'): void {
-		switch (type) {
-			case "participantJoinEvent":
-				if (senderRole === 'agent') {
-					this.addAgentJoinedInfo();
-				}
-				break;
-			case "participantLeaveEvent":
-				senderRole === 'agent' ? this.addAgentLeftInfo() : this.addUserLeftInfo();
-				break;
-		}
-	}
-
-	public addAgentJoinedInfo(): void {
-		this.chat.addInfo(getLocalizedString("agentJoinedChat", "Agent has joined the chat"));
-	}
-
-	public addUserLeftInfo(): void {
-		this.chat.addInfo(getLocalizedString("userLeftChat", "User has left the chat"));
-	}
-
-	public addAgentLeftInfo(): void {
-		this.chat.addInfo(getLocalizedString("agentLeftChat", "Agent has left the chat"));
 	}
 
 	public disable(): void {

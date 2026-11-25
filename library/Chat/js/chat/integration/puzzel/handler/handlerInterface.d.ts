@@ -27,10 +27,6 @@ interface ChatHandlerInterface {
 	setDefaultPersistedState(state: boolean): void;
 	addMessage(message: string, isAgent: boolean): void;
 	addInfo(content: string): void;
-	addInfoFromType(type: string, senderRole?: string): void;
-	addAgentJoinedInfo(): void;
-	addAgentLeftInfo(): void;
-	addUserLeftInfo(): void;
 	disable(): void;
 	setBannerContent(content: string|Node): void;
 	enable(): void;

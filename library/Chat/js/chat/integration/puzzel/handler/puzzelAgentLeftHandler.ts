@@ -2,6 +2,7 @@ class PuzzelAgentLeftHandler implements MetaDataHandler {
 	public constructor(
 		private chatHandler: ChatHandlerInterface,
 		private bannerDataManager: BannerDataManagerInterface,
+		private infoDataManager: InfoDataManagerInterface,
 	) {
 	}
 
@@ -12,7 +13,7 @@ class PuzzelAgentLeftHandler implements MetaDataHandler {
 
 		this.chatHandler.setBannerContent(this.bannerDataManager.getChatInactiveBannerContent());
 		this.chatHandler.displayBanner(true);
-		this.chatHandler.addAgentLeftInfo();
+		this.chatHandler.addInfo(this.infoDataManager.getAgentLeftInfoContent());
 		this.chatHandler.endSession();
         return true;
 	}
