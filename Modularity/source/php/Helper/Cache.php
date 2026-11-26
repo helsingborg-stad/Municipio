@@ -4,77 +4,57 @@ declare(strict_types=1);
 
 namespace Modularity\Helper;
 
-use Municipio\Helper\User\User;
+use Modularity\Helper\FragmentCache\Fragment;
+use Modularity\Helper\FragmentCache\FragmentHash;
+use Modularity\Helper\FragmentCache\FragmentStoreFactory;
+use Modularity\Helper\FragmentCache\FragmentStoreInterface;
+use Municipio\Helper\WpService;
 
+/**
+ * Fragment cache for rendered module markup.
+ *
+ * Usage:
+ * $cache = new Modularity\Helper\Cache($post->ID, $module);
+ * if ($cache->start()) {
+ *     // Your cacheable content here
+ *     $cache->stop();
+ * }
+ */
 class Cache
 {
+    private int|string $postId;
+    private ?int $ttl;
+    private string|false $hash;
+    private bool $isCapturing = false;
+
     /**
-     * Fragment cache in object cache
-     * @param  string $postId      The post id that you want to cache (or any other key that relates to specific data)
-     * @param  string $module      Any input data altering output result as a concatinated string/array/object.
-     * @param  string $ttl         The time that a cache should live (in seconds),
-     * @param  mixed  $cacheGroup  The value to create a short hash from, to create a unique cache group.
-     * @return string              The request response
+     * @param  int|string|null $postId          The post the fragment belongs to. Clearing it clears the fragment.
+     * @param  mixed           $module          Any input data altering the output, as a string, array or object.
+     * @param  int|null        $ttl             The time that a fragment should live (in seconds).
+     * @param  mixed           $cacheGroup      Request data that alters the output, such as query vars.
+     * @param  FragmentAssetContextInterface|null $fragmentAssets Captures and restores the assets of a fragment.
+     * @param  FragmentStoreInterface|null $fragmentStore Where fragments are stored. Defaults to the object cache of the current site.
+     *
+     * @mago-expect lint:excessive-parameter-list
      */
-
-    private $postId = null;
-    private $ttl = null;
-    private $hash = null;
-    private ?FragmentAssetContextInterface $fragmentAssets;
-
-    public $keyGroup = 'modules';
-
-    public function __construct($postId, $module = '', $ttl = 3600 * 24, $cacheGroup = null, ?FragmentAssetContextInterface $fragmentAssets = null)
-    {
-        $this->fragmentAssets = $fragmentAssets;
-        // Create cache group hash
-        if (!is_null($cacheGroup)) {
-            $cacheGroup = $this->createShortHash($cacheGroup);
-        } else {
-            $cacheGroup = '';
-        }
-
-        // Set variables
-        $this->postId = $postId;
-        $this->ttl = $ttl;
-
-        //Alter keyGroup if ms
-        if (function_exists('is_multisite') && is_multisite()) {
-            $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
-        }
-
-        // Create hash string from module
-        $this->hash = $this->createShortHash($module);
-
-        //If hash key creation failed, disable cache
-        if ($this->hash === false) {
-            $this->ttl = null;
-            return;
-        }
-
-        //Add user auth state to hash
-        if (is_user_logged_in()) {
-
-            //Get user caps, populate with additional data
-            $caps = wp_get_current_user()?->caps ?? [];
-            $caps['superadmin'] = is_super_admin();
-            $caps['usergroup']  = User::get()->getUserGroup()?->term_id ?? null;
-            
-            //Update hash with user caps
-            $this->hash = $this->hash . '-auth-' . $this->createShortHash($caps, false);
-        }
-
-        //Add cache group to hash, if set
-        if ($cacheGroup != '') {
-            $this->hash = $this->hash . '-group-' . $cacheGroup;
-        }
+    public function __construct(
+        $postId,
+        $module = '',
+        $ttl = 3600 * 24,
+        $cacheGroup = null,
+        private ?FragmentAssetContextInterface $fragmentAssets = null,
+        private ?FragmentStoreInterface $fragmentStore = null,
+    ) {
+        $this->postId = $postId ?? '';
+        $this->ttl = is_numeric($ttl) ? (int) $ttl : null;
+        $this->hash = (new FragmentHash())->create($module, $cacheGroup);
 
         add_action('save_post', [$this, 'clearCache']);
     }
 
     /**
-     * Cleas the cache of a specific post id
-     * @param  integer $postId Post id to clear
+     * Clears every fragment of a post
+     * @param  int|string $postId Post id to clear
      * @return boolean
      */
     public function clearCache($postId)
@@ -82,12 +62,15 @@ class Cache
         if (wp_is_post_revision($postId)) {
             return false;
         }
-        return wp_cache_delete($postId, $this->keyGroup);
+
+        $this->getFragmentStore()->clear($postId);
+
+        return true;
     }
 
     /**
      * Starts the "cache engine"
-     * @return boolean Returns true if engine started or inactivated, returns false if previous cache is loaded
+     * @return boolean Returns true if the content should be rendered, false if a cached fragment was printed
      */
     public function start()
     {
@@ -95,92 +78,70 @@ class Cache
             return true;
         }
 
-        if (!$this->hasCache()) {
-            $this->fragmentAssets?->beginFragment();
-            ob_start();
+        $fragment = $this->getFragmentStore()->get($this->postId, $this->hash);
+
+        if ($fragment === null) {
+            $this->startCapturing();
             return true;
         }
 
-        $this->getCache(true);
+        $this->replay($fragment);
         return false;
     }
 
     /**
-     * Stops the cache engine and saves the output buffer to the cache
+     * Stops the cache engine, saves the rendered output as a fragment and prints it
      * @return boolean
      */
     public function stop()
     {
-        if (!$this->isActive() || $this->hasCache()) {
+        if (!$this->isCapturing) {
             return false;
         }
 
-        // Get output buffer and save to cache
-        $return_data = ob_get_clean();
+        $this->isCapturing = false;
+        $html = (string) ob_get_clean();
         $assets = $this->fragmentAssets?->endFragment() ?? [];
 
-        do_action('Modularity/Cache/Markup', $return_data);
+        do_action('Modularity/Cache/Markup', $html);
 
-        if (!empty($return_data)) {
-            $cacheArray = (array) wp_cache_get($this->postId, $this->keyGroup);
-
-            $cacheArray[$this->hash] = $return_data . $this->fragmentTag();
-            $cacheArray[$this->hash . ':assets'] = $assets;
-
-            wp_cache_delete($this->postId, $this->keyGroup);
-
-            wp_cache_add($this->postId, array_filter($cacheArray), $this->keyGroup, $this->ttl);
+        if ($html !== '') {
+            $this->getFragmentStore()->set(
+                $this->postId,
+                $this->hash,
+                new Fragment($html . $this->fragmentTag(), $assets),
+                (int) $this->ttl,
+            );
         }
 
-        echo $return_data;
+        echo $html;
         return true;
     }
 
-    /**
-     * Check if has cache
-     * @return boolean
-     */
-    private function hasCache()
+    private function startCapturing(): void
     {
-        if (!$this->isActive()) {
-            return false;
-        }
-        return !empty($this->getCache(false));
+        $this->fragmentAssets?->beginFragment();
+        ob_start();
+        $this->isCapturing = true;
     }
 
-    /**
-     * Get cache
-     * @param  boolean $print Set to true to print instead of return
-     * @return mixed
-     */
-    private function getCache($print = true)
+    private function replay(Fragment $fragment): void
     {
-        $cacheArray = wp_cache_get($this->postId, $this->keyGroup);
+        do_action('Modularity/Cache/Markup', $fragment->html);
 
-        if (!is_array($cacheArray) || !array_key_exists($this->hash, $cacheArray)) {
-            return false;
-        }
+        $this->fragmentAssets?->restoreFragment($fragment->assets);
 
-        do_action('Modularity/Cache/Markup', $cacheArray[$this->hash]);
+        echo $fragment->html;
+    }
 
-        // An older HTML-only fragment cannot restore assets; render it again once.
-        if ($this->fragmentAssets !== null && !is_array($cacheArray[$this->hash . ':assets'] ?? null)) {
-            return false;
-        }
-
-        if ($print === true) {
-            if (is_array($cacheArray[$this->hash . ':assets'] ?? null)) {
-                $this->fragmentAssets?->restoreFragment($cacheArray[$this->hash . ':assets']);
-            }
-            echo $cacheArray[$this->hash];
-        }
-
-        return $cacheArray[$this->hash];
+    private function getFragmentStore(): FragmentStoreInterface
+    {
+        return $this->fragmentStore ??= (new FragmentStoreFactory(WpService::get(), WpService::get()))->create();
     }
 
     /**
      * Output fragment cache fingerprint in source code
-     * @return void
+     * @return string
      */
     private function fragmentTag()
     {
@@ -197,42 +158,6 @@ class Cache
             return false;
         }
 
-        if (empty($this->ttl)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Create a short hash from a value
-     * @param  string  $input    Key
-     * @param  boolean $keysOnly Set to true for keys only
-     * @return string            Hash
-     */
-    private function createShortHash($input, $keysOnly = false)
-    {
-        try {
-            if ($keysOnly && (is_array($input) || is_object($input))) {
-                $input = array_keys($input);
-            }
-            if (is_array($input) || is_object($input)) {
-                $input = substr(base_convert(md5(serialize($input)), 16, 32), 0, 12);
-            } else {
-                $input = substr(base_convert(md5($input), 16, 32), 0, 12);
-            }
-            return $input;
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->ttl !== null && $this->ttl > 0 && $this->hash !== false;
     }
 }
-
-/*
- * Usage example:
- * $cache = new Modularity\Helper\Cache($post->Id);
- * if ($cache->start()) {
- * // Your cacheable content here
- * $cache->stop();
- * }
- */

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Modularity;
 
-use Modularity\Helper\CacheTest;
+use Modularity\Helper\FragmentCache\FragmentStore;
 use Municipio\TestUtils\InMemoryObjectCache;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpUtilService\WpUtilServiceInterface;
 
-// Reuses the in-memory object cache fakes declared for Modularity\Helper\Cache.
+// Reuses the WordPress function fakes declared for Modularity\Helper\Cache.
 require_once __DIR__ . '/Helper/CacheTest.php';
 
 /**
@@ -36,6 +36,7 @@ class DisplayOutputModuleTest extends TestCase
     public static int $uniqueIdCounter = 0;
 
     private int $renderCount = 0;
+    private InMemoryObjectCache $objectCache;
 
     protected function setUp(): void
     {
@@ -45,7 +46,7 @@ class DisplayOutputModuleTest extends TestCase
         ModuleManager::$classes['mod-text'] = get_class(new class {
             public function __construct(mixed ...$args) {}
         });
-        CacheTest::$objectCache = new InMemoryObjectCache();
+        $this->objectCache = new InMemoryObjectCache();
     }
 
     protected function tearDown(): void
@@ -164,6 +165,10 @@ class DisplayOutputModuleTest extends TestCase
             $display,
             $this->createStub(WpUtilServiceInterface::class),
         );
+        (new \ReflectionProperty(Display::class, 'fragmentStore'))->setValue(
+            $display,
+            new FragmentStore($this->objectCache, 'modules'),
+        );
 
         return $display;
     }
@@ -178,6 +183,6 @@ class DisplayOutputModuleTest extends TestCase
 
     private function countStoredFragments(): int
     {
-        return substr_count(serialize(CacheTest::$objectCache->getGroup('modules')), 'Modularity Fragment Cache');
+        return substr_count(serialize($this->objectCache->getGroup('modules')), 'Modularity Fragment Cache');
     }
 }

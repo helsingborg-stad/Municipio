@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Modularity\Helper\FragmentCache\FragmentStoreFactory;
 use Modularity\Private\PrivateAcfFields;
 use Municipio\Helper\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -63,14 +64,15 @@ class App
         self::$moduleManager = new ModuleManager($this->wpUtilService);
 
         $this->editor = new Editor($this->wpEnqueue);
-        self::$display = new Display($this->wpUtilService);
+        $fragmentStore = (new FragmentStoreFactory(WpService::get(), WpService::get()))->create();
+        self::$display = new Display($this->wpUtilService, $fragmentStore);
 
         if (is_admin()) {
             new PrivateAcfFields();
         }
 
         new Helper\Acf();
-        new CachePurge();
+        new CachePurge($fragmentStore, WpService::get());
 
         new Search();
         (new \Modularity\SearchIndex(WpService::get()))->addHooks();

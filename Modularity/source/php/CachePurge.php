@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Modularity\Helper\FragmentCache\FragmentStoreInterface;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetPostType;
+use WpService\Contracts\GetThePermalink;
+use WpService\Contracts\WpIsPostRevision;
+use WpService\Contracts\WpRemoteRequest;
+
 /**
  * Class CachePurge
  *
@@ -14,16 +22,12 @@ namespace Modularity;
 
 class CachePurge
 {
-    public $keyGroup = 'modules';
-
-    public function __construct()
-    {
-        if (function_exists('is_multisite') && is_multisite()) {
-            $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
-        }
-
-        add_action('save_post', [$this, 'purgeObjectCache'], 90, 1);
-        add_action('save_post', [$this, 'purgePageCache'], 100, 1);
+    public function __construct(
+        private FragmentStoreInterface $fragmentStore,
+        private AddAction&WpIsPostRevision&GetPostType&GetPosts&GetThePermalink&WpRemoteRequest $wpService,
+    ) {
+        $this->wpService->addAction('save_post', [$this, 'purgeObjectCache'], 90, 1);
+        $this->wpService->addAction('save_post', [$this, 'purgePageCache'], 100, 1);
     }
 
     /**
@@ -38,7 +42,7 @@ class CachePurge
     public function purgePageCache($postId): bool
     {
         //Not for revisions
-        if (wp_is_post_revision($postId)) {
+        if ($this->wpService->wpIsPostRevision($postId)) {
             return false;
         }
 
@@ -52,7 +56,7 @@ class CachePurge
                         continue;
                     }
 
-                    wp_remote_request(get_the_permalink($modulePage->post_id), [
+                    $this->wpService->wpRemoteRequest((string) $this->wpService->getThePermalink($modulePage->post_id), [
                         'method' => 'PURGE',
                         'timeout' => 2,
                         'redirection' => 0,
@@ -71,7 +75,7 @@ class CachePurge
      * Send a purge request for a post if it's a modularity type.
      *
      * This function checks if a post with the given post ID is a modularity type. If it is, it sends
-     * a purge request to the relevant cache group. Purge requests are not sent for post revisions.
+     * a purge request to the fragment cache of every Posts module listing that post type. Purge requests are not sent for post revisions.
      *
      * @param int $post_id The ID of the post to check and potentially send a purge request for.
      * @return bool True if a purge request was sent, false otherwise (including revisions).
@@ -79,12 +83,12 @@ class CachePurge
     public function purgeObjectCache($postId): bool
     {
         //Not for revisions
-        if (wp_is_post_revision($postId)) {
+        if ($this->wpService->wpIsPostRevision($postId)) {
             return false;
         }
 
         //Get post type
-        $postType = get_post_type($postId);
+        $postType = $this->wpService->getPostType($postId);
 
         if (!$this->isModularityPost($postId) && !empty($postType)) {
             $args = [
@@ -103,13 +107,12 @@ class CachePurge
             $purgedPostCache = false;
 
             // Fetch posts using get_posts
-            $posts = get_posts($args);
+            $posts = $this->wpService->getPosts($args);
 
             if (!empty($posts)) {
                 foreach ($posts as $post) {
-                    $moduleId = $post->ID;
                     $purgedPostCache = true;
-                    wp_cache_delete($moduleId, $this->keyGroup);
+                    $this->fragmentStore->clear($post->ID);
                 }
             }
 
@@ -130,9 +133,6 @@ class CachePurge
      */
     private function isModularityPost($postId): bool
     {
-        if (str_starts_with(get_post_type($postId), 'mod-')) {
-            return true;
-        }
-        return false;
+        return str_starts_with((string) $this->wpService->getPostType($postId), 'mod-');
     }
 }

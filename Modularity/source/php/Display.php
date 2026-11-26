@@ -6,6 +6,7 @@ namespace Modularity;
 
 use Modularity\Helper\Cache;
 use Modularity\Helper\File as FileHelper;
+use Modularity\Helper\FragmentCache\FragmentStoreInterface;
 use Modularity\Helper\ModuleInstanceId;
 use Modularity\Helper\ModuleQueryVars;
 use Modularity\Helper\Wp;
@@ -29,6 +30,7 @@ class Display
 
     public function __construct(
         private WpUtilServiceInterface $wpUtilService,
+        private ?FragmentStoreInterface $fragmentStore = null,
     ) {
         add_filter('wp', [$this, 'init']);
         add_filter('is_active_sidebar', [$this, 'isActiveSidebar'], 10, 2);
@@ -540,6 +542,7 @@ class Display
             $this->getFragmentCacheTtl($module, $moduleSettings),
             $queryVars === [] ? null : $queryVars,
             \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
+            $this->fragmentStore,
         );
     }
 

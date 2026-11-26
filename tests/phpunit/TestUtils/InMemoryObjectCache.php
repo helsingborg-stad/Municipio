@@ -21,6 +21,7 @@ final class InMemoryObjectCache implements WpCacheGet, WpCacheSet, WpCacheAdd, W
     /** @var list<array{key: int|string, group: string, data: mixed, expire: int}> */
     private array $writes = [];
 
+    // @mago-expect lint:no-boolean-flag-parameter
     public function wpCacheGet(int|string $key, string $group = '', bool $force = false, ?bool &$found = null): mixed
     {
         $found = array_key_exists($key, $this->storage[$group] ?? []);
