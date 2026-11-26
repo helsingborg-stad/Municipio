@@ -83,7 +83,7 @@ class BlockManagerFragmentCacheTest extends TestCase
     private function createBlock(array $data): array
     {
         return [
-            'id' => 'block_' . md5(serialize($data)),
+            'id' => 'block_' . hash('xxh128', serialize($data)),
             'name' => 'acf/text',
             'moduleName' => 'text',
             'mode' => 'edit',

@@ -48,12 +48,15 @@ final class FragmentHash
         return $caps;
     }
 
+    /**
+     * A fast, non-cryptographic hash. It only identifies cache entries.
+     */
     private function createShortHash(mixed $input): string|false
     {
         try {
             $value = is_array($input) || is_object($input) ? serialize($input) : (string) $input;
 
-            return substr(base_convert(md5($value), 16, 32), 0, 12);
+            return substr(hash('xxh128', $value), 0, 16);
         } catch (\Exception $e) {
             return false;
         }
