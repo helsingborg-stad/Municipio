@@ -14,8 +14,6 @@ function is_user_logged_in(): bool
     return false;
 }
 
-function add_action(string $hook, mixed $callback): void {}
-
 function current_time(string $format, int $gmt = 0): string
 {
     return '2026-09-28 12:00:00';
@@ -100,18 +98,6 @@ class CacheTest extends TestCase
 
         static::assertFalse($isMiss);
         static::assertStringContainsString('Fragment A', $output);
-    }
-
-    #[TestDox('clearCache() makes every fragment of the post miss')]
-    public function testClearCacheMakesEveryFragmentOfThePostMiss(): void
-    {
-        $this->storeFragment(42, 'module-a', 'Fragment A');
-        $this->storeFragment(42, 'module-b', 'Fragment B');
-
-        $this->createCache(42, 'module-a')->clearCache(42);
-
-        static::assertTrue($this->isMiss(42, 'module-a'));
-        static::assertTrue($this->isMiss(42, 'module-b'));
     }
 
     private function createCache(int $postId, string $module, ?FragmentAssetContextInterface $assets = null): Cache

@@ -28,7 +28,7 @@ class Cache
     private bool $isCapturing = false;
 
     /**
-     * @param  int|string|null $postId          The post the fragment belongs to. Clearing it clears the fragment.
+     * @param  int|string|null $postId          The post the fragment belongs to. Saving it clears the fragment, see CachePurge.
      * @param  mixed           $module          Any input data altering the output, as a string, array or object.
      * @param  int|null        $ttl             The time that a fragment should live (in seconds).
      * @param  mixed           $cacheGroup      Request data that alters the output, such as query vars.
@@ -48,24 +48,6 @@ class Cache
         $this->postId = $postId ?? '';
         $this->ttl = is_numeric($ttl) ? (int) $ttl : null;
         $this->hash = (new FragmentHash())->create($module, $cacheGroup);
-
-        add_action('save_post', [$this, 'clearCache']);
-    }
-
-    /**
-     * Clears every fragment of a post
-     * @param  int|string $postId Post id to clear
-     * @return boolean
-     */
-    public function clearCache($postId)
-    {
-        if (wp_is_post_revision($postId)) {
-            return false;
-        }
-
-        $this->getFragmentStore()->clear($postId);
-
-        return true;
     }
 
     /**
