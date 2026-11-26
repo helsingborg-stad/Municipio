@@ -17,7 +17,8 @@ class FragmentStoreFactoryTest extends TestCase
     {
         $objectCache = new InMemoryObjectCache();
 
-        $this->createFactory($objectCache, isMultisite: false, blogId: 1)->create()->set(42, 'hash', new Fragment('<p>A</p>', []), 60);
+        $store = $this->createFactory($objectCache, isMultisite: false, blogId: 1)->create();
+        $store->set($store->getKey(42, 'hash'), new Fragment('<p>A</p>', []), 60);
 
         static::assertNotEmpty($objectCache->getGroup('modules'));
     }
@@ -27,7 +28,8 @@ class FragmentStoreFactoryTest extends TestCase
     {
         $objectCache = new InMemoryObjectCache();
 
-        $this->createFactory($objectCache, isMultisite: true, blogId: 3)->create()->set(42, 'hash', new Fragment('<p>A</p>', []), 60);
+        $store = $this->createFactory($objectCache, isMultisite: true, blogId: 3)->create();
+        $store->set($store->getKey(42, 'hash'), new Fragment('<p>A</p>', []), 60);
 
         static::assertNotEmpty($objectCache->getGroup('modules-3'));
         static::assertEmpty($objectCache->getGroup('modules'));

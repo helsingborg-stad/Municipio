@@ -29,11 +29,11 @@ class CachePurgeTest extends TestCase
     #[TestDox('purgeObjectCache() clears the fragments of Posts modules that list the saved post type')]
     public function testPurgeObjectCacheClearsFragmentsOfPostsModulesListingThePostType(): void
     {
-        $this->fragmentStore->set(77, 'hash', new Fragment('<p>List of news</p>', []), 60);
+        $this->fragmentStore->set($this->fragmentStore->getKey(77, 'hash'), new Fragment('<p>List of news</p>', []), 60);
         $cachePurge = new CachePurge($this->fragmentStore, $this->createWpService(postType: 'news', postsModuleIds: [77]));
 
         static::assertTrue($cachePurge->purgeObjectCache(10));
-        static::assertNull($this->fragmentStore->get(77, 'hash'));
+        static::assertNull($this->fragmentStore->get($this->fragmentStore->getKey(77, 'hash')));
     }
 
     /**
@@ -45,11 +45,11 @@ class CachePurgeTest extends TestCase
     #[DataProvider('savedPostTypeProvider')]
     public function testPurgeObjectCacheClearsTheFragmentsOfTheSavedPost(string $postType): void
     {
-        $this->fragmentStore->set(10, 'hash', new Fragment('<p>Saved post</p>', []), 60);
+        $this->fragmentStore->set($this->fragmentStore->getKey(10, 'hash'), new Fragment('<p>Saved post</p>', []), 60);
         $cachePurge = new CachePurge($this->fragmentStore, $this->createWpService(postType: $postType, postsModuleIds: []));
 
         static::assertTrue($cachePurge->purgeObjectCache(10));
-        static::assertNull($this->fragmentStore->get(10, 'hash'));
+        static::assertNull($this->fragmentStore->get($this->fragmentStore->getKey(10, 'hash')));
     }
 
     /**
@@ -66,14 +66,14 @@ class CachePurgeTest extends TestCase
     #[TestDox('purgeObjectCache() leaves fragments untouched when a revision is saved')]
     public function testPurgeObjectCacheIgnoresRevisions(): void
     {
-        $this->fragmentStore->set(77, 'hash', new Fragment('<p>List of news</p>', []), 60);
+        $this->fragmentStore->set($this->fragmentStore->getKey(77, 'hash'), new Fragment('<p>List of news</p>', []), 60);
         $cachePurge = new CachePurge(
             $this->fragmentStore,
             $this->createWpService(postType: 'news', postsModuleIds: [77], isRevision: true),
         );
 
         static::assertFalse($cachePurge->purgeObjectCache(10));
-        static::assertNotNull($this->fragmentStore->get(77, 'hash'));
+        static::assertNotNull($this->fragmentStore->get($this->fragmentStore->getKey(77, 'hash')));
     }
 
     // @mago-expect lint:no-boolean-flag-parameter

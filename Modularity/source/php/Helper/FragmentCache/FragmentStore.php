@@ -22,14 +22,19 @@ final class FragmentStore implements FragmentStoreInterface
         private readonly string $group,
     ) {}
 
-    public function get(int|string $postId, string $hash): ?Fragment
+    public function getKey(int|string $postId, string $hash): FragmentKey
     {
-        return Fragment::fromArray($this->objectCache->wpCacheGet($this->getFragmentKey($postId, $hash), $this->group));
+        return new FragmentKey($postId . ':' . $this->getVersion($postId) . ':' . $hash);
     }
 
-    public function set(int|string $postId, string $hash, Fragment $fragment, int $ttl): void
+    public function get(FragmentKey $key): ?Fragment
     {
-        $this->objectCache->wpCacheSet($this->getFragmentKey($postId, $hash), $fragment->toArray(), $this->group, $ttl);
+        return Fragment::fromArray($this->objectCache->wpCacheGet($key->value, $this->group));
+    }
+
+    public function set(FragmentKey $key, Fragment $fragment, int $ttl): void
+    {
+        $this->objectCache->wpCacheSet($key->value, $fragment->toArray(), $this->group, $ttl);
     }
 
     public function clear(int|string $postId): void
@@ -37,11 +42,6 @@ final class FragmentStore implements FragmentStoreInterface
         if ($this->objectCache->wpCacheIncr($this->getVersionKey($postId), 1, $this->group) === false) {
             $this->objectCache->wpCacheSet($this->getVersionKey($postId), $this->createVersion(), $this->group);
         }
-    }
-
-    private function getFragmentKey(int|string $postId, string $hash): string
-    {
-        return $postId . ':' . $this->getVersion($postId) . ':' . $hash;
     }
 
     private function getVersion(int|string $postId): int

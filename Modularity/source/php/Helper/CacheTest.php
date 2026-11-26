@@ -100,6 +100,23 @@ class CacheTest extends TestCase
         static::assertStringContainsString('Fragment A', $output);
     }
 
+    /**
+     * @see https://github.com/helsingborg-stad/Municipio/pull/2437#discussion_r4709642539
+     */
+    #[TestDox('stop() does not serve markup that was rendered while the post was saved')]
+    public function testStopDoesNotServeMarkupRenderedWhileThePostWasSaved(): void
+    {
+        ob_start();
+        $cache = $this->createCache(42, 'module-a');
+        $cache->start();
+        echo 'Rendered before the save';
+        (new FragmentStore($this->objectCache, 'modules'))->clear(42);
+        $cache->stop();
+        ob_end_clean();
+
+        static::assertTrue($this->isMiss(42, 'module-a'));
+    }
+
     private function createCache(int $postId, string $module, ?FragmentAssetContextInterface $assets = null): Cache
     {
         return new Cache($postId, $module, 60, null, $assets, new FragmentStore($this->objectCache, 'modules'));

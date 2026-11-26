@@ -22,24 +22,24 @@ class FragmentStoreTest extends TestCase
     #[TestDox('get() returns null when no fragment is stored')]
     public function testGetReturnsNullWhenNothingIsStored(): void
     {
-        static::assertNull($this->store->get(42, 'hash-a'));
+        static::assertNull($this->store->get($this->key(42, 'hash-a')));
     }
 
     #[TestDox('get() returns a stored fragment with its markup and assets')]
     public function testGetReturnsAStoredFragment(): void
     {
-        $this->store->set(42, 'hash-a', new Fragment('<p>A</p>', ['components' => ['collection']]), 60);
+        $this->store->set($this->key(42, 'hash-a'), new Fragment('<p>A</p>', ['components' => ['collection']]), 60);
 
-        static::assertEquals(new Fragment('<p>A</p>', ['components' => ['collection']]), $this->store->get(42, 'hash-a'));
+        static::assertEquals(new Fragment('<p>A</p>', ['components' => ['collection']]), $this->store->get($this->key(42, 'hash-a')));
     }
 
     #[TestDox('set() writes only the given fragment, with its own TTL')]
     public function testSetWritesOnlyTheGivenFragmentWithItsOwnTtl(): void
     {
-        $this->store->set(42, 'hash-a', new Fragment('<p>A</p>', []), 60);
+        $this->store->set($this->key(42, 'hash-a'), new Fragment('<p>A</p>', []), 60);
         $this->objectCache->clearWrites();
 
-        $this->store->set(42, 'hash-b', new Fragment('<p>B</p>', []), 120);
+        $this->store->set($this->key(42, 'hash-b'), new Fragment('<p>B</p>', []), 120);
 
         $writes = $this->objectCache->getWrites();
         static::assertCount(1, $writes);
@@ -50,45 +50,64 @@ class FragmentStoreTest extends TestCase
     #[TestDox('clear() makes every stored fragment of the post miss')]
     public function testClearMakesEveryFragmentOfThePostMiss(): void
     {
-        $this->store->set(42, 'hash-a', new Fragment('<p>A</p>', []), 60);
-        $this->store->set(42, 'hash-b', new Fragment('<p>B</p>', []), 60);
+        $this->store->set($this->key(42, 'hash-a'), new Fragment('<p>A</p>', []), 60);
+        $this->store->set($this->key(42, 'hash-b'), new Fragment('<p>B</p>', []), 60);
 
         $this->store->clear(42);
 
-        static::assertNull($this->store->get(42, 'hash-a'));
-        static::assertNull($this->store->get(42, 'hash-b'));
+        static::assertNull($this->store->get($this->key(42, 'hash-a')));
+        static::assertNull($this->store->get($this->key(42, 'hash-b')));
     }
 
     #[TestDox('clear() leaves fragments of other posts untouched')]
     public function testClearLeavesOtherPostsUntouched(): void
     {
-        $this->store->set(7, 'hash-a', new Fragment('<p>Other</p>', []), 60);
+        $this->store->set($this->key(7, 'hash-a'), new Fragment('<p>Other</p>', []), 60);
 
         $this->store->clear(42);
 
-        static::assertEquals(new Fragment('<p>Other</p>', []), $this->store->get(7, 'hash-a'));
+        static::assertEquals(new Fragment('<p>Other</p>', []), $this->store->get($this->key(7, 'hash-a')));
     }
 
     #[TestDox('set() after clear() stores a fragment that can be read again')]
     public function testSetAfterClearIsReadable(): void
     {
-        $this->store->set(42, 'hash-a', new Fragment('<p>Old</p>', []), 60);
+        $this->store->set($this->key(42, 'hash-a'), new Fragment('<p>Old</p>', []), 60);
         $this->store->clear(42);
 
-        $this->store->set(42, 'hash-a', new Fragment('<p>New</p>', []), 60);
+        $this->store->set($this->key(42, 'hash-a'), new Fragment('<p>New</p>', []), 60);
 
-        static::assertEquals(new Fragment('<p>New</p>', []), $this->store->get(42, 'hash-a'));
+        static::assertEquals(new Fragment('<p>New</p>', []), $this->store->get($this->key(42, 'hash-a')));
+    }
+
+    /**
+     * @see https://github.com/helsingborg-stad/Municipio/pull/2437#discussion_r4709642539
+     */
+    #[TestDox('set() does not make a fragment that was rendered before clear() readable')]
+    public function testSetDoesNotStoreAFragmentRenderedBeforeClearUnderTheNewVersion(): void
+    {
+        $keyAtCacheMiss = $this->key(42, 'hash-a');
+        $this->store->clear(42);
+
+        $this->store->set($keyAtCacheMiss, new Fragment('<p>Rendered before the post was saved</p>', []), 60);
+
+        static::assertNull($this->store->get($this->key(42, 'hash-a')));
     }
 
     #[TestDox('get() does not serve old fragments when the version key has been evicted')]
     public function testGetDoesNotServeOldFragmentsWhenTheVersionKeyIsEvicted(): void
     {
-        $this->store->set(42, 'hash-a', new Fragment('<p>A</p>', []), 60);
+        $this->store->set($this->key(42, 'hash-a'), new Fragment('<p>A</p>', []), 60);
         $this->store->clear(42);
-        $this->store->set(42, 'hash-a', new Fragment('<p>Stale</p>', []), 60);
+        $this->store->set($this->key(42, 'hash-a'), new Fragment('<p>Stale</p>', []), 60);
 
         $this->objectCache->wpCacheDelete('42:version', 'modules');
 
-        static::assertNull($this->store->get(42, 'hash-a'));
+        static::assertNull($this->store->get($this->key(42, 'hash-a')));
+    }
+
+    private function key(int $postId, string $hash): FragmentKey
+    {
+        return $this->store->getKey($postId, $hash);
     }
 }

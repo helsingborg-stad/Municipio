@@ -6,6 +6,7 @@ namespace Modularity\Helper;
 
 use Modularity\Helper\FragmentCache\Fragment;
 use Modularity\Helper\FragmentCache\FragmentHash;
+use Modularity\Helper\FragmentCache\FragmentKey;
 use Modularity\Helper\FragmentCache\FragmentStoreFactory;
 use Modularity\Helper\FragmentCache\FragmentStoreInterface;
 use Municipio\Helper\WpService;
@@ -25,7 +26,7 @@ class Cache
     private int|string $postId;
     private ?int $ttl;
     private string|false $hash;
-    private bool $isCapturing = false;
+    private ?FragmentKey $capturingKey = null;
 
     /**
      * @param  int|string|null $postId          The post the fragment belongs to. Saving it clears the fragment, see CachePurge.
@@ -60,10 +61,11 @@ class Cache
             return true;
         }
 
-        $fragment = $this->getFragmentStore()->get($this->postId, $this->hash);
+        $key = $this->getFragmentStore()->getKey($this->postId, $this->hash);
+        $fragment = $this->getFragmentStore()->get($key);
 
         if ($fragment === null) {
-            $this->startCapturing();
+            $this->startCapturing($key);
             return true;
         }
 
@@ -77,11 +79,13 @@ class Cache
      */
     public function stop()
     {
-        if (!$this->isCapturing) {
+        $key = $this->capturingKey;
+
+        if ($key === null) {
             return false;
         }
 
-        $this->isCapturing = false;
+        $this->capturingKey = null;
         $html = (string) ob_get_clean();
         $assets = $this->fragmentAssets?->endFragment() ?? [];
 
@@ -89,8 +93,7 @@ class Cache
 
         if ($html !== '') {
             $this->getFragmentStore()->set(
-                $this->postId,
-                $this->hash,
+                $key,
                 new Fragment($html . $this->fragmentTag(), $assets),
                 (int) $this->ttl,
             );
@@ -100,11 +103,14 @@ class Cache
         return true;
     }
 
-    private function startCapturing(): void
+    /**
+     * Captures the rendered output, to store it under the key resolved on the cache miss.
+     */
+    private function startCapturing(FragmentKey $key): void
     {
         $this->fragmentAssets?->beginFragment();
         ob_start();
-        $this->isCapturing = true;
+        $this->capturingKey = $key;
     }
 
     private function replay(Fragment $fragment): void

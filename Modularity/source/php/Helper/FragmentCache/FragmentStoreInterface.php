@@ -6,9 +6,14 @@ namespace Modularity\Helper\FragmentCache;
 
 interface FragmentStoreInterface
 {
-    public function get(int|string $postId, string $hash): ?Fragment;
+    /**
+     * Resolves the key of a fragment for the current version of the post.
+     */
+    public function getKey(int|string $postId, string $hash): FragmentKey;
 
-    public function set(int|string $postId, string $hash, Fragment $fragment, int $ttl): void;
+    public function get(FragmentKey $key): ?Fragment;
+
+    public function set(FragmentKey $key, Fragment $fragment, int $ttl): void;
 
     /**
      * Makes every stored fragment of the post miss.
