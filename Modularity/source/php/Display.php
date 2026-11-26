@@ -7,6 +7,7 @@ namespace Modularity;
 use Modularity\Helper\Cache;
 use Modularity\Helper\File as FileHelper;
 use Modularity\Helper\ModuleInstanceId;
+use Modularity\Helper\ModuleQueryVars;
 use Modularity\Helper\Wp;
 use Throwable;
 use WP_Post;
@@ -531,7 +532,7 @@ class Display
      */
     private function createFragmentCache(\WP_Post $module, string $placementId, array $moduleSettings): Cache
     {
-        $queryVars = $this->getAllAllowedAndRegisteredQueryVars();
+        $queryVars = $this->getFragmentCacheQueryVars($module);
 
         return new Cache(
             $module->ID,
@@ -559,20 +560,17 @@ class Display
     }
 
     /**
-     * Get all allowed and registered query vars
+     * Gets the query vars that vary the fragment cache of a module.
      *
-     * This function retrieves all registered and allowed query variables,
-     * merging them into a single array while filtering out any empty values.
+     * These are the registered public query vars and the module's own query vars.
+     * Empty values are left out.
      *
-     * @return array An array of all allowed and registered query variables.
+     * @param \WP_Post $module The module post
+     * @return array<string, mixed>
      */
-    private function getAllAllowedAndRegisteredQueryVars(): array
+    private function getFragmentCacheQueryVars(\WP_Post $module): array
     {
-        $registeredQueryVars = $this->getRegisteredQueryVars();
-        $allowedQueryVars = $this->getAllowedQueryVars();
-
-        // Merge and filter out empty values
-        return array_filter(array_merge($registeredQueryVars, $allowedQueryVars));
+        return array_filter(array_merge($this->getRegisteredQueryVars(), $this->getModuleQueryVars($module)));
     }
 
     /**
@@ -592,28 +590,17 @@ class Display
     }
 
     /**
-     * Get allowed query vars from $_GET
+     * Gets the module's own query vars from $_GET, such as its pagination.
      *
-     * This function retrieves query variables from the global $_GET array that match a specific pattern.
-     * The pattern is defined to match query variables that start with 'mod-' followed by alphanumeric characters,
-     * dashes, or underscores.
-     *
-     * @return array An array of allowed query variable names.
+     * @param \WP_Post $module The module post
+     * @return array<string, string>
      */
-    private function getAllowedQueryVars(): array
+    private function getModuleQueryVars(\WP_Post $module): array
     {
-        $pattern = '/^mod-([a-z0-9\-_]+)$/i';
-        if ($_GET ?? null) {
-            $queryVars = array_filter(array_keys($_GET), static function ($var) use ($pattern) {
-                return preg_match($pattern, $var);
-            });
-            foreach ($queryVars as $key => $value) {
-                $queryVars[$value] = sanitize_text_field($_GET[$value] ?? '');
-            }
-        } else {
-            $queryVars = [];
-        }
-        return $queryVars;
+        return array_map(
+            static fn(string $value): string => sanitize_text_field($value),
+            ModuleQueryVars::fromModule($module)->extract($_GET),
+        );
     }
 
     /**
