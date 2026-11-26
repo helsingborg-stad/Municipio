@@ -4,15 +4,29 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
+use Municipio\GoogleWallet\GoogleWalletCardConfig;
+use Municipio\GoogleWallet\GoogleWalletConfig;
+use Municipio\GoogleWallet\GoogleWalletLinkFactory;
 use PHPUnit\Framework\TestCase;
 
-/** Tests Google Wallet save-link creation. */
-class GoogleWalletLinkFactoryTest extends TestCase
+/** Tests Google Wallet save-link creation for Kulturkortet tickets. */
+class TicketGoogleWalletLinkFactoryTest extends TestCase
 {
+    private ?string $keyPath = null;
+
+    /** Removes the temporary private key file. */
+    protected function tearDown(): void
+    {
+        if ($this->keyPath !== null) {
+            unlink($this->keyPath);
+        }
+        parent::tearDown();
+    }
+
     /** Verifies that ticket data is included in the signed save link. */
     public function testCreatesGoogleWalletSaveLinkWithTicketBarcode(): void
     {
-        $link = $this->createGoogleWalletLinkFactory()->createLink([
+        $link = $this->createGoogleWalletLinkFactory(true)->createLink([
             'id' => 'ticket-1',
             'firstname' => 'Ada',
             'lastname' => 'Lovelace',
@@ -39,7 +53,7 @@ class GoogleWalletLinkFactoryTest extends TestCase
     /** Verifies that renewed tickets receive distinct objects with their original expiration time. */
     public function testUsesBarcodeForObjectIdentityAndPreservesExpirationDateTime(): void
     {
-        $factory = $this->createGoogleWalletLinkFactory();
+        $factory = $this->createGoogleWalletLinkFactory(true);
 
         $firstTicket = ['id' => 'customer-1', 'barcode' => 'ticket-old', 'validUntil' => '2030-12-31T23:59:58+02:00'];
         $renewedTicket = [...$firstTicket, 'barcode' => 'ticket-renewed'];
@@ -53,22 +67,16 @@ class GoogleWalletLinkFactoryTest extends TestCase
         );
     }
 
-    /** Verifies that a disabled integration does not create a link. */
+    /** Verifies that a disabled Google Wallet card does not create a link. */
     public function testDoesNotCreateLinkWhenGoogleWalletIsDisabled(): void
     {
-        $config = $this->createMock(GoogleWalletConfig::class);
-        $config->method('hasConfiguration')->willReturn(false);
-
-        static::assertNull((new GoogleWalletLinkFactory($config))->createLink(['barcode' => 'code']));
+        static::assertNull($this->createGoogleWalletLinkFactory(false)->createLink(['barcode' => 'code']));
     }
 
     /** Verifies that a ticket without a barcode cannot be added to Google Wallet. */
     public function testDoesNotCreateLinkWithoutBarcode(): void
     {
-        $config = $this->createMock(GoogleWalletConfig::class);
-        $config->method('hasConfiguration')->willReturn(true);
-
-        static::assertNull((new GoogleWalletLinkFactory($config))->createLink([]));
+        static::assertNull($this->createGoogleWalletLinkFactory(true)->createLink([]));
     }
 
     /**
@@ -89,20 +97,24 @@ class GoogleWalletLinkFactoryTest extends TestCase
         return $claims['payload']['genericObjects'][0];
     }
 
-    /** Creates a Google Wallet factory with a temporary RSA signing key. */
-    private function createGoogleWalletLinkFactory(): GoogleWalletLinkFactory
+    /**
+     * Creates the Kulturkortet Google Wallet factory with a temporary RSA signing key.
+     *
+     * @param bool $enabled Whether the Kulturkortet card is enabled.
+     * @return TicketGoogleWalletLinkFactory A factory for the "kulturkortet" class.
+     */
+    private function createGoogleWalletLinkFactory(bool $enabled): TicketGoogleWalletLinkFactory
     {
         $key = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_RSA, 'private_key_bits' => 2048]);
         static::assertNotFalse($key);
         static::assertTrue(openssl_pkey_export($key, $privateKey));
 
-        $config = $this->createMock(GoogleWalletConfig::class);
-        $config->method('hasConfiguration')->willReturn(true);
-        $config->method('getIssuerId')->willReturn('123456789');
-        $config->method('getClassSuffix')->willReturn('kulturkortet');
-        $config->method('getServiceAccountEmail')->willReturn('wallet@example.com');
-        $config->method('getServiceAccountPrivateKey')->willReturn($privateKey);
+        $this->keyPath = tempnam(sys_get_temp_dir(), 'google-wallet-key-');
+        file_put_contents($this->keyPath, $privateKey);
 
-        return new GoogleWalletLinkFactory($config);
+        $shared = new GoogleWalletConfig('123456789', 'wallet@example.com', $this->keyPath);
+        $card = new GoogleWalletCardConfig($shared, $enabled, 'kulturkortet');
+
+        return new TicketGoogleWalletLinkFactory(new GoogleWalletLinkFactory($card));
     }
 }

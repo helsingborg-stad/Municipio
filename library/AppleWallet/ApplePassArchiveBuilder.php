@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Kulturkortet\Wallet;
+namespace Municipio\AppleWallet;
 
 use RuntimeException;
 use ZipArchive;
@@ -11,11 +11,11 @@ use ZipArchive;
 class ApplePassArchiveBuilder
 {
     /**
-     * @param AppleWalletConfig $config Apple signing settings.
+     * @param ApplePassCardConfig $config Apple signing settings.
      * @param ApplePassSigner|null $signer Detached manifest signer.
      */
     public function __construct(
-        private AppleWalletConfig $config,
+        private ApplePassCardConfig $config,
         private ?ApplePassSigner $signer = null,
     ) {}
 

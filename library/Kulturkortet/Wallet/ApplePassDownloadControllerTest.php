@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
+use Municipio\AppleWallet\ApplePassDataStore;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -27,7 +28,7 @@ class ApplePassDownloadControllerTest extends TestCase
             ->willReturn($ticketUrl);
         $store = $this->createMock(ApplePassDataStore::class);
         $store->expects(static::once())->method('consume')->with($token)->willReturn(null);
-        $generator = $this->createMock(ApplePassGenerator::class);
+        $generator = $this->createMock(TicketApplePassGenerator::class);
         $generator->expects(static::never())->method('generate');
 
         (new ApplePassDownloadController($wpService, $store, $generator))->handle($navigation);
@@ -43,7 +44,7 @@ class ApplePassDownloadControllerTest extends TestCase
         $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
         $store = $this->createMock(ApplePassDataStore::class);
         $store->expects(static::never())->method('consume');
-        $generator = $this->createMock(ApplePassGenerator::class);
+        $generator = $this->createMock(TicketApplePassGenerator::class);
         $generator->expects(static::never())->method('generate');
 
         (new ApplePassDownloadController($wpService, $store, $generator))->handle($navigation);

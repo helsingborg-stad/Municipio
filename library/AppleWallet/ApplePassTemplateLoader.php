@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Kulturkortet\Wallet;
+namespace Municipio\AppleWallet;
 
 use RuntimeException;
 
-/** Loads Apple Wallet pass templates (pass.json and images) for a Kulturkortet category. */
+/** Loads Apple Wallet pass templates (pass.json and images) for a category. */
 class ApplePassTemplateLoader
 {
     /** @var string Directory containing one sub-directory per category. */
     private string $templateDirectory;
 
     /**
-     * @param string|null $templateDirectory Directory containing category templates. Defaults to the bundled templates.
+     * @param string $templateDirectory Directory containing category templates.
      */
-    public function __construct(?string $templateDirectory = null)
+    public function __construct(string $templateDirectory)
     {
-        $this->templateDirectory = $templateDirectory ?? __DIR__ . '/PassTemplates';
+        $this->templateDirectory = $templateDirectory;
     }
 
     /**

@@ -6,6 +6,10 @@ namespace Municipio\Kulturkortet\QRCodeViewer;
 
 use AcfService\AcfService;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\AppleWallet\ApplePassDataStore;
+use Municipio\AppleWallet\ApplePassGenerator;
+use Municipio\AppleWallet\ApplePassTemplateLoader;
+use Municipio\GoogleWallet\GoogleWalletLinkFactory;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthController;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigation;
@@ -13,14 +17,13 @@ use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthController;
 use Municipio\Kulturkortet\Vitec\VitecConfig;
 use Municipio\Kulturkortet\Vitec\VitecService;
-use Municipio\Kulturkortet\Wallet\ApplePassGenerator;
 use Municipio\Kulturkortet\Wallet\ApplePassDownloadController;
-use Municipio\Kulturkortet\Wallet\ApplePassDataStore;
-use Municipio\Kulturkortet\Wallet\AppleWalletConfig;
-use Municipio\Kulturkortet\Wallet\GoogleWalletLinkFactory;
-use Municipio\Kulturkortet\Wallet\GoogleWalletConfig;
+use Municipio\Kulturkortet\Wallet\ApplePassPlaceholderFactory;
+use Municipio\Kulturkortet\Wallet\TicketApplePassGenerator;
+use Municipio\Kulturkortet\Wallet\TicketGoogleWalletLinkFactory;
 use Municipio\Kulturkortet\Wallet\WalletService;
 use Municipio\Kulturkortet\Wallet\WalletButtonDataFactory;
+use Municipio\Kulturkortet\Wallet\WalletSettings;
 use WpService\Contracts\AddAction;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -112,10 +115,9 @@ class KulturkortetQRCodeViewerFeature implements Hookable
             new SecureMunicipioAuthConfig(),
         );
 
-        $appleWalletConfig = new AppleWalletConfig($this->acfService);
-        $googleWalletConfig = new GoogleWalletConfig($this->acfService);
-        $walletService = new WalletService($appleWalletConfig, $this->wpService);
-        $googleWalletLinkFactory = new GoogleWalletLinkFactory($googleWalletConfig);
+        $walletSettings = new WalletSettings($this->acfService);
+        $walletService = new WalletService($walletSettings->getApplePassCardConfig(), $this->createApplePassDataStore());
+        $googleWalletLinkFactory = new TicketGoogleWalletLinkFactory(new GoogleWalletLinkFactory($walletSettings->getGoogleWalletCardConfig()));
         $viewFactory = new KulturkortetQRCodeViewerAuthViewFactory(
             $this->wpService,
             new VitecService($this->wpService, new VitecConfig($this->acfService)),
@@ -136,11 +138,22 @@ class KulturkortetQRCodeViewerFeature implements Hookable
      */
     public function handleApplePassDownload(): void
     {
-        $appleWalletConfig = new AppleWalletConfig($this->acfService);
         (new ApplePassDownloadController(
             $this->wpService,
-            new ApplePassDataStore($this->wpService),
-            new ApplePassGenerator($appleWalletConfig),
+            $this->createApplePassDataStore(),
+            new TicketApplePassGenerator(
+                new ApplePassPlaceholderFactory(),
+                new ApplePassGenerator(
+                    (new WalletSettings($this->acfService))->getApplePassCardConfig(),
+                    new ApplePassTemplateLoader(__DIR__ . '/../Wallet/PassTemplates'),
+                ),
+            ),
         ))->handle(new MunicipioAuthNavigation($this->wpService));
+    }
+
+    /** @return ApplePassDataStore Stores Apple pass data behind one-time Kulturkortet tokens. */
+    private function createApplePassDataStore(): ApplePassDataStore
+    {
+        return new ApplePassDataStore($this->wpService, WalletService::APPLE_PASS_TRANSIENT_PREFIX);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
+use Municipio\AppleWallet\ApplePassDataStore;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use WpService\WpService;
 
@@ -13,12 +14,12 @@ class ApplePassDownloadController
     /**
      * @param WpService $wpService WordPress query-var and redirect services.
      * @param ApplePassDataStore $applePassDataStore Consumes single-use tokens.
-     * @param ApplePassGenerator $applePassGenerator Creates signed Apple passes.
+     * @param TicketApplePassGenerator $applePassGenerator Creates signed Apple passes.
      */
     public function __construct(
         private WpService $wpService,
         private ApplePassDataStore $applePassDataStore,
-        private ApplePassGenerator $applePassGenerator,
+        private TicketApplePassGenerator $applePassGenerator,
     ) {}
 
     /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Kulturkortet\Wallet;
+namespace Municipio\AppleWallet;
 
 use RuntimeException;
 
@@ -10,9 +10,9 @@ use RuntimeException;
 class ApplePassSigner
 {
     /**
-     * @param AppleWalletConfig $config Apple signing settings.
+     * @param ApplePassCardConfig $config Apple signing settings.
      */
-    public function __construct(private AppleWalletConfig $config) {}
+    public function __construct(private ApplePassCardConfig $config) {}
 
     /**
      * Signs a manifest and extracts its detached DER signature.

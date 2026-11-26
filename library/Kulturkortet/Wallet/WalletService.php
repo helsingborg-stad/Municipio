@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
+use Municipio\AppleWallet\ApplePassCardConfig;
+use Municipio\AppleWallet\ApplePassDataStore;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use RuntimeException;
-use WpService\WpService;
 
 /** Creates short-lived Apple pass URLs. */
 class WalletService
@@ -17,12 +18,12 @@ class WalletService
     private const TOKEN_EXPIRATION = 300;
 
     /**
-     * @param AppleWalletConfig $config Wallet configuration.
-     * @param WpService $wpService WordPress transient and query-var services.
+     * @param ApplePassCardConfig $config Apple Wallet settings of the pass card.
+     * @param ApplePassDataStore $applePassDataStore Stores temporary pass data behind one-time tokens.
      */
     public function __construct(
-        private AppleWalletConfig $config,
-        private WpService $wpService,
+        private ApplePassCardConfig $config,
+        private ApplePassDataStore $applePassDataStore,
     ) {}
 
     /**
@@ -40,20 +41,14 @@ class WalletService
             return null;
         }
 
-        $token = bin2hex(random_bytes(32));
-        $tokenHash = hash('sha256', $token);
-        $passData = [
+        $token = $this->applePassDataStore->store([
             'id' => $ticket['id'] ?? $barcode,
             'firstname' => is_string($ticket['firstname'] ?? null) ? $ticket['firstname'] : '',
             'lastname' => is_string($ticket['lastname'] ?? null) ? $ticket['lastname'] : '',
             'validFrom' => is_string($ticket['validFrom'] ?? null) ? $ticket['validFrom'] : '',
             'validUntil' => is_string($ticket['validUntil'] ?? null) ? $ticket['validUntil'] : '',
             'barcode' => $barcode,
-        ];
-
-        if (!$this->wpService->setTransient(self::APPLE_PASS_TRANSIENT_PREFIX . $tokenHash, $passData, self::TOKEN_EXPIRATION)) {
-            throw new RuntimeException('Unable to create a temporary Apple Wallet pass link.');
-        }
+        ], self::TOKEN_EXPIRATION);
 
         return $navigation->getModifiedHomeUrl(
             removeQueryArgs: [self::APPLE_PASS_EXPIRED_QUERY_VAR],

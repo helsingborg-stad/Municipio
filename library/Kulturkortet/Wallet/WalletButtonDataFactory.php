@@ -11,11 +11,11 @@ class WalletButtonDataFactory
 {
     /**
      * @param WalletService $appleWalletService Creates Apple pass links.
-     * @param GoogleWalletLinkFactory $googleWalletLinkFactory Creates Google Wallet links.
+     * @param TicketGoogleWalletLinkFactory $googleWalletLinkFactory Creates Google Wallet links.
      */
     public function __construct(
         private WalletService $appleWalletService,
-        private GoogleWalletLinkFactory $googleWalletLinkFactory,
+        private TicketGoogleWalletLinkFactory $googleWalletLinkFactory,
     ) {}
 
     /**

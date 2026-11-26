@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
+use Municipio\AppleWallet\ApplePassDataStore;
+use Municipio\AppleWallet\ApplePassCardConfig;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -15,7 +17,7 @@ class WalletServiceTest extends TestCase
     public function testCreatesShortLivedUrlAndStoresOnlyRequiredTicketData(): void
     {
         $wpService = new FakeWpService(['setTransient' => true]);
-        $config = $this->createMock(AppleWalletConfig::class);
+        $config = $this->createMock(ApplePassCardConfig::class);
         $config->method('hasConfiguration')->willReturn(true);
         $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
         $navigation->expects(static::once())->method('getModifiedHomeUrl')
@@ -24,7 +26,7 @@ class WalletServiceTest extends TestCase
                 static fn(array $removeQueryArgs, array $addQueryArgs): string => 'https://example.test/?' . http_build_query($addQueryArgs),
             );
 
-        $url = (new WalletService($config, $wpService))
+        $url = (new WalletService($config, new ApplePassDataStore($wpService, WalletService::APPLE_PASS_TRANSIENT_PREFIX)))
             ->createApplePassUrl([
                 'id' => 'ticket-1',
                 'firstname' => 'Ada',
@@ -55,11 +57,11 @@ class WalletServiceTest extends TestCase
     public function testDoesNotCreatePassUrlWhenAppleWalletIsDisabled(): void
     {
         $wpService = new FakeWpService(['setTransient' => true]);
-        $config = $this->createMock(AppleWalletConfig::class);
+        $config = $this->createMock(ApplePassCardConfig::class);
         $config->method('hasConfiguration')->willReturn(false);
         $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
 
-        $url = (new WalletService($config, $wpService))
+        $url = (new WalletService($config, new ApplePassDataStore($wpService, WalletService::APPLE_PASS_TRANSIENT_PREFIX)))
             ->createApplePassUrl(['barcode' => 'ticket-barcode'], $navigation);
 
         static::assertNull($url);

@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\Wallet;
 
+use Municipio\AppleWallet\ApplePassCardConfig;
+use Municipio\AppleWallet\ApplePassGenerator;
+use Municipio\AppleWallet\ApplePassTemplateLoader;
+use Municipio\AppleWallet\AppleWalletConfig;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use ZipArchive;
 
-/** Tests signed Apple Wallet pass generation. */
-class ApplePassGeneratorTest extends TestCase
+/** Tests signed Apple Wallet pass generation for Kulturkortet tickets. */
+class TicketApplePassGeneratorTest extends TestCase
 {
     private string $temporaryDirectory;
 
@@ -39,15 +43,9 @@ class ApplePassGeneratorTest extends TestCase
     public function testGeneratesZipPassWithTicketAndSignatureFiles(): void
     {
         $paths = $this->createSigningFiles();
-        $config = $this->createMock(AppleWalletConfig::class);
-        $config->method('hasConfiguration')->willReturn(true);
-        $config->method('getPassTypeIdentifier')->willReturn('pass.example.kulturkortet');
-        $config->method('getTeamIdentifier')->willReturn('TEAM12345');
-        $config->method('getCertificatePath')->willReturn($paths['certificate']);
-        $config->method('getCertificatePassword')->willReturn('passphrase');
-        $config->method('getWwdrCertificatePath')->willReturn($paths['wwdr']);
+        $config = $this->createCardConfig($paths);
 
-        $contents = (new ApplePassGenerator($config))->generate([
+        $contents = $this->createGenerator($config)->generate([
             'id' => 'ticket-1',
             'firstname' => 'Ada',
             'lastname' => 'Lovelace',
@@ -81,13 +79,35 @@ class ApplePassGeneratorTest extends TestCase
     /** Verifies that malformed ticket data is rejected before signing. */
     public function testRejectsTicketsWithoutBarcode(): void
     {
-        $config = $this->createMock(AppleWalletConfig::class);
-        $config->method('hasConfiguration')->willReturn(true);
+        $config = $this->createCardConfig($this->createSigningFiles());
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('The ticket does not contain a barcode.');
 
-        (new ApplePassGenerator($config))->generate([]);
+        $this->createGenerator($config)->generate([]);
+    }
+
+    /**
+     * @param array<string, string> $paths Temporary signing fixture paths.
+     * @return ApplePassCardConfig Card settings using the temporary certificates.
+     */
+    private function createCardConfig(array $paths): ApplePassCardConfig
+    {
+        $shared = new AppleWalletConfig('TEAM12345', $this->temporaryDirectory, $paths['wwdr']);
+
+        return new ApplePassCardConfig($shared, true, 'pass.example.kulturkortet', basename($paths['certificate']), 'passphrase');
+    }
+
+    /**
+     * @param ApplePassCardConfig $config Apple Wallet settings of the card.
+     * @return TicketApplePassGenerator A generator using the bundled Kulturkortet templates.
+     */
+    private function createGenerator(ApplePassCardConfig $config): TicketApplePassGenerator
+    {
+        return new TicketApplePassGenerator(
+            new ApplePassPlaceholderFactory(),
+            new ApplePassGenerator($config, new ApplePassTemplateLoader(__DIR__ . '/PassTemplates')),
+        );
     }
 
     /** @return array<string, string> Temporary signing fixture paths. */
