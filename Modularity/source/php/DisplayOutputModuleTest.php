@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modularity;
 
 use Modularity\Helper\CacheTest;
+use Municipio\TestUtils\InMemoryObjectCache;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpUtilService\WpUtilServiceInterface;
@@ -44,13 +45,12 @@ class DisplayOutputModuleTest extends TestCase
         ModuleManager::$classes['mod-text'] = get_class(new class {
             public function __construct(mixed ...$args) {}
         });
-        CacheTest::delete(123, 'modules');
+        CacheTest::$objectCache = new InMemoryObjectCache();
     }
 
     protected function tearDown(): void
     {
         $_GET = [];
-        CacheTest::delete(123, 'modules');
         unset(ModuleManager::$classes['mod-text']);
     }
 
@@ -68,7 +68,6 @@ class DisplayOutputModuleTest extends TestCase
         // Request 1: nothing else has called wp_unique_id() before the module.
         self::$uniqueIdCounter = 0;
         $firstOutput = $this->render($display, $module, $args, $settings);
-        $entriesAfterFirstRequest = (array) CacheTest::get(123, 'modules');
 
         // Request 2: something earlier on the page (a menu, a notice, ...) called wp_unique_id().
         self::$uniqueIdCounter = 0;
@@ -78,11 +77,10 @@ class DisplayOutputModuleTest extends TestCase
         static::assertStringContainsString('Module', $firstOutput);
         static::assertStringContainsString('Module', $secondOutput);
         static::assertSame(1, $this->renderCount, 'Expected the second request to be served from the fragment cache.');
-        static::assertNotEmpty($entriesAfterFirstRequest);
         static::assertSame(
-            array_keys($entriesAfterFirstRequest),
-            array_keys((array) CacheTest::get(123, 'modules')),
-            'Expected one fragment for one placement, but a new entry was added per request.',
+            1,
+            $this->countStoredFragments(),
+            'Expected one fragment for one placement, but a new one was stored per request.',
         );
     }
 
@@ -115,17 +113,15 @@ class DisplayOutputModuleTest extends TestCase
 
         $_GET = [];
         $this->render($display, $module, $args, $settings);
-        $entriesAfterFirstRequest = (array) CacheTest::get(123, 'modules');
 
         // Visitors can add any mod-* parameter to the URL.
         $_GET = ['mod-unknown' => 'random-value'];
         $this->render($display, $module, $args, $settings);
 
-        static::assertNotEmpty($entriesAfterFirstRequest);
         static::assertSame(
-            array_keys($entriesAfterFirstRequest),
-            array_keys((array) CacheTest::get(123, 'modules')),
-            'Expected an unrelated mod-* query var not to add a new fragment cache entry.',
+            1,
+            $this->countStoredFragments(),
+            'Expected an unrelated mod-* query var not to store a new fragment.',
         );
     }
 
@@ -178,5 +174,10 @@ class DisplayOutputModuleTest extends TestCase
         $display->outputModule($module, $args, $settings);
 
         return (string) ob_get_clean();
+    }
+
+    private function countStoredFragments(): int
+    {
+        return substr_count(serialize(CacheTest::$objectCache->getGroup('modules')), 'Modularity Fragment Cache');
     }
 }
