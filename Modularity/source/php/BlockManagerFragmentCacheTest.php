@@ -9,6 +9,7 @@ use Modularity\Helper\FragmentCache\FragmentStore;
 use Municipio\TestUtils\InMemoryObjectCache;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpUtilService\WpUtilServiceInterface;
 
 // Reuses the WordPress function fakes declared for Modularity\Helper\Cache.
 require_once __DIR__ . '/Helper/CacheTest.php';
@@ -20,9 +21,8 @@ class BlockManagerFragmentCacheTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->blockManager = (new \ReflectionClass(BlockManager::class))->newInstanceWithoutConstructor();
-        (new \ReflectionProperty(BlockManager::class, 'fragmentStore'))->setValue(
-            $this->blockManager,
+        $this->blockManager = new BlockManager(
+            $this->createStub(WpUtilServiceInterface::class),
             new FragmentStore(new InMemoryObjectCache(), 'modules'),
         );
 

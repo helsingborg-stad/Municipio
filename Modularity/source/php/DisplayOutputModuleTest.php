@@ -22,7 +22,7 @@ function wp_unique_id(string $prefix = ''): string
     return $prefix . (string) ++DisplayOutputModuleTest::$uniqueIdCounter;
 }
 
-function get_post_status(mixed $post = null): string
+function get_post_status(): string
 {
     return 'publish';
 }
@@ -40,9 +40,7 @@ class DisplayOutputModuleTest extends TestCase
         self::$uniqueIdCounter = 0;
         $this->renderCount = 0;
         \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::setInstance(null);
-        ModuleManager::$classes['mod-text'] = get_class(new class {
-            public function __construct(mixed ...$args) {}
-        });
+        ModuleManager::$classes['mod-text'] = get_class(new class {});
         $this->objectCache = new InMemoryObjectCache();
         $this->module = new \WP_Post((object) []);
         $this->module->ID = 123;
@@ -162,21 +160,20 @@ class DisplayOutputModuleTest extends TestCase
 
     private function createDisplay(): Display
     {
-        $display = $this->getMockBuilder(Display::class)->disableOriginalConstructor()->onlyMethods(['getModuleMarkup'])->getMock();
+        $display = $this
+            ->getMockBuilder(Display::class)
+            ->setConstructorArgs([
+                $this->createStub(WpUtilServiceInterface::class),
+                new FragmentStore($this->objectCache, 'modules'),
+            ])
+            ->onlyMethods(['getModuleMarkup'])
+            ->getMock();
         $display
             ->method('getModuleMarkup')
             ->willReturnCallback(function (mixed $module, array $args): string {
                 $this->renderCount++;
                 return '<div id="' . $args['modularity_instance_id'] . '">Module</div>';
             });
-        (new \ReflectionProperty(Display::class, 'wpUtilService'))->setValue(
-            $display,
-            $this->createStub(WpUtilServiceInterface::class),
-        );
-        (new \ReflectionProperty(Display::class, 'fragmentStore'))->setValue(
-            $display,
-            new FragmentStore($this->objectCache, 'modules'),
-        );
 
         return $display;
     }
