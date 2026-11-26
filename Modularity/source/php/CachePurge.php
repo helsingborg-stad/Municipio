@@ -25,7 +25,13 @@ class CachePurge
     public function __construct(
         private FragmentStoreInterface $fragmentStore,
         private AddAction&WpIsPostRevision&GetPostType&GetPosts&GetThePermalink&WpRemoteRequest $wpService,
-    ) {
+    ) {}
+
+    /**
+     * Purges the object cache, then the page cache, when a post is saved.
+     */
+    public function addHooks(): void
+    {
         $this->wpService->addAction('save_post', [$this, 'purgeObjectCache'], 90, 1);
         $this->wpService->addAction('save_post', [$this, 'purgePageCache'], 100, 1);
     }

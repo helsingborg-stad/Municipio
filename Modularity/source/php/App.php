@@ -72,7 +72,7 @@ class App
         }
 
         new Helper\Acf();
-        new CachePurge($fragmentStore, WpService::get());
+        (new CachePurge($fragmentStore, WpService::get()))->addHooks();
 
         new Search();
         (new \Modularity\SearchIndex(WpService::get()))->addHooks();

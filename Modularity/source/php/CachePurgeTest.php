@@ -26,6 +26,24 @@ class CachePurgeTest extends TestCase
         $this->fragmentStore = new FragmentStore(new InMemoryObjectCache(), 'modules');
     }
 
+    #[TestDox('addHooks() purges the object cache and then the page cache when a post is saved')]
+    public function testAddHooksPurgesOnSavePost(): void
+    {
+        $wpService = $this->createWpService(postType: 'news', postsModuleIds: []);
+        $cachePurge = new CachePurge($this->fragmentStore, $wpService);
+        static::assertSame([], $wpService->actions, 'Expected the constructor not to register hooks.');
+
+        $cachePurge->addHooks();
+
+        static::assertEquals(
+            [
+                ['save_post', [$cachePurge, 'purgeObjectCache'], 90],
+                ['save_post', [$cachePurge, 'purgePageCache'], 100],
+            ],
+            $wpService->actions,
+        );
+    }
+
     #[TestDox('purgeObjectCache() clears the fragments of Posts modules that list the saved post type')]
     public function testPurgeObjectCacheClearsFragmentsOfPostsModulesListingThePostType(): void
     {
@@ -95,8 +113,13 @@ class CachePurgeTest extends TestCase
                 private readonly bool $isRevision,
             ) {}
 
+            /** @var list<array{string, callable, int}> */
+            public array $actions = [];
+
             public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {
+                $this->actions[] = [$hookName, $callback, $priority];
+
                 return true;
             }
 
