@@ -2,6 +2,9 @@
 
 namespace Municipio\Content\Images;
 
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Integrations\Component\ImageResolver;
+
 /**
  * Class Images
  */
@@ -114,7 +117,10 @@ class Images implements ImagesInterface
         $altText      = $image->getAttribute('alt') ?: $captionText;
         $attachmentId = attachment_url_to_postid($url);
 
-        $classes = explode(' ', $figure->getAttribute('class')) ?: [];
+        $classes = ImageAlignment::resolveClassList(
+            ImageAlignment::splitClassAttribute($figure->getAttribute('class')),
+            ImageAlignment::splitClassAttribute($image->getAttribute('class'))
+        );
 
         $html = $this->renderBladeImage($image, $attachmentId, $url, $altText, $captionText, $classes);
 
@@ -123,7 +129,13 @@ class Images implements ImagesInterface
             $imageSrc = wp_get_attachment_image_src($attachmentId, [$conentContainerWidth, false]);
 
             if ($imageSrc && isset($imageSrc[0])) {
-                $html = $this->renderBladeImage($image, $attachmentId, $imageSrc[0], $altText, $captionText, $classes);
+                $imageContract = ImageComponentContract::factory(
+                    (int) $attachmentId,
+                    [$conentContainerWidth, false],
+                    new ImageResolver()
+                );
+
+                $html = $this->renderBladeImage($image, $attachmentId, $imageContract, $altText, $captionText, $classes);
             }
         }
 
@@ -196,16 +208,11 @@ class Images implements ImagesInterface
             'src'              => $url,
             'alt'              => $altText,
             'caption'          => $captionText,
-            'classList'        => $classes,
+            'classList'        => [...$classes, ImageAlignment::CONTENT_IMAGE_CLASS],
             'imgAttributeList' => [
                 'parsed' => true
             ],
-            'attributeList'    => [
-                'style' => sprintf(
-                    'width: min(%s, 100%%); height: auto;',
-                    ($image->getAttribute('width') ?? 1920) . 'px'
-                )
-            ]
+            'attributeList'    => ImageAlignment::getAttributeList($image->getAttribute('width'))
         ]);
 
         return $html;
@@ -296,7 +303,7 @@ class Images implements ImagesInterface
         if (class_exists('\DOM\HTMLDocument')) {
             $imageNormalizer = new \Municipio\Content\Images\Images();
         } else {
-            $imageNormalizer = new \Municipio\Content\Images\ImagesDeprecated();
+            $imageNormalizer = new \Municipio\Content\Images\ImagesDeprecated(\Municipio\Helper\WpService::get());
         }
 
         return $imageNormalizer;
