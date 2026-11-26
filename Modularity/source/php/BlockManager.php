@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modularity;
 
 use Modularity\Helper\Cache;
+use Modularity\Helper\FragmentCache\BlockFragmentInput;
 use Modularity\Helper\FragmentCache\FragmentStoreInterface;
 use WpUtilService\WpUtilServiceInterface;
 
@@ -224,7 +225,7 @@ class BlockManager
         return new Cache(
             $postId,
             [
-                $block,
+                BlockFragmentInput::fromBlock($block),
                 $module->ID,
             ],
             $module->cacheTtl ?? 0,
