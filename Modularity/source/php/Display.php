@@ -565,45 +565,18 @@ class Display
     /**
      * Gets the query vars that vary the fragment cache of a module.
      *
-     * These are the registered public query vars and the module's own query vars.
+     * Only the module's own query vars, such as its pagination, are used. Other query
+     * vars are set by the visitor and would add a new fragment per value.
      * Empty values are left out.
-     *
-     * @param \WP_Post $module The module post
-     * @return array<string, mixed>
-     */
-    private function getFragmentCacheQueryVars(\WP_Post $module): array
-    {
-        return array_filter(array_merge($this->getRegisteredQueryVars(), $this->getModuleQueryVars($module)));
-    }
-
-    /**
-     * Get registered query vars
-     * @return array
-     */
-    private function getRegisteredQueryVars(): array
-    {
-        global $wp;
-        $result = [];
-        if (isset($wp->public_query_vars) && is_array($wp->public_query_vars)) {
-            foreach ($wp->public_query_vars as $var) {
-                $result[$var] = get_query_var($var);
-            }
-        }
-        return array_filter($result);
-    }
-
-    /**
-     * Gets the module's own query vars from $_GET, such as its pagination.
      *
      * @param \WP_Post $module The module post
      * @return array<string, string>
      */
-    private function getModuleQueryVars(\WP_Post $module): array
+    private function getFragmentCacheQueryVars(\WP_Post $module): array
     {
-        return array_map(
-            static fn(string $value): string => sanitize_text_field($value),
-            ModuleQueryVars::fromModule($module)->extract($_GET),
-        );
+        $queryVars = ModuleQueryVars::fromModule($module)->extract($_GET);
+
+        return array_filter(array_map(static fn(string $value): string => sanitize_text_field($value), $queryVars));
     }
 
     /**
