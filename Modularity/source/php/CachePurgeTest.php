@@ -7,6 +7,7 @@ namespace Modularity;
 use Modularity\Helper\FragmentCache\Fragment;
 use Modularity\Helper\FragmentCache\FragmentStore;
 use Municipio\TestUtils\InMemoryObjectCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddAction;
@@ -33,6 +34,33 @@ class CachePurgeTest extends TestCase
 
         static::assertTrue($cachePurge->purgeObjectCache(10));
         static::assertNull($this->fragmentStore->get(77, 'hash'));
+    }
+
+    /**
+     * Module posts cache their fragments under their own id, and pages cache their blocks under the page id.
+     *
+     * @see https://github.com/helsingborg-stad/Municipio/issues/2435
+     */
+    #[TestDox('purgeObjectCache() clears the fragments of the saved post itself, for $postType')]
+    #[DataProvider('savedPostTypeProvider')]
+    public function testPurgeObjectCacheClearsTheFragmentsOfTheSavedPost(string $postType): void
+    {
+        $this->fragmentStore->set(10, 'hash', new Fragment('<p>Saved post</p>', []), 60);
+        $cachePurge = new CachePurge($this->fragmentStore, $this->createWpService(postType: $postType, postsModuleIds: []));
+
+        static::assertTrue($cachePurge->purgeObjectCache(10));
+        static::assertNull($this->fragmentStore->get(10, 'hash'));
+    }
+
+    /**
+     * @return array<string, array{string}>
+     */
+    public static function savedPostTypeProvider(): array
+    {
+        return [
+            'a module post' => ['mod-text'],
+            'a page with blocks' => ['page'],
+        ];
     }
 
     #[TestDox('purgeObjectCache() leaves fragments untouched when a revision is saved')]
