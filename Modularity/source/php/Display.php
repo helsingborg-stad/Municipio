@@ -474,32 +474,38 @@ class Display
             $args['id'] = 'no-id';
         }
 
-        // Keep repeated placements distinct even when their rendered markup is fragment-cached.
-        $args['modularity_instance_id'] = wp_unique_id($module->post_type . '-' . $module->ID . '-');
+        $instanceIdPrefix = $module->post_type . '-' . $module->ID . '-';
+
+        if ($echo == false) {
+            $args['modularity_instance_id'] = wp_unique_id($instanceIdPrefix);
+            $class = \Modularity\ModuleManager::$classes[$module->post_type];
+            $module = new $class($module, $args);
+
+            return $this->getModuleMarkup($module, $args);
+        }
 
         //Do not cache private modules
         if (get_post_status($module) === 'private') {
             $moduleSettings['cache_ttl'] = 0;
         }
 
+        // The fragment is cached with a placeholder instance id, so the cache key stays stable
+        // between requests. Each output, cached or not, then gets its own unique id.
+        $instanceIdPlaceholder = $instanceIdPrefix . '{modularity-instance-id}';
+        $args['modularity_instance_id'] = $instanceIdPlaceholder;
+
         $cache = new \Modularity\Helper\Cache(
             $module->ID,
             [
                 $module,
                 $args['id'],
-                $args['modularity_instance_id'],
             ],
             $moduleSettings['cache_ttl'] ?? 0,
             $this->getAllAllowedAndRegisteredQueryVars() ?: null,
             \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
         );
 
-        if ($echo == false) {
-            $class = \Modularity\ModuleManager::$classes[$module->post_type];
-            $module = new $class($module, $args);
-
-            return $this->getModuleMarkup($module, $args);
-        }
+        ob_start();
 
         if ($cache->start()) {
             $class = \Modularity\ModuleManager::$classes[$module->post_type];
@@ -510,6 +516,8 @@ class Display
 
             $cache->stop(); //Stop cache
         }
+
+        echo str_replace($instanceIdPlaceholder, wp_unique_id($instanceIdPrefix), (string) ob_get_clean());
 
         return true;
     }
