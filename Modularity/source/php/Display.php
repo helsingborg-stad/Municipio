@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Modularity\Helper\Cache;
 use Modularity\Helper\File as FileHelper;
+use Modularity\Helper\ModuleInstanceId;
 use Modularity\Helper\Wp;
 use Throwable;
 use WP_Post;
@@ -474,52 +476,86 @@ class Display
             $args['id'] = 'no-id';
         }
 
-        $instanceIdPrefix = $module->post_type . '-' . $module->ID . '-';
+        $instanceId = ModuleInstanceId::fromModule($module);
 
-        if ($echo == false) {
-            $args['modularity_instance_id'] = wp_unique_id($instanceIdPrefix);
+        if (!$echo) {
+            $args['modularity_instance_id'] = wp_unique_id($instanceId->getPrefix());
             $class = \Modularity\ModuleManager::$classes[$module->post_type];
             $module = new $class($module, $args);
 
             return $this->getModuleMarkup($module, $args);
         }
 
-        //Do not cache private modules
-        if (get_post_status($module) === 'private') {
-            $moduleSettings['cache_ttl'] = 0;
-        }
+        // Render with a placeholder so the cached fragment does not depend on the request,
+        // then give this placement its own unique id.
+        $args['modularity_instance_id'] = $instanceId->getPlaceholder();
+        $markup = $this->renderModuleThroughFragmentCache($module, $args, $moduleSettings);
 
-        // The fragment is cached with a placeholder instance id, so the cache key stays stable
-        // between requests. Each output, cached or not, then gets its own unique id.
-        $instanceIdPlaceholder = $instanceIdPrefix . '{modularity-instance-id}';
-        $args['modularity_instance_id'] = $instanceIdPlaceholder;
+        echo $instanceId->replacePlaceholder($markup, wp_unique_id($instanceId->getPrefix()));
 
-        $cache = new \Modularity\Helper\Cache(
-            $module->ID,
-            [
-                $module,
-                $args['id'],
-            ],
-            $moduleSettings['cache_ttl'] ?? 0,
-            $this->getAllAllowedAndRegisteredQueryVars() ?: null,
-            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
-        );
+        return true;
+    }
+
+    /**
+     * Renders a module, or replays its cached fragment, and returns the markup.
+     *
+     * @param \WP_Post $module          The module post
+     * @param array    $args            The sidebar data, including the placement id
+     * @param array    $moduleSettings  The module configuration
+     * @return string
+     */
+    private function renderModuleThroughFragmentCache(\WP_Post $module, array $args, array $moduleSettings): string
+    {
+        $cache = $this->createFragmentCache($module, (string) $args['id'], $moduleSettings);
 
         ob_start();
 
         if ($cache->start()) {
             $class = \Modularity\ModuleManager::$classes[$module->post_type];
-            $module = new $class($module, $args, $this->wpUtilService);
-
-            //Print module
-            echo $this->getModuleMarkup($module, $args);
-
-            $cache->stop(); //Stop cache
+            echo $this->getModuleMarkup(new $class($module, $args, $this->wpUtilService), $args);
+            $cache->stop();
         }
 
-        echo str_replace($instanceIdPlaceholder, wp_unique_id($instanceIdPrefix), (string) ob_get_clean());
+        return (string) ob_get_clean();
+    }
 
-        return true;
+    /**
+     * Creates the fragment cache for one placement of a module.
+     *
+     * The cache key only uses input that is the same on every request for that placement.
+     *
+     * @param \WP_Post $module          The module post
+     * @param string   $placementId     The id of the sidebar or area the module is placed in
+     * @param array    $moduleSettings  The module configuration
+     * @return Cache
+     */
+    private function createFragmentCache(\WP_Post $module, string $placementId, array $moduleSettings): Cache
+    {
+        $queryVars = $this->getAllAllowedAndRegisteredQueryVars();
+
+        return new Cache(
+            $module->ID,
+            [$module, $placementId],
+            $this->getFragmentCacheTtl($module, $moduleSettings),
+            $queryVars === [] ? null : $queryVars,
+            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
+        );
+    }
+
+    /**
+     * Gets the fragment cache TTL for a module. Private modules are never cached.
+     *
+     * @param \WP_Post $module          The module post
+     * @param array    $moduleSettings  The module configuration
+     * @return int
+     */
+    private function getFragmentCacheTtl(\WP_Post $module, array $moduleSettings): int
+    {
+        if (get_post_status($module) === 'private') {
+            return 0;
+        }
+
+        return (int) ($moduleSettings['cache_ttl'] ?? 0);
     }
 
     /**
