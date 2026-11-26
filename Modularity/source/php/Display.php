@@ -6,9 +6,9 @@ namespace Modularity;
 
 use Modularity\Helper\Cache;
 use Modularity\Helper\File as FileHelper;
+use Modularity\Helper\FragmentCache\FragmentCacheRequestPolicy;
 use Modularity\Helper\FragmentCache\FragmentStoreInterface;
 use Modularity\Helper\ModuleInstanceId;
-use Modularity\Helper\ModuleQueryVars;
 use Modularity\Helper\Wp;
 use Throwable;
 use WP_Post;
@@ -534,20 +534,21 @@ class Display
      */
     private function createFragmentCache(\WP_Post $module, string $placementId, array $moduleSettings): Cache
     {
-        $queryVars = $this->getFragmentCacheQueryVars($module);
-
         return new Cache(
             $module->ID,
             [$module, $placementId],
             $this->getFragmentCacheTtl($module, $moduleSettings),
-            $queryVars === [] ? null : $queryVars,
+            null,
             \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
             $this->fragmentStore,
         );
     }
 
     /**
-     * Gets the fragment cache TTL for a module. Private modules are never cached.
+     * Gets the fragment cache TTL for a module.
+     *
+     * Private modules are never cached, and neither are requests with parameters that may
+     * change the markup, see FragmentCacheRequestPolicy.
      *
      * @param \WP_Post $module          The module post
      * @param array    $moduleSettings  The module configuration
@@ -555,28 +556,11 @@ class Display
      */
     private function getFragmentCacheTtl(\WP_Post $module, array $moduleSettings): int
     {
-        if (get_post_status($module) === 'private') {
+        if (get_post_status($module) === 'private' || !FragmentCacheRequestPolicy::fromCurrentRequest()->allowsCaching()) {
             return 0;
         }
 
         return (int) ($moduleSettings['cache_ttl'] ?? 0);
-    }
-
-    /**
-     * Gets the query vars that vary the fragment cache of a module.
-     *
-     * Only the module's own query vars, such as its pagination, are used. Other query
-     * vars are set by the visitor and would add a new fragment per value.
-     * Empty values are left out.
-     *
-     * @param \WP_Post $module The module post
-     * @return array<string, string>
-     */
-    private function getFragmentCacheQueryVars(\WP_Post $module): array
-    {
-        $queryVars = ModuleQueryVars::fromModule($module)->extract($_GET);
-
-        return array_filter(array_map(static fn(string $value): string => sanitize_text_field($value), $queryVars));
     }
 
     /**

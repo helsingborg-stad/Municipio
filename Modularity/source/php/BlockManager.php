@@ -6,6 +6,7 @@ namespace Modularity;
 
 use Modularity\Helper\Cache;
 use Modularity\Helper\FragmentCache\BlockFragmentInput;
+use Modularity\Helper\FragmentCache\FragmentCacheRequestPolicy;
 use Modularity\Helper\FragmentCache\FragmentStoreInterface;
 use WpUtilService\WpUtilServiceInterface;
 
@@ -215,6 +216,8 @@ class BlockManager
     /**
      * Creates the fragment cache for one rendered block.
      *
+     * Requests with parameters that may change the markup render without the cache, see FragmentCacheRequestPolicy.
+     *
      * @param int|null $postId The post the block is rendered on
      * @param array    $block  The block, as prepared by ACF
      * @param object   $module The module the block renders
@@ -228,7 +231,7 @@ class BlockManager
                 BlockFragmentInput::fromBlock($block),
                 $module->ID,
             ],
-            $module->cacheTtl ?? 0,
+            FragmentCacheRequestPolicy::fromCurrentRequest()->allowsCaching() ? $module->cacheTtl ?? 0 : 0,
             null,
             \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
             $this->fragmentStore,

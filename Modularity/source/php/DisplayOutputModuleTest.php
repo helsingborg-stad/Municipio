@@ -27,19 +27,6 @@ function get_post_status(mixed $post = null): string
     return 'publish';
 }
 
-function sanitize_text_field(string $value): string
-{
-    return $value;
-}
-
-/**
- * Mirrors WordPress: public query vars are read from the request.
- */
-function get_query_var(string $queryVar, mixed $default = ''): mixed
-{
-    return $_GET[$queryVar] ?? $default;
-}
-
 class DisplayOutputModuleTest extends TestCase
 {
     public static int $uniqueIdCounter = 0;
@@ -120,9 +107,13 @@ class DisplayOutputModuleTest extends TestCase
     /**
      * @see https://github.com/helsingborg-stad/Municipio/issues/2435
      */
-    #[TestDox('outputModule() does not store a new fragment when a visitor adds $queryVar to the URL')]
-    #[DataProvider('visitorQueryVarProvider')]
-    public function testOutputModuleDoesNotStoreNewFragmentsForQueryVarsTheModuleDoesNotUse(string $queryVar): void
+    /**
+     * @see https://github.com/helsingborg-stad/Municipio/pull/2437#discussion_r4709642643
+     * @see https://github.com/helsingborg-stad/Municipio/pull/2437#discussion_r4709642752
+     */
+    #[TestDox('outputModule() renders without storing a fragment when the URL has $_dataName')]
+    #[DataProvider('markupChangingQueryVarProvider')]
+    public function testOutputModuleRendersWithoutStoringAFragmentForQueryVarsThatMayChangeMarkup(string $queryVar): void
     {
         $display = $this->createDisplay();
         $args = ['id' => 'content-area'];
@@ -135,27 +126,26 @@ class DisplayOutputModuleTest extends TestCase
         $_GET = [$queryVar => 'random-value'];
         $this->render($display, $args, $settings);
 
-        static::assertSame(
-            1,
-            $this->countStoredFragments(),
-            "Expected the query var {$queryVar}, which the module does not use, not to store a new fragment.",
-        );
+        static::assertSame(2, $this->renderCount, "Expected {$queryVar} to be rendered, not served from the cache.");
+        static::assertSame(1, $this->countStoredFragments(), "Expected {$queryVar} not to store a new fragment.");
     }
 
     /**
      * @return array<string, array{string}>
      */
-    public static function visitorQueryVarProvider(): array
+    public static function markupChangingQueryVarProvider(): array
     {
         return [
-            'an unrelated mod-* query var' => ['mod-unknown'],
+            'the module\'s own pagination parameter' => ['mod-text-123-page'],
+            'a mod-* parameter the module does not use' => ['mod-text-123-unused'],
+            'another module\'s parameter' => ['mod-unknown'],
             'the public query var s' => ['s'],
             'the public query var paged' => ['paged'],
         ];
     }
 
-    #[TestDox('outputModule() caches a separate fragment for each value of the module\'s own query vars')]
-    public function testOutputModuleCachesSeparateFragmentsForTheModulesOwnQueryVars(): void
+    #[TestDox('outputModule() serves the cached fragment when the URL only has parameters WordPress does not register')]
+    public function testOutputModuleServesTheCachedFragmentForUnregisteredParameters(): void
     {
         $display = $this->createDisplay();
         $args = ['id' => 'content-area'];
@@ -164,10 +154,10 @@ class DisplayOutputModuleTest extends TestCase
         $_GET = [];
         $this->render($display, $args, $settings);
 
-        $_GET = ['mod-text-123-page' => '2'];
+        $_GET = ['utm_source' => 'newsletter'];
         $this->render($display, $args, $settings);
 
-        static::assertSame(2, $this->renderCount, 'Expected page 2 to be rendered, not served from the page 1 fragment.');
+        static::assertSame(1, $this->renderCount, 'Expected the second request to be served from the fragment cache.');
     }
 
     private function createDisplay(): Display

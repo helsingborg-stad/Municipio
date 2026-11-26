@@ -30,6 +30,11 @@ class BlockManagerFragmentCacheTest extends TestCase
         $this->blockManager->classes = ['text' => $this->module];
     }
 
+    protected function tearDown(): void
+    {
+        $_GET = [];
+    }
+
     /**
      * @see https://github.com/helsingborg-stad/Municipio/issues/2435
      */
@@ -51,6 +56,22 @@ class BlockManagerFragmentCacheTest extends TestCase
         $this->storeFragment($this->createBlock(['text' => 'Hello']));
 
         static::assertTrue($this->isMiss($this->createBlock(['text' => 'Goodbye'])));
+    }
+
+    /**
+     * Blocks render Posts too, and their pagination links are built from the request.
+     *
+     * @see https://github.com/helsingborg-stad/Municipio/pull/2437#discussion_r4709642752
+     */
+    #[TestDox('renderBlock() renders without the fragment cache when the URL has a module parameter')]
+    public function testFragmentCacheIsNotUsedForRequestsWithModuleParameters(): void
+    {
+        $block = $this->createBlock(['text' => 'Hello']);
+        $this->storeFragment($block);
+
+        $_GET = ['mod-posts-block_abc-page' => '2'];
+
+        static::assertTrue($this->isMiss($block), 'Expected the block to be rendered, not served from the cache.');
     }
 
     /**
