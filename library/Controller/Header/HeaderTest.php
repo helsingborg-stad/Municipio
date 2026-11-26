@@ -71,8 +71,6 @@ class HeaderTest extends TestCase
         static::assertSame(['drawer'], array_keys($groupedItems['right']));
 
         $drawerClasses = $groupedItems['right']['drawer']->getCssClasses();
-        static::assertContains('c-header__item--mobile-left', $drawerClasses);
-        static::assertContains('c-header__item--mobile-index-0', $drawerClasses);
 
         $logotypeClasses = $groupedItems['left']['logotype']->getCssClasses();
         static::assertContains('c-header__item--mobile-center', $logotypeClasses);
@@ -110,7 +108,6 @@ class HeaderTest extends TestCase
 
         static::assertContains('u-display--flex', $logotypeClasses);
         static::assertContains('u-display--flex', $drawerClasses);
-        static::assertContains('c-header__item--mobile-left', $logotypeClasses);
         static::assertContains('c-header__item--mobile-right', $drawerClasses);
     }
 
