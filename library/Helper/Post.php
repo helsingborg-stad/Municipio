@@ -538,14 +538,14 @@ class Post
         }
 
         global $wpdb;
-        $metaKeys = $wpdb->get_col("
+        $metaKeys = $wpdb->get_col($wpdb->prepare("
             SELECT DISTINCT {$wpdb->postmeta}.meta_key
             FROM {$wpdb->postmeta}
             LEFT JOIN {$wpdb->posts} ON {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID
             WHERE
-            {$wpdb->posts}.post_type = '$postType'
+            {$wpdb->posts}.post_type = %s
             LIMIT 50
-        ");
+        ", $postType));
 
         // Filter response, faster than making a more advanced query
         $metaKeys = array_filter($metaKeys, static function ($value) {

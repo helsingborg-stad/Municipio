@@ -28,12 +28,12 @@ class PuzzelFactory implements ChatIntegrationFactory {
         const customerId = chat.getElement().getAttribute(`${attributePrefix}-customer-id`);
         const queueuKey = chat.getElement().getAttribute(`${attributePrefix}-queue-key`);
         const visualQueueId = chat.getElement().getAttribute(`${attributePrefix}-visual-queue-id`);
-        const timeId = chat.getElement().getAttribute(`${attributePrefix}-time-id`);
+        const timeId = chat.getElement().getAttribute(`${attributePrefix}-time-id`) || null;
         const clientId = chat.getElement().getAttribute(`${attributePrefix}-client-id`);
         const assistantName = chat.getElement().getAttribute(`${attributePrefix}-name`);
         const avatarUrl = chat.getElement().getAttribute(`${attributePrefix}-avatar`) ?? null;
 
-        if (!customerId || !queueuKey || !clientId || !visualQueueId || !timeId || !assistantName) {
+        if (!customerId || !queueuKey || !clientId || !visualQueueId || !assistantName) {
             console.error("Missing required Puzzel configuration attributes");
             return null;
         }

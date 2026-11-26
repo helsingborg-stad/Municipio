@@ -7,6 +7,7 @@ declare global {
 		agentLeftChatInactive: string;
 		agentJoinedChat: string;
 		agentLeftChat: string;
+		userLeftChat: string;
 	}
 
 	const municipioChatLocale: MunicipioChatLocale;

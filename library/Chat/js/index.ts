@@ -44,22 +44,20 @@ async function initChatBubble(chat: any) {
 	if (popover) {
 		registerBubbleOpenStateListener(popover, chat);
 	} else {
-		scrollToBottom(chat);
-		return initializeChat(chat);
+		await initializeChat(chat);
+		return;
 	}
 
 	if (
 		shouldOpenChatBubbleOnInit(chat) &&
 		!popover.matches(":popover-open")
 	) {
-		scrollToBottom(chat);
+		popover?.showPopover();
 		await initializeChat(chat);
-		popover.showPopover();
 		return;
 	}
 
 	if (shouldInitializeChatBubbleOnInit(chat)) {
-		scrollToBottom(chat);
 		await initializeChat(chat);
 		persistChatBubbleInitializeState(chat, false);
 		return;
@@ -67,21 +65,17 @@ async function initChatBubble(chat: any) {
 
 	const listener = async () => {
 		popover.removeEventListener('toggle', listener);
-		scrollToBottom(chat);
 		await initializeChat(chat);
 	};
 
 	popover.addEventListener('toggle', listener);
 }
 
-function scrollToBottom(chat: any) {
-	chat.getScrollContainer().scrollTop = chat.getScrollContainer().scrollHeight;
-	chat.getElement().classList.remove("u-visibility--hidden");
-}
-
 async function initializeChat(chat: any) {
 	chat.getElement().classList.add('u-preloader');
+	chat.getElement().classList.remove("u-visibility--hidden");
 	await new ChatInitializer(chat).init();
+	chat.getScrollContainer().scrollTop = chat.getScrollContainer().scrollHeight;
 	chat.getElement().classList.remove('u-preloader');
 }
 

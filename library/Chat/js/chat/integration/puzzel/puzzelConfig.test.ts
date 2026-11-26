@@ -25,4 +25,12 @@ describe("PuzzelConfig", () => {
 		expect(config.getAuthenticationUrl()).toBe("https://auth");
 		expect(config.getCommunicationUrl()).toBe("https://comm");
 	});
+
+	it("allows a null time ID", () => {
+		// Arrange
+		const config = new PuzzelConfig("c", "q", "cl", "v", null, "n", "a");
+
+		// Act / Assert
+		expect(config.getTimeId()).toBeNull();
+	});
 });

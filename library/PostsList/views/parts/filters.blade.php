@@ -35,7 +35,9 @@
     @endif
 
     <div class="o-grid u-align-content--end">
-        
+
+        {{-- Replaced after each async filtering, so that term counts follow the selected filters. --}}
+        <div class="s-archive-filter__taxonomies" data-js-posts-list-taxonomy-filters>
         @foreach ($getTaxonomyFilterSelectComponentArguments() as $selectArguments)
             <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-4">
                 @if (isset($selectArguments['checkboxes']))
@@ -52,7 +54,8 @@
                 @endif
             </div>
         @endforeach
-    
+        </div>
+
         <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-display--flex u-align-items--end">
             @button([
                 ...$getFilterFormSubmitButtonArguments(),

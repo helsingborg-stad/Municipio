@@ -55,12 +55,10 @@ class SchemaObjectFromPostMeta implements SchemaObjectFromPostInterface
         $schema = $this->getSchemaInstance($schemaData['@type'] ?? null);
 
         foreach ($schemaData as $propertyName => $propertyValue) {
-            // Fix: handle arrays of values (e.g., array of strings or schema objects)
             if (is_array($propertyValue) && !$this->propertyValueIsSchemaObject($propertyValue)) {
                 $processedArray = [];
-                foreach ($propertyValue as $item) {
-                    $processedItem    = $this->processPropertyValue($schema, $propertyName, $item);
-                    $processedArray[] = $processedItem;
+                foreach ($propertyValue as $key => $item) {
+                    $processedArray[$key] = $this->processPropertyValue($schema, $propertyName, $item);
                 }
                 $schema->setProperty($propertyName, $processedArray);
             } else {
@@ -101,15 +99,13 @@ class SchemaObjectFromPostMeta implements SchemaObjectFromPostInterface
      */
     private function processPropertyValue(BaseType $schema, string $propertyName, mixed $propertyValue): mixed
     {
-        $allowedTypes = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);
-        $value        = $this->maybeUnserialize($propertyValue);
-        $value        = $this->schemaPropertyValueSanitizer->sanitize($value, $allowedTypes[$propertyName] ?? []);
-
+        $value = $this->maybeUnserialize($propertyValue);
         if ($this->propertyValueIsSchemaObject($value)) {
             return $this->generateSchemaObject($value);
         }
 
-        return $value;
+        $allowedTypes = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);
+        return $this->schemaPropertyValueSanitizer->sanitize($value, $allowedTypes[$propertyName] ?? []);
     }
 
     /**

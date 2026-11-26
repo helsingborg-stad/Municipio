@@ -20,6 +20,8 @@ class Puzzel implements ChatIntegrationInterface {
         private chatHandler: ChatHandlerInterface,
         private uiManager: ChatUiManagerInterface,
         private puzzelConfig: PuzzelConfigInterface,
+        private bannerDataManager: BannerDataManagerInterface,
+        private infoDataManager: InfoDataManagerInterface,
     ) {
     }
 
@@ -100,6 +102,7 @@ class Puzzel implements ChatIntegrationInterface {
 
         this.authenticated = authenticated;
         this.conversation = await this.puzzelConversationManager.startConversation();
+        this.chatHandler.startNewSession();
         this.conversationStorageManager.setLocalStorage(this.conversation, authenticated);
         await this.puzzelConversationManager.sendUserJoinEventToConversation();
 
@@ -119,9 +122,9 @@ class Puzzel implements ChatIntegrationInterface {
 
     private showConnectionError(): void {
         this.setupUi();
-        this.chatHandler.setErrorData();
+        this.chatHandler.setBannerContent(this.bannerDataManager.getErrorBannerContent());
         this.chatHandler.displayBanner(true);
-        this.chatHandler.disable();
+        this.chatHandler.endSession();
     }
 
     private setupUi(): void {
@@ -129,7 +132,11 @@ class Puzzel implements ChatIntegrationInterface {
         this.uiManager.setAvatar(this.puzzelConfig.getAvatar());
         this.uiManager.clearActions();
         this.uiManager.addMinimizeAction();
-        this.uiManager.addCloseAction();
+        this.uiManager.addCloseAction().addListener(() => {
+            this.chatHandler.endSession();
+            this.puzzelConversationManager.sendUserLeaveEvent();
+            this.chatHandler.addInfo(this.infoDataManager.getUserLeftInfoContent());
+        });
     }
 
     private resetStoredConversation(): void {
@@ -139,11 +146,15 @@ class Puzzel implements ChatIntegrationInterface {
 
     private async startMetaDataListener(): Promise<void> {
         await this.puzzelConversationManager.listenForMetaData((data) => {
+            if (data?.type === "participantLeaveEvent") {
+                this.chatHandler.endSession();
+            }
             this.typingIndicatorHandler.handleMetaDataEvent(data);
             this.agentLeftHandler.handleMetaDataEvent(data);
             this.agentJoinedHandler.handleMetaDataEvent(data);
         });
     }
+
 
     private async startConversationListener(): Promise<void> {
         await this.puzzelConversationManager.listenForConversation((data) => {

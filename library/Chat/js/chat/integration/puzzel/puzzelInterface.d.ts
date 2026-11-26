@@ -5,9 +5,22 @@ interface PuzzelConfigInterface {
     getChatQueueKey(): string;
     getClientId(): string;
     getVisualQueueId(): string;
-    getTimeId(): string;
+    getTimeId(): string | null;
     getName(): string;
     getAvatar(): string|null;
+}
+
+interface BannerDataManagerInterface {
+    getQueueBannerContent(position: number): string;
+    getChatInactiveBannerContent(): string;
+    getErrorBannerContent(): string;
+}
+
+interface InfoDataManagerInterface {
+    getAgentJoinedInfoContent(): string;
+    getAgentLeftInfoContent(): string;
+    getUserLeftInfoContent(): string;
+    getInfoContentFromType(type: string, senderRole?: string): string | null;
 }
 
 interface PuzzelConversationManagerInterface {
@@ -19,6 +32,7 @@ interface PuzzelConversationManagerInterface {
     stopListeningForConversation(): void;
     stopListeningForConversationStatus(): void;
     sendUserJoinEventToConversation(): Promise<void>;
+    sendUserLeaveEvent(): Promise<void>;
     listenForMetaData(callback: (data: PuzzelMetaDataEvent) => void): Promise<void>;
     listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void>;
     listenForConversationStatus(callback: (data: PuzzelConversationStatusResponse) => void): Promise<void>;

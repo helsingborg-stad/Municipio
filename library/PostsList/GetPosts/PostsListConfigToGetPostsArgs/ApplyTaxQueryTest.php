@@ -139,4 +139,31 @@ class ApplyTaxQueryTest extends TestCase
 
         $this->assertEquals([], $args);
     }
+
+    #[TestDox('keeps the tax query for a term that does not exist (term id 0) so no posts are returned')]
+    public function testApplyKeepsTaxQueryForUnmatchedTerm(): void
+    {
+        $config = new class extends DefaultGetPostsConfig {
+            public function getTerms(): array
+            {
+                $unmatchedTerm           = new WP_Term([]);
+                $unmatchedTerm->term_id  = 0;
+                $unmatchedTerm->taxonomy = 'category';
+
+                return [$unmatchedTerm];
+            }
+        };
+
+        $args = (new ApplyTaxQuery([]))->apply($config, []);
+
+        $this->assertContains(
+            [
+                'taxonomy' => 'category',
+                'field' => 'term_id',
+                'terms' => [0],
+                'operator' => 'IN',
+            ],
+            $args['tax_query'],
+        );
+    }
 }

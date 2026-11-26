@@ -69,11 +69,11 @@ class ChatRenderConfig implements ChatRenderConfigInterface
         return [
             'chat' => $this->wpService->__('Chat', 'municipio'),
             'close' => $this->wpService->__('Close', 'municipio'),
-            'closeChat' => $this->wpService->__('Close chat', 'municipio'),
+            'endChat' => $this->wpService->__('End chat', 'municipio'),
             'cancel' => $this->wpService->__('Cancel', 'municipio'),
             'send' => $this->wpService->__('Send', 'municipio'),
             'placeholder' => $this->wpService->__('Write your question here', 'municipio'),
-            'newConversation' => $this->wpService->__('New conversation', 'municipio'),
+            'clear' => $this->wpService->__('Clear', 'municipio'),
             'like' => $this->wpService->__('Like', 'municipio'),
             'dislike' => $this->wpService->__('Dislike', 'municipio'),
             'minimize' => $this->wpService->__('Minimize', 'municipio')

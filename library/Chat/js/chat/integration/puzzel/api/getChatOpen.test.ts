@@ -54,6 +54,23 @@ describe("GetChatOpen", () => {
 		expect(result).toBe(expected);
 	});
 
+	it.each([null, ""])("skips the time request when the ID is %p", async (timeId) => {
+		// Arrange
+		const config = createConfig();
+		config.getTimeId.mockReturnValue(timeId as any);
+		const authenticator = createAuthenticator();
+		global.fetch = jest.fn() as any;
+		const api = new GetChatOpen(config as any, authenticator as any);
+
+		// Act
+		const result = await api.execute();
+
+		// Assert
+		expect(result).toBeNull();
+		expect(authenticator.getAccessToken).not.toHaveBeenCalled();
+		expect(global.fetch).not.toHaveBeenCalled();
+	});
+
 	it("throws when response is not ok", async () => {
 		// Arrange
 		global.fetch = jest.fn().mockResolvedValue(createResponse({}, false)) as any;

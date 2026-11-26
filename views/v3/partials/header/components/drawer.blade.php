@@ -13,13 +13,11 @@
             'toggle' => true,
             'attributeList' => [
                 'data-toggle-icon' => 'close',
-                'data-js-toggle-group' => 'drawer'
+                'data-toggle-label' => $lang->closeMenu,
             ]
         ],
         'id' => 'drawer',
         'attributeList' => [
-            'data-move-to' => 'body', 
-            'data-js-toggle-item' => 'drawer',
             'data-scope' => 's-drawer;',
             'style' => $drawerCurrentBadgeStyle ?? ''
         ],
@@ -29,13 +27,6 @@
             $drawerCurrentBadgeClass ?? ''
         ],
         'label' => $lang->close,
-        'screenSizes' => [
-            'xs',
-            'sm',
-            'md',
-            'lg',
-            'xl'
-        ],
         'context' => ['site.header.drawer'],
     ])
 

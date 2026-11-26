@@ -27,17 +27,14 @@ interface ChatHandlerInterface {
 	setDefaultPersistedState(state: boolean): void;
 	addMessage(message: string, isAgent: boolean): void;
 	addInfo(content: string): void;
-	addInfoFromType(type: string, senderRole?: string): void;
-	addAgentJoinedInfo(): void;
-	addAgentLeftInfo(): void;
 	disable(): void;
+	setBannerContent(content: string|Node): void;
 	enable(): void;
+	endSession(): void;
+	startNewSession(): void;
 	addPendingMessage(): any;
 	deleteMessage(message: any): void;
 	onMessageAdded(listener: (message: any) => void): void;
 	onTyping(listener: () => void): void;
 	displayBanner(show: boolean): void;
-	setQueueBannerData(position: number): void;
-	setChatInactiveData(): void;
-	setErrorData(): void;
 }

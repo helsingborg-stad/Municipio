@@ -31347,3 +31347,54 @@ msgstr ""
 msgctxt "Event price term"
 msgid "Free"
 msgstr ""
+
+msgid "Sponsorship request"
+msgstr ""
+
+msgid "Sponsorship offer"
+msgstr ""
+
+msgid "Support needed by"
+msgstr ""
+
+msgid "Sponsorship date"
+msgstr ""
+
+msgid "Sponsorship location"
+msgstr ""
+
+msgid "What the association needs"
+msgstr ""
+
+msgid "What the company wants to contribute"
+msgstr ""
+
+msgid "Main activity of the association"
+msgstr ""
+
+msgid "What the association looks for in a sponsor"
+msgstr ""
+
+msgid "Things to keep in mind"
+msgstr ""
+
+msgid "What the association can offer in return"
+msgstr ""
+
+msgid "What the company would like in return"
+msgstr ""
+
+msgid "Go to contact details"
+msgstr ""
+
+msgid "About the activity"
+msgstr ""
+
+msgid "Sponsorship at a glance"
+msgstr ""
+
+msgid "Visit the association’s website"
+msgstr ""
+
+msgid "Visit the company’s website"
+msgstr ""

@@ -1,12 +1,7 @@
-class ChatHandler {
+class ChatHandler implements ChatHandlerInterface {
+	private sessionEnded = false;
+
 	public constructor(private chat: any) {}
-
-	private getLocalizedString(key: keyof MunicipioChatLocale, fallback: string): string {
-		const locale = (globalThis as { municipioChatLocale?: Partial<MunicipioChatLocale> }).municipioChatLocale;
-		const translated = locale?.[key];
-
-		return typeof translated === "string" && translated.length > 0 ? translated : fallback;
-	}
 
 	public setDefaultPersistedState(state: boolean): void {
 		this.chat.setDefaultShouldPersist(state);
@@ -24,55 +19,29 @@ class ChatHandler {
 		show ? this.chat.showBanner() : this.chat.hideBanner();
 	}
 
-	public setQueueBannerData(position: number): void {
-		const queuePositionLabel = this.getLocalizedString("queuePosition", "Queue position");
-		this.chat.setBannerContent(`${queuePositionLabel}: ${position}`);
-	}
-
-	public setChatInactiveData(): void {
-		this.chat.setBannerContent(
-			this.getLocalizedString(
-				"agentLeftChatInactive",
-				"The agent has left and the chat is now inactive",
-			),
-		);
-	}
-
-	public setErrorData(): void {
-		this.chat.setBannerContent(
-			this.getLocalizedString("errorMessage", "Something went wrong, please try again later"),
-		);
-	}
-
-	public addInfoFromType(type: string, senderRole: string = 'agent'): void {
-		switch (type) {
-			case "participantJoinEvent":
-				if (senderRole === 'agent') {
-					this.addAgentJoinedInfo();
-				}
-				break;
-			case "participantLeaveEvent":
-				if (senderRole === 'agent') {
-					this.addAgentLeftInfo();
-				}
-				break;
-		}
-	}
-
-	public addAgentJoinedInfo(): void {
-		this.chat.addInfo(this.getLocalizedString("agentJoinedChat", "Agent has joined the chat"));
-	}
-
-	public addAgentLeftInfo(): void {
-		this.chat.addInfo(this.getLocalizedString("agentLeftChat", "Agent has left the chat"));
+	public setBannerContent(content: string|Node): void {
+		this.chat.setBannerContent(content);
 	}
 
 	public disable(): void {
 		this.chat.disable();
 	}
 
+	/** Permanently disables the current conversation until a new one starts. */
+	public endSession(): void {
+		this.sessionEnded = true;
+		this.disable();
+	}
+
+	/** Clears the terminal lock for a newly created conversation. */
+	public startNewSession(): void {
+		this.sessionEnded = false;
+	}
+
 	public enable(): void {
-		this.chat.enable();
+		if (!this.sessionEnded) {
+			this.chat.enable();
+		}
 	}
 
 	public addPendingMessage(): any {

@@ -19,12 +19,16 @@ describe("ChatHandler", () => {
 		};
 	};
 
-	const setLocale = (value: unknown) => {
-		Object.defineProperty(globalThis, "municipioChatLocale", { value, configurable: true, writable: true });
-	};
+	it("forwards banner content to the chat", () => {
+		// Arrange
+		const chat = createChat();
+		const handler = new ChatHandler(chat);
 
-	afterEach(() => {
-		delete (globalThis as any).municipioChatLocale;
+		// Act
+		handler.setBannerContent("Queue position: 2");
+
+		// Assert
+		expect(chat.setBannerContent).toHaveBeenCalledWith("Queue position: 2");
 	});
 
 	it("shows or hides the banner", () => {
@@ -41,99 +45,37 @@ describe("ChatHandler", () => {
 		expect(chat.hideBanner).toHaveBeenCalledTimes(1);
 	});
 
-	it("uses fallback strings when no locale is defined", () => {
+	it("forwards info content to the chat", () => {
 		// Arrange
 		const chat = createChat();
 		const handler = new ChatHandler(chat);
 
 		// Act
-		handler.setQueueBannerData(3);
-		handler.setChatInactiveData();
-		handler.setErrorData();
-		handler.addAgentJoinedInfo();
-		handler.addAgentLeftInfo();
+		handler.addInfo("Agent has joined the chat");
 
 		// Assert
-		expect(chat.setBannerContent.mock.calls).toEqual([
-			["Queue position: 3"],
-			["The agent has left and the chat is now inactive"],
-			["Something went wrong, please try again later"],
-		]);
-		expect(chat.addInfo.mock.calls).toEqual([
-			["Agent has joined the chat"],
-			["Agent has left the chat"],
-		]);
-	});
-
-	it("uses localized strings when available", () => {
-		// Arrange
-		setLocale({
-			queuePosition: "Köplats",
-			agentLeftChatInactive: "Inaktiv",
-			agentJoinedChat: "Anslöt",
-			agentLeftChat: "Lämnade",
-			errorMessage: "Något gick fel",
-		});
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
-
-		// Act
-		handler.setQueueBannerData(2);
-		handler.setChatInactiveData();
-		handler.setErrorData();
-		handler.addAgentJoinedInfo();
-		handler.addAgentLeftInfo();
-
-		// Assert
-		expect(chat.setBannerContent.mock.calls).toEqual([["Köplats: 2"], ["Inaktiv"], ["Något gick fel"]]);
-		expect(chat.addInfo.mock.calls).toEqual([["Anslöt"], ["Lämnade"]]);
-	});
-
-	it("falls back when a localized string is empty or not a string", () => {
-		// Arrange
-		setLocale({ queuePosition: "", agentJoinedChat: 42 });
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
-
-		// Act
-		handler.setQueueBannerData(1);
-		handler.addAgentJoinedInfo();
-
-		// Assert
-		expect(chat.setBannerContent).toHaveBeenCalledWith("Queue position: 1");
 		expect(chat.addInfo).toHaveBeenCalledWith("Agent has joined the chat");
 	});
 
-	it.each([
-		["participantJoinEvent", "agent", "Agent has joined the chat"],
-		["participantLeaveEvent", "agent", "Agent has left the chat"],
-		["participantLeaveEvent", undefined, "Agent has left the chat"],
-	])("adds info for %s from %s", (type, role, expected) => {
+	it("keeps an ended session disabled until a new session starts", () => {
 		// Arrange
 		const chat = createChat();
 		const handler = new ChatHandler(chat);
 
 		// Act
-		handler.addInfoFromType(type, role);
+		handler.endSession();
+		handler.enable();
 
 		// Assert
-		expect(chat.addInfo).toHaveBeenCalledWith(expected);
-	});
-
-	it.each([
-		["participantJoinEvent", "visitor"],
-		["participantLeaveEvent", "visitor"],
-		["typingEvent", "agent"],
-	])("ignores %s from %s", (type, role) => {
-		// Arrange
-		const chat = createChat();
-		const handler = new ChatHandler(chat);
+		expect(chat.disable).toHaveBeenCalledTimes(1);
+		expect(chat.enable).not.toHaveBeenCalled();
 
 		// Act
-		handler.addInfoFromType(type, role);
+		handler.startNewSession();
+		handler.enable();
 
 		// Assert
-		expect(chat.addInfo).not.toHaveBeenCalled();
+		expect(chat.enable).toHaveBeenCalledTimes(1);
 	});
 
 	it("forwards the detail of chat:message-added events to the listener", () => {

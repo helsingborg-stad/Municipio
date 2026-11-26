@@ -20,6 +20,7 @@
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'top',
     'relative' => true,
+    'type' => 'manual',
     'classList' => [
         'u-margin__bottom--1'
     ]

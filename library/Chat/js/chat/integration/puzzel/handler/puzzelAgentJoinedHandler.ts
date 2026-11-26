@@ -1,6 +1,7 @@
 class PuzzelAgentJoinedHandler implements MetaDataHandler {
 	public constructor(
-		private chatHandler: ChatHandlerInterface
+		private chatHandler: ChatHandlerInterface,
+		private infoDataManager: InfoDataManagerInterface,
 	) {
 	}
 
@@ -10,7 +11,7 @@ class PuzzelAgentJoinedHandler implements MetaDataHandler {
         }
 
 		this.chatHandler.displayBanner(false);
-		this.chatHandler.addAgentJoinedInfo();
+		this.chatHandler.addInfo(this.infoDataManager.getAgentJoinedInfoContent());
 		this.chatHandler.enable();
         return true;
 	}
