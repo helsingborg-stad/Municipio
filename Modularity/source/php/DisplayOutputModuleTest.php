@@ -6,6 +6,7 @@ namespace Modularity;
 
 use Modularity\Helper\FragmentCache\FragmentStore;
 use Municipio\TestUtils\InMemoryObjectCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpUtilService\WpUtilServiceInterface;
@@ -31,12 +32,21 @@ function sanitize_text_field(string $value): string
     return $value;
 }
 
+/**
+ * Mirrors WordPress: public query vars are read from the request.
+ */
+function get_query_var(string $queryVar, mixed $default = ''): mixed
+{
+    return $_GET[$queryVar] ?? $default;
+}
+
 class DisplayOutputModuleTest extends TestCase
 {
     public static int $uniqueIdCounter = 0;
 
     private int $renderCount = 0;
     private InMemoryObjectCache $objectCache;
+    private \WP_Post $module;
 
     protected function setUp(): void
     {
@@ -47,11 +57,19 @@ class DisplayOutputModuleTest extends TestCase
             public function __construct(mixed ...$args) {}
         });
         $this->objectCache = new InMemoryObjectCache();
+        $this->module = new \WP_Post((object) []);
+        $this->module->ID = 123;
+        $this->module->post_type = 'mod-text';
+        // WordPress registers its public query vars on the global $wp.
+        // @mago-expect lint:no-global
+        $GLOBALS['wp'] = (object) ['public_query_vars' => ['s', 'paged', 'p']];
     }
 
     protected function tearDown(): void
     {
         $_GET = [];
+        // @mago-expect lint:no-global
+        unset($GLOBALS['wp']);
         unset(ModuleManager::$classes['mod-text']);
     }
 
@@ -61,19 +79,18 @@ class DisplayOutputModuleTest extends TestCase
     #[TestDox('outputModule() reuses the fragment cache for the same placement, even when earlier wp_unique_id() calls differ between requests')]
     public function testOutputModuleReusesFragmentCacheAcrossRequestsWithDifferentUniqueIdCounts(): void
     {
-        $module = $this->createModule();
         $display = $this->createDisplay();
         $args = ['id' => 'content-area'];
         $settings = ['cache_ttl' => 60];
 
         // Request 1: nothing else has called wp_unique_id() before the module.
         self::$uniqueIdCounter = 0;
-        $firstOutput = $this->render($display, $module, $args, $settings);
+        $firstOutput = $this->render($display, $args, $settings);
 
         // Request 2: something earlier on the page (a menu, a notice, ...) called wp_unique_id().
         self::$uniqueIdCounter = 0;
         wp_unique_id('component-');
-        $secondOutput = $this->render($display, $module, $args, $settings);
+        $secondOutput = $this->render($display, $args, $settings);
 
         static::assertStringContainsString('Module', $firstOutput);
         static::assertStringContainsString('Module', $secondOutput);
@@ -88,13 +105,12 @@ class DisplayOutputModuleTest extends TestCase
     #[TestDox('outputModule() gives repeated placements of a cached module distinct wrapper ids')]
     public function testOutputModuleGivesRepeatedCachedPlacementsDistinctWrapperIds(): void
     {
-        $module = $this->createModule();
         $display = $this->createDisplay();
         $args = ['id' => 'content-area'];
         $settings = ['cache_ttl' => 60];
 
-        $firstOutput = $this->render($display, $module, $args, $settings);
-        $secondOutput = $this->render($display, $module, $args, $settings);
+        $firstOutput = $this->render($display, $args, $settings);
+        $secondOutput = $this->render($display, $args, $settings);
 
         static::assertMatchesRegularExpression('/id="mod-text-123-\d+"/', $firstOutput);
         static::assertMatchesRegularExpression('/id="mod-text-123-\d+"/', $secondOutput);
@@ -104,52 +120,54 @@ class DisplayOutputModuleTest extends TestCase
     /**
      * @see https://github.com/helsingborg-stad/Municipio/issues/2435
      */
-    #[TestDox('outputModule() does not add fragment cache entries for mod-* query vars the module does not use')]
-    public function testOutputModuleDoesNotAddCacheEntriesForUnrelatedModQueryVars(): void
+    #[TestDox('outputModule() does not store a new fragment when a visitor adds $queryVar to the URL')]
+    #[DataProvider('visitorQueryVarProvider')]
+    public function testOutputModuleDoesNotStoreNewFragmentsForQueryVarsTheModuleDoesNotUse(string $queryVar): void
     {
-        $module = $this->createModule();
         $display = $this->createDisplay();
         $args = ['id' => 'content-area'];
         $settings = ['cache_ttl' => 60];
 
         $_GET = [];
-        $this->render($display, $module, $args, $settings);
+        $this->render($display, $args, $settings);
 
-        // Visitors can add any mod-* parameter to the URL.
-        $_GET = ['mod-unknown' => 'random-value'];
-        $this->render($display, $module, $args, $settings);
+        // Visitors can add any parameter to the URL, with any value.
+        $_GET = [$queryVar => 'random-value'];
+        $this->render($display, $args, $settings);
 
         static::assertSame(
             1,
             $this->countStoredFragments(),
-            'Expected an unrelated mod-* query var not to store a new fragment.',
+            "Expected the query var {$queryVar}, which the module does not use, not to store a new fragment.",
         );
+    }
+
+    /**
+     * @return array<string, array{string}>
+     */
+    public static function visitorQueryVarProvider(): array
+    {
+        return [
+            'an unrelated mod-* query var' => ['mod-unknown'],
+            'the public query var s' => ['s'],
+            'the public query var paged' => ['paged'],
+        ];
     }
 
     #[TestDox('outputModule() caches a separate fragment for each value of the module\'s own query vars')]
     public function testOutputModuleCachesSeparateFragmentsForTheModulesOwnQueryVars(): void
     {
-        $module = $this->createModule();
         $display = $this->createDisplay();
         $args = ['id' => 'content-area'];
         $settings = ['cache_ttl' => 60];
 
         $_GET = [];
-        $this->render($display, $module, $args, $settings);
+        $this->render($display, $args, $settings);
 
         $_GET = ['mod-text-123-page' => '2'];
-        $this->render($display, $module, $args, $settings);
+        $this->render($display, $args, $settings);
 
         static::assertSame(2, $this->renderCount, 'Expected page 2 to be rendered, not served from the page 1 fragment.');
-    }
-
-    private function createModule(): \WP_Post
-    {
-        $module = new \WP_Post((object) []);
-        $module->ID = 123;
-        $module->post_type = 'mod-text';
-
-        return $module;
     }
 
     private function createDisplay(): Display
@@ -173,10 +191,10 @@ class DisplayOutputModuleTest extends TestCase
         return $display;
     }
 
-    private function render(Display $display, \WP_Post $module, array $args, array $settings): string
+    private function render(Display $display, array $args, array $settings): string
     {
         ob_start();
-        $display->outputModule($module, $args, $settings);
+        $display->outputModule($this->module, $args, $settings);
 
         return (string) ob_get_clean();
     }
