@@ -63,6 +63,7 @@ const wrapStandaloneEntryScripts = () => ({
 });
 
 const entries = {
+	"layer-order": "./vendor/helsingborg-stad/styleguide/source/sass/_layers.scss",
 	"js/styleguide": "./vendor/helsingborg-stad/styleguide/source/js/main.js",
 	"styleguide":
 		"./vendor/helsingborg-stad/styleguide/source/sass/main.scss",

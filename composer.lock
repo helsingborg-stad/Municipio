@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be314bea565154722f11927255916294",
+    "content-hash": "c6e9c0e862ddbc32a9c7e6d21efb92e9",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1402,16 +1402,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.52.4",
+            "version": "dev-fix/inherit-boundary-layer",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "428bbb0c5dfef8011c9dd6302d025faa3f6c2a26"
+                "reference": "3baeee91920f16d069a56821a511236778efd5ab"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/helsingborg-stad/styleguide/releases/download/%prettyVersion%/styleguide-%prettyVersion%.zip",
-                "reference": "428bbb0c5dfef8011c9dd6302d025faa3f6c2a26"
+                "reference": "3baeee91920f16d069a56821a511236778efd5ab"
             },
             "require": {
                 "erusev/parsedown": "^1.7",
@@ -1474,9 +1474,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.52.4"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/fix/inherit-boundary-layer"
             },
-            "time": "2026-11-27T07:54:23+00:00"
+            "time": "2026-11-27T09:03:33+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -7657,6 +7657,7 @@
         "jeradin/acf-website-field": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
+        "helsingborg-stad/styleguide": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
     "prefer-stable": false,
