@@ -1,20 +1,21 @@
 @card([])
-    @card__header([])
+    @card__body([])
+        {{-- Same heading markup as cards using the heading attribute, e.g. place and organizers --}}
         @typography([
             'element' => 'h2',
-            'variant' => 'h3'
+            'variant' => 'h3',
+            'classList' => ['c-card__heading', 'u-margin__y--0']
         ])
             {{$lang->occasionsTitle}}
         @endtypography
-    @endcard__header
 
-    @if(!empty($currentOccasion))
-        @card__body([])
+        @if(!empty($currentOccasion))
             @typography([
                 'classList' => [
                     'u-display--flex',
                     'u-align-items--center',
-                    'o-layout-grid--gap-2'
+                    'o-layout-grid--gap-2',
+                    'u-margin__top--1'
                 ],
                 'attributeList' => [
                     'style' => 'margin-left: -3px;'
@@ -38,8 +39,8 @@
                     {!! $currentOccasion->getStartDate() !!} - {!! $currentOccasion->getEndTime() !!}
                 @endtypography
             @endtypography
-        @endcard__body
-    @endif
+        @endif
+    @endcard__body
 
     @if(!empty($occasions) && count($occasions) > 1)
         @accordion([])

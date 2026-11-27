@@ -58,7 +58,7 @@ class RestrictPrivatePostToUserGroup implements Hookable
 
         // Set user & get user group
         $userGroup  = $this->userHelper->getUserGroup();
-        $userGroup  = $userGroup->slug ?? null;
+        $userGroup  = $userGroup->slug ?? '';
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {

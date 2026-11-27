@@ -63,10 +63,11 @@ const wrapStandaloneEntryScripts = () => ({
 });
 
 const entries = {
+	"layer-order": "./vendor/helsingborg-stad/styleguide/source/sass/_layers.scss",
 	"js/styleguide": "./vendor/helsingborg-stad/styleguide/source/js/main.js",
-	"css/styleguide":
+	"styleguide":
 		"./vendor/helsingborg-stad/styleguide/source/sass/main.scss",
-	"css/designbuilder":
+	"designbuilder":
 		"./vendor/helsingborg-stad/styleguide/source/design-builder/design-builder-external.css",
 	"js/designbuilder":
 		"./vendor/helsingborg-stad/styleguide/source/design-builder/index.ts",
@@ -74,18 +75,18 @@ const entries = {
 		"./library/Styleguide/Customize/js/designbuilderPreview.ts",
 	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 
-	"css/municipio": "./assets/source/sass/main.scss",
-	"css/palette-color-utilities":
+	"municipio": "./assets/source/sass/main.scss",
+	"palette-color-utilities":
 		"./assets/source/sass/palette-color-utilities.scss",
-	"css/municipio-comments": "./assets/source/sass/municipio-comments.scss",
-	"css/mce": "./assets/source/sass/mce.scss",
-	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
-	"css/acf": "./assets/source/sass/admin/acf.scss",
-	"css/general": "./assets/source/sass/admin/general.scss",
-	"css/a11y": "./assets/source/sass/admin/a11y.scss",
-	"css/login": "./assets/source/sass/admin/login.scss",
-	"css/trash-page": "./assets/source/sass/admin/trash-page.scss",
-	"css/material-symbols": "./assets/source/sass/admin/material-symbols.scss",
+	"municipio-comments": "./assets/source/sass/municipio-comments.scss",
+	"mce": "./assets/source/sass/mce.scss",
+	"blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
+	"acf": "./assets/source/sass/admin/acf.scss",
+	"general": "./assets/source/sass/admin/general.scss",
+	"a11y": "./assets/source/sass/admin/a11y.scss",
+	"login": "./assets/source/sass/admin/login.scss",
+	"trash-page": "./assets/source/sass/admin/trash-page.scss",
+	"material-symbols": "./assets/source/sass/admin/material-symbols.scss",
 
 	"js/a11y-warnings": "./assets/source/js/a11yWarnings.ts",
 	"js/municipio-shell": "./assets/source/js/frontend/shell.ts",
@@ -99,24 +100,24 @@ const entries = {
 
 	/* Blocks */
 	"js/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.ts",
-	"css/backdrop-banner":
+	"backdrop-banner":
 		"./library/BackdropBanner/js/Front/backdrop-banner.scss",
-	"css/backdrop-banner-editor":
+	"backdrop-banner-editor":
 		"./library/BackdropBanner/js/Editor/backdrop-banner.scss",
 
 	/* Kulturkortet */
 	"js/kulturkortetQR": "./library/Kulturkortet/QRCodeViewer/js/index.ts",
-	"css/kulturkortetQR": "./library/Kulturkortet/QRCodeViewer/css/index.scss",
-	"css/kulturkortetProfileEditor":
+	"kulturkortetQR": "./library/Kulturkortet/QRCodeViewer/css/index.scss",
+	"kulturkortetProfileEditor":
 		"./library/Kulturkortet/ProfileEditor/css/index.scss",
 
 	/* Chat */
 	"js/chat": "./library/Chat/js/index.ts",
-	"css/chat": "./library/Chat/css/chat.scss",
+	"chat": "./library/Chat/css/chat.scss",
 
 	/* Search Index */
 	"js/search-index-search-page": "./library/SearchIndex/SearchPage/js/index.ts",
-	"css/search-index-search-page":
+	"search-index-search-page":
 		"./library/SearchIndex/SearchPage/css/search-page.scss",
 
 	/* Admin js */
@@ -166,7 +167,8 @@ export default defineConfig(({ mode }) => {
 					chunkFileNames: isProduction ? "[name].[hash].js" : "[name].js",
 					assetFileNames: (assetInfo) => {
 						if (assetInfo.name?.endsWith(".css")) {
-							return isProduction ? "[name].[hash].css" : "[name].css";
+							// Vite uses the pattern's directory to resolve relative URLs in CSS.
+							return isProduction ? "css/[name].[hash].css" : "css/[name].css";
 						}
 						return "assets/[name].[hash].[ext]";
 					},

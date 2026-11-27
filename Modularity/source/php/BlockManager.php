@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Modularity\Helper\Cache;
+use Modularity\Helper\FragmentCache\BlockFragmentInput;
+use Modularity\Helper\FragmentCache\FragmentCacheRequestPolicy;
+use Modularity\Helper\FragmentCache\FragmentStoreInterface;
 use WpUtilService\WpUtilServiceInterface;
 
 /*
@@ -19,6 +23,7 @@ class BlockManager
      */
     public function __construct(
         private WpUtilServiceInterface $wpUtilService,
+        private ?FragmentStoreInterface $fragmentStore = null,
     ) {
         add_filter('block_categories_all', [$this, 'filterCategories'], 10, 2);
         add_filter('acf/load_field_group', [$this, 'addLocationRule']);
@@ -206,6 +211,31 @@ class BlockManager
             'slug' => 'modules',
             'title' => __('Modules', 'municipio'),
         ]]);
+    }
+
+    /**
+     * Creates the fragment cache for one rendered block.
+     *
+     * Requests with parameters that may change the markup render without the cache, see FragmentCacheRequestPolicy.
+     *
+     * @param int|null $postId The post the block is rendered on
+     * @param array    $block  The block, as prepared by ACF
+     * @param object   $module The module the block renders
+     * @return Cache
+     */
+    private function createFragmentCache(?int $postId, array $block, object $module): Cache
+    {
+        return new Cache(
+            $postId,
+            [
+                BlockFragmentInput::fromBlock($block),
+                $module->ID,
+            ],
+            FragmentCacheRequestPolicy::fromCurrentRequest()->allowsCaching() ? $module->cacheTtl ?? 0 : 0,
+            null,
+            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
+            $this->fragmentStore,
+        );
     }
 
     /**
@@ -417,16 +447,7 @@ class BlockManager
 
         $module = $this->classes[$block['moduleName']];
 
-        $cache = new \Modularity\Helper\Cache(
-            $post->ID ?? null,
-            [
-                $block,
-                $module->ID,
-            ],
-            $module->cacheTtl ?? 0,
-            null,
-            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
-        );
+        $cache = $this->createFragmentCache($post->ID ?? null, $block, $module);
 
         if ($cache->start()) { //Start cache
             //Append module data, set default values

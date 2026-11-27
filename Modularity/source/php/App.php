@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Modularity\Helper\FragmentCache\FragmentStoreFactory;
 use Modularity\Private\PrivateAcfFields;
 use Municipio\Helper\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -27,7 +28,6 @@ class App
         add_action('enqueue_block_assets', [$this, 'enqueueBlockEditorStyles']);
         add_action('enqueue_block_editor_assets', [$this, 'enqueueBlockEditor']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueFront'], 950);
-        add_action('wp_footer', [$this, 'enqueueDetectedFrontendAssets'], 1);
         add_filter('Modularity/Display/Markup', [$this, 'detectFrontendAssets'], 10, 2);
         add_action('Modularity/Cache/Markup', [$this, 'detectFrontendAssets']);
         add_action('admin_menu', [$this, 'addAdminMenuPage']);
@@ -64,14 +64,15 @@ class App
         self::$moduleManager = new ModuleManager($this->wpUtilService);
 
         $this->editor = new Editor($this->wpEnqueue);
-        self::$display = new Display($this->wpUtilService);
+        $fragmentStore = (new FragmentStoreFactory(WpService::get(), WpService::get()))->create();
+        self::$display = new Display($this->wpUtilService, $fragmentStore);
 
         if (is_admin()) {
             new PrivateAcfFields();
         }
 
         new Helper\Acf();
-        new CachePurge();
+        (new CachePurge($fragmentStore, WpService::get()))->addHooks();
 
         new Search();
         (new \Modularity\SearchIndex(WpService::get()))->addHooks();
@@ -216,23 +217,28 @@ class App
 
     /**
      * Detect optional frontend behaviour from the final module markup.
+     *
+     * Assets are enqueued as soon as they are detected. Municipio captures
+     * wp_footer() before Blade renders modules, so the handle is also handed
+     * to the theme's late asset printing.
      */
     public function detectFrontendAssets(string $markup, mixed $module = null): string
     {
-        $this->hasUserEditableList = $this->hasUserEditableList
-            || str_contains($markup, 'data-js-user-editable');
+        if (!$this->hasUserEditableList && str_contains($markup, 'data-js-user-editable')) {
+            $this->hasUserEditableList = true;
+            $this->enqueueUserEditableList();
+        }
 
         return $markup;
     }
 
     /**
-     * Enqueue optional frontend assets after module markup has been rendered.
+     * Enqueue the script that saves user editable lists.
      */
-    public function enqueueDetectedFrontendAssets(): void
+    private function enqueueUserEditableList(): void
     {
-        if ($this->hasUserEditableList) {
-            $this->wpEnqueue->add('js/user-editable-list.js', ['wp-api'], null, true);
-        }
+        $this->wpEnqueue->add('js/user-editable-list.js', ['wp-api'], null, true);
+        \Municipio\Theme\AssetRequirements::requireLateScript('js-user-editable-listjs');
     }
 
     public function enqueueBlockEditor()
@@ -281,7 +287,7 @@ class App
         // stylesheet is registered on enqueue_block_assets; loading this
         // legacy Modularity admin stylesheet here makes WordPress inject it
         // into the iframe from the wrong context.
-        if (!$this->isModularityPage() || \Modularity\Helper\Wp::isGutenbergEditor()) {
+        if (!$this->isModularityPage()) {
             return;
         }
 
@@ -372,11 +378,9 @@ class App
 
         $id = $currentScreen->id;
         $action = $currentScreen->action;
-        $base = $currentScreen->base;
 
         $isModularityPage = str_contains($id, 'modularity') || str_contains($id, 'mod-');
         $isModularityPage |= isset($_GET['action']) && $_GET['action'] === 'edit' && $action === 'add';
-        $isModularityPage |= in_array($base, ['post', 'widgets']);
 
         return $isModularityPage;
     }

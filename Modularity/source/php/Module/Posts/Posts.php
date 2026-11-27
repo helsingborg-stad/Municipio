@@ -281,6 +281,20 @@ class Posts extends \Modularity\Module
     }
 
     /**
+     * Get a link to a page of this module, relative to the current page.
+     *
+     * The link does not depend on the current request, so it can be fragment-cached.
+     * The first page links to page 1 explicitly: an empty query would keep the current one.
+     *
+     * @param int $pageNumber
+     * @return string
+     */
+    private function getPaginationHref(int $pageNumber): string
+    {
+        return '?' . http_build_query([$this->getPaginationQueryVarName() => $pageNumber]);
+    }
+
+    /**
      * Get pagination arguments for page numbers.
      *
      * @param int $maxNumPages
@@ -294,17 +308,15 @@ class Posts extends \Modularity\Module
         }
 
         $listItemOne = [
-            'href' => remove_query_arg($this->getPaginationQueryVarName()),
+            'href' => $this->getPaginationHref(1),
             'label' => __('First page', 'modularity'),
         ];
 
         $listItems = array_map(
-            function ($pageNumber) {
-                return [
-                    'href' => add_query_arg($this->getPaginationQueryVarName(), $pageNumber),
-                    'label' => sprintf(__('Page %d', 'modularity'), $pageNumber),
-                ];
-            },
+            fn(int $pageNumber): array => [
+                'href' => $this->getPaginationHref($pageNumber),
+                'label' => sprintf(__('Page %d', 'modularity'), $pageNumber),
+            ],
             range(2, $maxNumPages),
         );
 

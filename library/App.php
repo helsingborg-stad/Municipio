@@ -305,6 +305,11 @@ class App
          * Customizer
          */
         new \Municipio\Customizer($this->wpService, $this->wpdb);
+        $this->wpService->addAction(
+            'wp_loaded',
+            fn() => \Municipio\Customizer\Sections\SingularTemplateLabels::register($this->schemaDataConfig),
+            9,
+        );
 
         /**
          * Block customizations

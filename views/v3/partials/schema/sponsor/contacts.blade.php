@@ -2,11 +2,12 @@
     @collection(['unbox' => true, 'bordered' => true])
         @if($contact['name'] || $contact['role'])
             @collection__item(['icon' => 'person', 'classList' => ['u-align-items--center']])
-                @typography(['element' => 'p'])
-                    @if($contact['name']) <strong>{{ $contact['name'] }}</strong> @endif
-                    @if($contact['name'] && $contact['role'])<br>@endif
-                    {{ $contact['role'] }}
-                @endtypography
+                @if($contact['name'])
+                    @typography(['element' => 'h4']){{ $contact['name'] }}@endtypography
+                @endif
+                @if($contact['role'])
+                    @typography([]){{ $contact['role'] }}@endtypography
+                @endif
             @endcollection__item
         @endif
         @if($contact['email'])

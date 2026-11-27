@@ -1,27 +1,40 @@
-<div id="article" class="c-sponsor u-width--100" tabindex="-1">
-    @typography(['element' => 'p', 'classList' => ['c-typography__variant--lead', 'u-margin__top--0', 'u-margin__bottom--2']])
-        {{ $sponsorTypeLabel }}@if($organizationNames = implode(', ', array_filter(array_column($sponsor['organizations'], 'name'))))<span class="u-margin__x--1">/</span>{{ $organizationNames }}@endif
-    @endtypography
-    @typography(['element' => 'h1', 'variant' => 'h1', 'id' => 'page-title'])
-        {{ $post->getTitle() }}
-    @endtypography
+@php
+    $image = $post->getImage();
+    $facts = [
+        ['label' => 'support_date', 'value' => $sponsor['supportDate'], 'icon' => 'event'],
+        ['label' => 'location', 'value' => $sponsor['location'], 'icon' => 'location_on'],
+        ['label' => 'resources', 'value' => $sponsor['resources'], 'icon' => 'category'],
+        ['label' => 'activities', 'value' => $sponsor['activities'], 'icon' => 'local_activity'],
+    ];
 
-    @foreach($sponsor['images'] as $image)
-        @include('partials.schema.sponsor.image', [
-            'imageSrc' => $image['src'],
-            'imageAlt' => $image['alt'],
-        ])
-    @endforeach
-    @if(!$sponsor['images'] && $post->getImage()?->getUrl())
-        @include('partials.schema.sponsor.image', ['imageSrc' => $post->getImage(), 'imageAlt' => ''])
-    @endif
+    $conditions = [
+        ['label' => 'preferences', 'value' => $sponsor['preferences']],
+        ['label' => 'practical_information', 'value' => $sponsor['practicalInformation']],
+        ['label' => 'counter_performance', 'value' => $sponsor['counterPerformance']],
+    ];
 
-    @if($sponsor['description'])
-        <section class="c-stack u-margin__top--4">
-            @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['u-margin__bottom--0']]){{ $sponsorDescriptionHeading }}@endtypography
-            <div>{!! $sponsor['description'] !!}</div>
-        </section>
-    @endif
+@endphp
 
-    @include('partials.schema.sponsor.details')
+<div id="article" class="u-width--100 o-grid o-grid--no-gutter u-justify-content--center" tabindex="-1">
+    <header class="o-grid-12 o-grid-8@md">
+        <div>
+            @typography(['element' => 'p', 'variant' => 'lead', 'classList' => ['u-margin__bottom--2']])
+                @include('partials.schema.sponsor.label', ['labelKey' => 'type'])@if($sponsor['organization']['name']) · {{ $sponsor['organization']['name'] }}@endif
+            @endtypography
+            @typography(['element' => 'h1', 'variant' => 'h1', 'id' => 'page-title']){{ $post->getTitle() }}@endtypography
+            @if($sponsor['contacts'])
+                <a class="u-display--inline-block u-margin__top--2" href="#sponsor-contact"><strong>{{ $sponsorTemplate['labels']['contact_link'] }}</strong></a>
+                @include('partials.schema.sponsor.edit-label', ['labelKey' => 'contact_link'])
+            @endif
+        </div>
+        @if($image)
+            <div>
+                @include('partials.schema.sponsor.image', ['imageSrc' => $image, 'imageAlt' => ''])
+            </div>
+        @endif
+    </header>
+
+    <div class="o-grid-12 o-grid-6@md">
+        @include('partials.schema.sponsor.details')
+    </div>
 </div>

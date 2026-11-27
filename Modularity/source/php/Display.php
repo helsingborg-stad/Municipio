@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Modularity\Helper\Cache;
 use Modularity\Helper\File as FileHelper;
+use Modularity\Helper\FragmentCache\FragmentCacheRequestPolicy;
+use Modularity\Helper\FragmentCache\FragmentStoreInterface;
+use Modularity\Helper\ModuleInstanceId;
 use Modularity\Helper\Wp;
 use Throwable;
 use WP_Post;
@@ -26,6 +30,7 @@ class Display
 
     public function __construct(
         private WpUtilServiceInterface $wpUtilService,
+        private ?FragmentStoreInterface $fragmentStore = null,
     ) {
         add_filter('wp', [$this, 'init']);
         add_filter('is_active_sidebar', [$this, 'isActiveSidebar'], 10, 2);
@@ -474,102 +479,88 @@ class Display
             $args['id'] = 'no-id';
         }
 
-        // Keep repeated placements distinct even when their rendered markup is fragment-cached.
-        $args['modularity_instance_id'] = wp_unique_id($module->post_type . '-' . $module->ID . '-');
+        $instanceId = ModuleInstanceId::fromModule($module);
 
-        //Do not cache private modules
-        if (get_post_status($module) === 'private') {
-            $moduleSettings['cache_ttl'] = 0;
-        }
-
-        $cache = new \Modularity\Helper\Cache(
-            $module->ID,
-            [
-                $module,
-                $args['id'],
-                $args['modularity_instance_id'],
-            ],
-            $moduleSettings['cache_ttl'] ?? 0,
-            $this->getAllAllowedAndRegisteredQueryVars() ?: null,
-            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
-        );
-
-        if ($echo == false) {
+        if (!$echo) {
+            $args['modularity_instance_id'] = wp_unique_id($instanceId->getPrefix());
             $class = \Modularity\ModuleManager::$classes[$module->post_type];
             $module = new $class($module, $args);
 
             return $this->getModuleMarkup($module, $args);
         }
 
-        if ($cache->start()) {
-            $class = \Modularity\ModuleManager::$classes[$module->post_type];
-            $module = new $class($module, $args, $this->wpUtilService);
+        // Render with a placeholder so the cached fragment does not depend on the request,
+        // then give this placement its own unique id.
+        $args['modularity_instance_id'] = $instanceId->getPlaceholder();
+        $markup = $this->renderModuleThroughFragmentCache($module, $args, $moduleSettings);
 
-            //Print module
-            echo $this->getModuleMarkup($module, $args);
-
-            $cache->stop(); //Stop cache
-        }
+        echo $instanceId->replacePlaceholder($markup, wp_unique_id($instanceId->getPrefix()));
 
         return true;
     }
 
     /**
-     * Get all allowed and registered query vars
+     * Renders a module, or replays its cached fragment, and returns the markup.
      *
-     * This function retrieves all registered and allowed query variables,
-     * merging them into a single array while filtering out any empty values.
-     *
-     * @return array An array of all allowed and registered query variables.
+     * @param \WP_Post $module          The module post
+     * @param array    $args            The sidebar data, including the placement id
+     * @param array    $moduleSettings  The module configuration
+     * @return string
      */
-    private function getAllAllowedAndRegisteredQueryVars(): array
+    private function renderModuleThroughFragmentCache(\WP_Post $module, array $args, array $moduleSettings): string
     {
-        $registeredQueryVars = $this->getRegisteredQueryVars();
-        $allowedQueryVars = $this->getAllowedQueryVars();
+        $cache = $this->createFragmentCache($module, (string) $args['id'], $moduleSettings);
 
-        // Merge and filter out empty values
-        return array_filter(array_merge($registeredQueryVars, $allowedQueryVars));
+        ob_start();
+
+        if ($cache->start()) {
+            $class = \Modularity\ModuleManager::$classes[$module->post_type];
+            echo $this->getModuleMarkup(new $class($module, $args, $this->wpUtilService), $args);
+            $cache->stop();
+        }
+
+        return (string) ob_get_clean();
     }
 
     /**
-     * Get registered query vars
-     * @return array
+     * Creates the fragment cache for one placement of a module.
+     *
+     * The cache key only uses input that is the same on every request for that placement.
+     *
+     * @param \WP_Post $module          The module post
+     * @param string   $placementId     The id of the sidebar or area the module is placed in
+     * @param array    $moduleSettings  The module configuration
+     * @return Cache
      */
-    private function getRegisteredQueryVars(): array
+    private function createFragmentCache(\WP_Post $module, string $placementId, array $moduleSettings): Cache
     {
-        global $wp;
-        $result = [];
-        if (isset($wp->public_query_vars) && is_array($wp->public_query_vars)) {
-            foreach ($wp->public_query_vars as $var) {
-                $result[$var] = get_query_var($var);
-            }
-        }
-        return array_filter($result);
+        return new Cache(
+            $module->ID,
+            [$module, $placementId],
+            $this->getFragmentCacheTtl($module, $moduleSettings),
+            null,
+            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
+            $this->fragmentStore,
+        );
     }
 
     /**
-     * Get allowed query vars from $_GET
+     * Gets the fragment cache TTL for a module.
      *
-     * This function retrieves query variables from the global $_GET array that match a specific pattern.
-     * The pattern is defined to match query variables that start with 'mod-' followed by alphanumeric characters,
-     * dashes, or underscores.
+     * Private modules are never cached, and neither are requests with parameters that may
+     * change the markup, see FragmentCacheRequestPolicy.
      *
-     * @return array An array of allowed query variable names.
+     * @param \WP_Post $module          The module post
+     * @param array    $moduleSettings  The module configuration
+     * @return int
      */
-    private function getAllowedQueryVars(): array
+    private function getFragmentCacheTtl(\WP_Post $module, array $moduleSettings): int
     {
-        $pattern = '/^mod-([a-z0-9\-_]+)$/i';
-        if ($_GET ?? null) {
-            $queryVars = array_filter(array_keys($_GET), static function ($var) use ($pattern) {
-                return preg_match($pattern, $var);
-            });
-            foreach ($queryVars as $key => $value) {
-                $queryVars[$value] = sanitize_text_field($_GET[$value] ?? '');
-            }
-        } else {
-            $queryVars = [];
+        if (get_post_status($module) === 'private' || !FragmentCacheRequestPolicy::fromCurrentRequest()->allowsCaching()) {
+            return 0;
         }
-        return $queryVars;
+
+        return (int) ($moduleSettings['cache_ttl'] ?? 0);
     }
 
     /**

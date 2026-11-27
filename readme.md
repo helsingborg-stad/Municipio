@@ -569,3 +569,11 @@ Compression level will be medium/glossy for high quality photos.
 This software is tested with the awesome tools from Browserstack.
 
 <a href="https://browserstack.com"><img src="https://utveckling.helsingborg.se/wp-content/uploads/sites/19/2018/09/browserstack-logo.png"/></a>
+
+### CSS inheritance boundary contract
+
+The first style in frontend, admin and login heads comes from Styleguide's shared `source/sass/_layers.scss`. Vite compiles this as the `layer-order` entry, and `AddLayerOrderDefinitionToHead` reads its manifest asset. Do not maintain a separate layer list in Municipio. Rebuild assets after changing the Styleguide dependency.
+
+The final `inherit-boundaries` layer resets public inheritance hooks on boundary roots. Container selectors must also respect boundaries when targeting descendants; components inside a boundary can establish their own context. See Styleguide's `docs/component-assets.md` for the contract.
+
+The current dependency uses `dev-fix/inherit-boundary-layer`, locked in Composer, until a release includes the shared layer definition. Local source installs also require built Styleguide assets before building Municipio. The deployment's active Component Library must match the theme requirement (currently 5.49.0); an older MU plugin can render drawers without boundaries even when theme assets are current.
