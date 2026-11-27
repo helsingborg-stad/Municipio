@@ -28,6 +28,7 @@
             @include('partials.schema.event.title-area')
             @include('partials.schema.event.description')
             @include('partials.schema.event.accessibility-features')
+            @includeWhen($galleryComponentAttributes, 'partials.schema.event.gallery')
         @stop
 
         @section('sidebar-right-content')

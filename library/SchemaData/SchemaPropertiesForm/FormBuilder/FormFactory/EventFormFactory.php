@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory;
 use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\DateTimeField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\EmailField;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\GalleryField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\GoogleMapField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\HiddenField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\RepeaterField;
@@ -55,6 +56,7 @@ class EventFormFactory implements FormFactoryInterface
                 \Municipio\Schema\EventAttendanceModeEnumeration::MixedEventAttendanceMode   => $this->wpService->__('Mixed Event Attendance Mode', 'municipio'),
             ]),
             new StringField('url', $this->wpService->__('URL for more information', 'municipio'), $schema->getProperty('url')),
+            new GalleryField('image', $this->wpService->__('Gallery', 'municipio'), $schema->getProperty('image')),
             new StringField('typicalAgeRange', $this->wpService->__('Typical Age Range', 'municipio'), $schema->getProperty('typicalAgeRange')),
             new TabField('', $this->wpService->__('Time & Location', 'municipio')),
             new DateTimeField('startDate', $this->wpService->__('Start Date', 'municipio'), $schema->getProperty('startDate')),
