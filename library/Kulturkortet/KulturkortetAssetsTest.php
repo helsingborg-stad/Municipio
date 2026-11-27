@@ -39,7 +39,7 @@ class KulturkortetAssetsTest extends TestCase
 
     private function assertAssetsForBlock(string $blockName, array $assets, bool $blockPresent, bool $qr): void
     {
-        $wpService = new FakeWpService(['addAction' => true, 'hasBlock' => function (string $name) use ($blockName, $blockPresent): bool {
+        $wpService = new FakeWpService(['addAction' => true, 'addFilter' => true, 'hasBlock' => function (string $name) use ($blockName, $blockPresent): bool {
             self::assertSame($blockName, $name);
             return $blockPresent;
         }]);

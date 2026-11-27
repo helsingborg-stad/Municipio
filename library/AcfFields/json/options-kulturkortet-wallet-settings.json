@@ -1,0 +1,66 @@
+[
+  {
+    "key": "group_6a2301c000001",
+    "title": "Kulturkortet Wallet",
+    "fields": [
+      {
+        "key": "field_6a2301c000002",
+        "label": "Enable Apple Wallet",
+        "name": "kulturkortet_wallet_apple_enabled",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_6a2301c000003",
+        "label": "Apple Pass Type Identifier",
+        "name": "kulturkortet_wallet_apple_pass_type_identifier",
+        "type": "text",
+        "instructions": "The Pass Type ID registered with Apple Developer."
+      },
+      {
+        "key": "field_6a2301c000005",
+        "label": "Apple signing certificate file name",
+        "name": "kulturkortet_wallet_apple_certificate",
+        "type": "text",
+        "instructions": "File name of the Pass Type ID .p12 file, located in the directory set by MUNICIPIO_WALLET_APPLE_CERTIFICATE_DIRECTORY."
+      },
+      {
+        "key": "field_6a2301c000006",
+        "label": "Apple certificate password",
+        "name": "kulturkortet_wallet_apple_certificate_password",
+        "type": "password"
+      },
+      {
+        "key": "field_6a2301c000009",
+        "label": "Enable Google Wallet",
+        "name": "kulturkortet_wallet_google_enabled",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_6a2301c00000b",
+        "label": "Google Wallet class suffix",
+        "name": "kulturkortet_wallet_google_class_suffix",
+        "type": "text"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "kulturkortet-wallet-settings"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "show_in_rest": 0
+  }
+]

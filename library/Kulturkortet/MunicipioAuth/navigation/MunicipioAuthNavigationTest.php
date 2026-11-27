@@ -25,6 +25,28 @@ class MunicipioAuthNavigationTest extends TestCase
         static::assertNull($navigation->getQueryParameter('nonexistent'));
     }
 
+    /** Request-only flags remain readable but do not reach sign-out links or sign-in callbacks. */
+    public function testRequestOnlyQueryArgsAreNotPropagatedToAuthUrls(): void
+    {
+        $requestUrl = 'https://example.test/ticket/?lang=sv&notice=1&ts_session_id=session';
+        $cleanUrl = 'https://example.test/ticket/?lang=sv&ts_session_id=session';
+        $wpService = new FakeWpService([
+            'removeQueryArg' => static fn(string|array $keys, string $url): string => match ([$keys, $url]) {
+                [['notice'], $requestUrl] => $cleanUrl,
+                ['ts_session_id', $cleanUrl] => 'https://example.test/ticket/?lang=sv',
+            },
+            'addQueryArg' => static fn(array $args, string $url): string => $url . '&' . http_build_query($args),
+        ]);
+        $navigation = new MunicipioAuthNavigation($wpService, $requestUrl, requestOnlyQueryArgs: ['notice']);
+
+        $logoutUrl = $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']);
+        $loginCallbackUrl = $navigation->getModifiedHomeUrl(removeQueryArgs: ['ts_session_id']);
+
+        static::assertSame('1', $navigation->getQueryParameter('notice'));
+        static::assertSame($cleanUrl . '&action=logout', $logoutUrl);
+        static::assertSame('https://example.test/ticket/?lang=sv', $loginCallbackUrl);
+    }
+
     #[TestDox('should remove and add query parameters correctly')]
     public function testGetModifiedHomeUrl(): void
     {

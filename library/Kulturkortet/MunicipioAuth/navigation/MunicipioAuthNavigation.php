@@ -10,12 +10,24 @@ use WpService\Contracts\RemoveQueryArg;
 
 class MunicipioAuthNavigation implements MunicipioAuthNavigationInterface
 {
+    /** @param list<string> $requestOnlyQueryArgs Parameters readable from the request but omitted from generated URLs. */
     public function __construct(
         private HomeUrl&AddQueryArg&RemoveQueryArg $wpService,
         private ?string $homeUrl = null,
+        private array $requestOnlyQueryArgs = [],
     ) {}
 
+    /** Returns the current page URL without request-only parameters. */
     public function getHomeUrl(): string
+    {
+        $url = $this->getRequestUrl();
+        return $this->requestOnlyQueryArgs === []
+            ? $url
+            : $this->wpService->removeQueryArg($this->requestOnlyQueryArgs, $url);
+    }
+
+    /** Returns the original page URL, including request-only parameters. */
+    private function getRequestUrl(): string
     {
         return $this->homeUrl ?? $this->wpService->homeUrl($this->wpService->addQueryArg($_GET));
     }
@@ -40,10 +52,11 @@ class MunicipioAuthNavigation implements MunicipioAuthNavigationInterface
     public function getQueryParameter(string $name): ?string
     {
         // We need to parse the query parameters manually here since we want to avoid relying on WordPress's global $_GET
-        $query = parse_url($this->getHomeUrl(), PHP_URL_QUERY) ?? '';
+        $query = parse_url($this->getRequestUrl(), PHP_URL_QUERY) ?? '';
         $queryParams = [];
         parse_str($query, $queryParams);
-        return $queryParams[$name] ?? null;
+        $value = $queryParams[$name] ?? null;
+        return is_string($value) ? $value : null;
     }
 
     public function redirect(string $url): void
