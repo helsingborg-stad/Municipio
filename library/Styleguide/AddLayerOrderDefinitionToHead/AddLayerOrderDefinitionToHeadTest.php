@@ -13,10 +13,43 @@ use WpService\Contracts\AddFilter;
 
 class AddLayerOrderDefinitionToHeadTest extends TestCase
 {
+    private string $distDirectory;
+
+    protected function setUp(): void
+    {
+        $this->distDirectory = sys_get_temp_dir() . '/municipio-layers-' . uniqid();
+        mkdir($this->distDirectory);
+        file_put_contents($this->distDirectory . '/manifest.json', json_encode(['css/layer-order.css' => 'layers.css']));
+        file_put_contents($this->distDirectory . '/layers.css', '@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme, inherit-boundaries;');
+    }
+
+    protected function tearDown(): void
+    {
+        unlink($this->distDirectory . '/manifest.json');
+        unlink($this->distDirectory . '/layers.css');
+        rmdir($this->distDirectory);
+    }
+
+    public function testUsesBuiltLayerDefinitionWithoutHardCodedNames(): void
+    {
+        file_put_contents($this->distDirectory . '/layers.css', '@layer first, future-layer;');
+        $sut = new AddLayerOrderDefinitionToHead(static::createWpService(), $this->distDirectory);
+        static::assertSame('<head><style>@layer first, future-layer;</style></head>', $sut->process('<head></head>'));
+    }
+
+    public function testMissingBuildReportsRequiredAction(): void
+    {
+        file_put_contents($this->distDirectory . '/manifest.json', '{}');
+        $sut = new AddLayerOrderDefinitionToHead(static::createWpService(), $this->distDirectory);
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Run npm run build:municipio');
+        $sut->render();
+    }
+
     #[TestDox('can be instantiated')]
     public function testCanBeInstantiated(): void
     {
-        $sut = new AddLayerOrderDefinitionToHead(static::createWpService());
+        $sut = new AddLayerOrderDefinitionToHead(static::createWpService(), $this->distDirectory);
         static::assertInstanceOf(AddLayerOrderDefinitionToHead::class, $sut);
     }
 
@@ -24,7 +57,7 @@ class AddLayerOrderDefinitionToHeadTest extends TestCase
     public function testAppliesFilterToMarkupProcessor(): void
     {
         $wpService = static::createWpService();
-        $sut = new AddLayerOrderDefinitionToHead($wpService);
+        $sut = new AddLayerOrderDefinitionToHead($wpService, $this->distDirectory);
 
         $sut->addHooks();
 
@@ -42,7 +75,7 @@ static::assertSame([$sut, 'process'], $filter['callback']);
     public function testRegistersEarlyAdminAndLoginHooks(): void
     {
         $wpService = static::createWpService();
-        $sut = new AddLayerOrderDefinitionToHead($wpService);
+        $sut = new AddLayerOrderDefinitionToHead($wpService, $this->distDirectory);
 
         $sut->addHooks();
 
@@ -69,11 +102,11 @@ static::assertSame([$sut, 'process'], $filter['callback']);
     public function testPrependsStyleTagToHead(): void
     {
         $wpService = static::createWpService();
-        $sut = new AddLayerOrderDefinitionToHead($wpService);
+        $sut = new AddLayerOrderDefinitionToHead($wpService, $this->distDirectory);
 
         $html = $sut->process('<head><title>Test</title></head>');
 
-        $expectedStyleTag = '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme;</style>';
+        $expectedStyleTag = '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme, inherit-boundaries;</style>';
         $expectedHtml = '<head>' . $expectedStyleTag . '<title>Test</title></head>';
         static::assertStringContainsString($expectedHtml, $html);
     }
@@ -82,14 +115,14 @@ static::assertSame([$sut, 'process'], $filter['callback']);
     public function testRenderOutputsStyleTag(): void
     {
         $wpService = static::createWpService();
-        $sut = new AddLayerOrderDefinitionToHead($wpService);
+        $sut = new AddLayerOrderDefinitionToHead($wpService, $this->distDirectory);
 
         ob_start();
         $sut->render();
         $output = ob_get_clean();
 
         static::assertSame(
-            '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme;</style>',
+            '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme, inherit-boundaries;</style>',
             $output,
         );
     }

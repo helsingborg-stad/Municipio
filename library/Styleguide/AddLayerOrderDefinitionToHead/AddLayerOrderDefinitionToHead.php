@@ -14,13 +14,14 @@ use WpService\Contracts\AddFilter;
  */
 class AddLayerOrderDefinitionToHead implements Hookable
 {
-    private const STYLE_TAG = '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme;</style>';
+    private ?string $styleTag = null;
 
     /**
      * @param AddAction&AddFilter $wpService WordPress service wrapper.
      */
     public function __construct(
         private AddAction&AddFilter $wpService,
+        private ?string $distDirectory = null,
     ) {}
 
     /**
@@ -42,7 +43,7 @@ class AddLayerOrderDefinitionToHead implements Hookable
     public function process(string $markup): string
     {
         // Add as first child of head
-        return preg_replace('/<head(.*?)>/', '<head$1>' . self::STYLE_TAG, $markup, 1);
+        return preg_replace('/<head(.*?)>/', '<head$1>' . $this->getStyleTag(), $markup, 1);
     }
 
     /**
@@ -50,6 +51,23 @@ class AddLayerOrderDefinitionToHead implements Hookable
      */
     public function render(): void
     {
-        echo self::STYLE_TAG;
+        echo $this->getStyleTag();
     }
+    /** Reads the build output of Styleguide's shared _layers.scss entry. */
+    private function getStyleTag(): string
+    {
+        if ($this->styleTag !== null) {
+            return $this->styleTag;
+        }
+
+        $directory = $this->distDirectory ?? dirname(__DIR__, 3) . '/assets/dist';
+        $manifestPath = $directory . '/manifest.json';
+        $manifest = is_file($manifestPath) ? json_decode((string) file_get_contents($manifestPath), true) : null;
+        $file = $manifest['css/layer-order.css'] ?? null;
+        if (!is_string($file) || !is_file($directory . '/' . $file)) {
+            throw new \RuntimeException('Missing layer-order CSS. Run npm run build:municipio.');
+        }
+        return $this->styleTag = '<style>' . trim((string) file_get_contents($directory . '/' . $file)) . '</style>';
+    }
+
 }
