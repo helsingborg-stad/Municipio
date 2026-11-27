@@ -2120,12 +2120,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acf-dynamic-table-field.git",
-                "reference": "786b022625f6770e339fc276a8c50058d825ef71"
+                "reference": "74944928ef11f5f549e1d294dc37ae61a3819377"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acf-dynamic-table-field/zipball/786b022625f6770e339fc276a8c50058d825ef71",
-                "reference": "786b022625f6770e339fc276a8c50058d825ef71",
+                "url": "https://api.github.com/repos/helsingborg-stad/acf-dynamic-table-field/zipball/74944928ef11f5f549e1d294dc37ae61a3819377",
+                "reference": "74944928ef11f5f549e1d294dc37ae61a3819377",
                 "shasum": ""
             },
             "default-branch": true,
@@ -2144,7 +2144,8 @@
             "support": {
                 "source": "https://github.com/helsingborg-stad/acf-dynamic-table-field/tree/master"
             },
-            "time": "2024-03-04T16:11:28+00:00"
+            "time": "2026-11-27T09:04:40+00:00",
+            "published-time": "2026-11-27T09:04:49+00:00"
         },
         {
             "name": "jeradin/acf-website-field",
@@ -7650,11 +7651,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "johannheyne/advanced-custom-fields-table-field": 20,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "jeradin/acf-website-field": 20,
-        "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7663,6 +7664,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.11.0"
 }
