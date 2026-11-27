@@ -4,20 +4,14 @@ declare(strict_types=1);
 
 namespace Modularity\Helper;
 
+use Modularity\Helper\FragmentCache\FragmentStore;
+use Municipio\TestUtils\InMemoryObjectCache;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-
-function is_multisite(): bool
-{
-    return false;
-}
 
 function is_user_logged_in(): bool
 {
     return false;
-}
-
-function add_action(string $hook, mixed $callback): void
-{
 }
 
 function current_time(string $format, int $gmt = 0): string
@@ -25,81 +19,133 @@ function current_time(string $format, int $gmt = 0): string
     return '2026-09-28 12:00:00';
 }
 
-function wp_cache_get(mixed $key, string $group): mixed
-{
-    return CacheTest::get($key, $group);
-}
-
-function wp_cache_delete(mixed $key, string $group): bool
-{
-    return CacheTest::delete($key, $group);
-}
-
-function wp_cache_add(mixed $key, mixed $value, string $group, int $ttl): bool
-{
-    return CacheTest::add($key, $value, $group);
-}
-
 class CacheTest extends TestCase
 {
-    private static array $storage = [];
+    private InMemoryObjectCache $objectCache;
 
     protected function setUp(): void
     {
-        self::$storage = [];
+        $this->objectCache = new InMemoryObjectCache();
     }
 
-    public static function get(mixed $key, string $group): mixed
-    {
-        return self::$storage[$group][$key] ?? false;
-    }
-
-    public static function delete(mixed $key, string $group): bool
-    {
-        unset(self::$storage[$group][$key]);
-        return true;
-    }
-
-    public static function add(mixed $key, mixed $value, string $group): bool
-    {
-        self::$storage[$group][$key] = $value;
-        return true;
-    }
-
-    public function testCacheHitRestoresAssetsWithoutChangingMarkupEntryFormat(): void
+    #[TestDox('start() restores the assets of a cached fragment')]
+    public function testStartRestoresTheAssetsOfACachedFragment(): void
     {
         $context = ['components' => [['slug' => 'collection', 'dependencies' => []]]];
         $assets = $this->createMock(FragmentAssetContextInterface::class);
-        $assets->expects($this->exactly(2))->method('beginFragment');
-        $assets->expects($this->exactly(2))->method('endFragment')->willReturn($context);
+        $assets->expects($this->once())->method('beginFragment');
+        $assets->expects($this->once())->method('endFragment')->willReturn($context);
         $assets->expects($this->once())->method('restoreFragment')->with($context);
 
+        $this->storeFragment(42, 'module', '<div data-component="collection">Content</div>', $assets);
+
         ob_start();
-        $cache = new Cache(42, 'module', 60, null, $assets);
-        static::assertTrue($cache->start());
-        echo '<div data-component="collection">Content</div>';
-        static::assertTrue($cache->stop());
+        $isMiss = $this->createCache(42, 'module', $assets)->start();
+        $output = (string) ob_get_clean();
+
+        static::assertFalse($isMiss);
+        static::assertStringContainsString('Content', $output);
+    }
+
+    /**
+     * @see https://github.com/helsingborg-stad/Municipio/issues/2435
+     */
+    #[TestDox('stop() stores each fragment of a post in its own cache entry')]
+    public function testStopStoresEachFragmentInItsOwnCacheEntry(): void
+    {
+        $this->storeFragment(42, 'module-a', 'Fragment A');
+        $this->storeFragment(42, 'module-b', 'Fragment B');
+
+        static::assertFalse($this->isMiss(42, 'module-a'));
+        static::assertFalse($this->isMiss(42, 'module-b'));
+        foreach ($this->objectCache->getGroup('modules') as $key => $value) {
+            static::assertFalse(
+                str_contains(serialize($value), 'Fragment A') && str_contains(serialize($value), 'Fragment B'),
+                "Expected each fragment in its own cache entry, but entry \"{$key}\" holds both.",
+            );
+        }
+    }
+
+    /**
+     * @see https://github.com/helsingborg-stad/Municipio/issues/2435
+     */
+    #[TestDox('stop() does not rewrite, or extend the lifetime of, other fragments of the post')]
+    public function testStopDoesNotRewriteOtherFragmentsOfThePost(): void
+    {
+        $this->storeFragment(42, 'module-a', 'Fragment A');
+        $this->objectCache->clearWrites();
+
+        $this->storeFragment(42, 'module-b', 'Fragment B');
+
+        static::assertNotEmpty($this->objectCache->getWrites());
+        foreach ($this->objectCache->getWrites() as $write) {
+            static::assertStringNotContainsString(
+                'Fragment A',
+                serialize($write['data']),
+                'Expected storing fragment B not to write fragment A again, which would reset its TTL.',
+            );
+        }
+    }
+
+    #[TestDox('start() serves a stored fragment from the cache')]
+    public function testStartServesAStoredFragment(): void
+    {
+        $this->storeFragment(42, 'module-a', 'Fragment A');
+
+        ob_start();
+        $isMiss = $this->createCache(42, 'module-a')->start();
+        $output = (string) ob_get_clean();
+
+        static::assertFalse($isMiss);
+        static::assertStringContainsString('Fragment A', $output);
+    }
+
+    /**
+     * @see https://github.com/helsingborg-stad/Municipio/pull/2437#discussion_r4709642539
+     */
+    #[TestDox('stop() does not serve markup that was rendered while the post was saved')]
+    public function testStopDoesNotServeMarkupRenderedWhileThePostWasSaved(): void
+    {
+        ob_start();
+        $cache = $this->createCache(42, 'module-a');
+        $cache->start();
+        echo 'Rendered before the save';
+        (new FragmentStore($this->objectCache, 'modules'))->clear(42);
+        $cache->stop();
         ob_end_clean();
 
-        $entries = self::$storage['modules'][42];
-        static::assertCount(2, $entries);
-        static::assertSame($context, $entries[array_key_last($entries)]);
-        static::assertIsString(reset($entries));
+        static::assertTrue($this->isMiss(42, 'module-a'));
+    }
 
-        ob_start();
-        static::assertFalse((new Cache(42, 'module', 60, null, $assets))->start());
-        $markup = ob_get_clean();
-        static::assertStringContainsString('Content', $markup);
+    private function createCache(int $postId, string $module, ?FragmentAssetContextInterface $assets = null): Cache
+    {
+        return new Cache($postId, $module, 60, null, $assets, new FragmentStore($this->objectCache, 'modules'));
+    }
 
-        // An HTML-only entry from the previous release is refreshed on first use.
-        $key = array_key_last($entries);
-        unset(self::$storage['modules'][42][$key]);
+    private function storeFragment(
+        int $postId,
+        string $module,
+        string $markup,
+        ?FragmentAssetContextInterface $assets = null,
+    ): void {
         ob_start();
-        $legacy = new Cache(42, 'module', 60, null, $assets);
-        static::assertTrue($legacy->start());
-        echo '<div data-component="collection">Fresh content</div>';
-        static::assertTrue($legacy->stop());
-        static::assertStringContainsString('Fresh content', ob_get_clean());
-        static::assertSame($context, self::$storage['modules'][42][$key]);
+        $cache = $this->createCache($postId, $module, $assets);
+        $cache->start();
+        echo $markup;
+        $cache->stop();
+        ob_end_clean();
+    }
+
+    private function isMiss(int $postId, string $module): bool
+    {
+        ob_start();
+        $cache = $this->createCache($postId, $module);
+        $isMiss = $cache->start();
+        if ($isMiss) {
+            $cache->stop();
+        }
+        ob_end_clean();
+
+        return $isMiss;
     }
 }

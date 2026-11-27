@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Modularity\Helper\FragmentCache\FragmentStoreInterface;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetPostType;
+use WpService\Contracts\GetThePermalink;
+use WpService\Contracts\WpIsPostRevision;
+use WpService\Contracts\WpRemoteRequest;
+
 /**
  * Class CachePurge
  *
@@ -14,16 +22,18 @@ namespace Modularity;
 
 class CachePurge
 {
-    public $keyGroup = 'modules';
+    public function __construct(
+        private FragmentStoreInterface $fragmentStore,
+        private AddAction&WpIsPostRevision&GetPostType&GetPosts&GetThePermalink&WpRemoteRequest $wpService,
+    ) {}
 
-    public function __construct()
+    /**
+     * Purges the object cache, then the page cache, when a post is saved.
+     */
+    public function addHooks(): void
     {
-        if (function_exists('is_multisite') && is_multisite()) {
-            $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
-        }
-
-        add_action('save_post', [$this, 'purgeObjectCache'], 90, 1);
-        add_action('save_post', [$this, 'purgePageCache'], 100, 1);
+        $this->wpService->addAction('save_post', [$this, 'purgeObjectCache'], 90, 1);
+        $this->wpService->addAction('save_post', [$this, 'purgePageCache'], 100, 1);
     }
 
     /**
@@ -38,7 +48,7 @@ class CachePurge
     public function purgePageCache($postId): bool
     {
         //Not for revisions
-        if (wp_is_post_revision($postId)) {
+        if ($this->wpService->wpIsPostRevision($postId)) {
             return false;
         }
 
@@ -52,7 +62,7 @@ class CachePurge
                         continue;
                     }
 
-                    wp_remote_request(get_the_permalink($modulePage->post_id), [
+                    $this->wpService->wpRemoteRequest((string) $this->wpService->getThePermalink($modulePage->post_id), [
                         'method' => 'PURGE',
                         'timeout' => 2,
                         'redirection' => 0,
@@ -68,71 +78,80 @@ class CachePurge
     }
 
     /**
-     * Send a purge request for a post if it's a modularity type.
+     * Clears the fragment cache affected by saving a post.
      *
-     * This function checks if a post with the given post ID is a modularity type. If it is, it sends
-     * a purge request to the relevant cache group. Purge requests are not sent for post revisions.
+     * Clears the post's own fragments: a module post caches its fragments under its own id,
+     * and a page caches its blocks under the page id. Then clears the fragments of every
+     * Posts module that lists the post's type. Nothing is cleared for revisions.
      *
-     * @param int $post_id The ID of the post to check and potentially send a purge request for.
-     * @return bool True if a purge request was sent, false otherwise (including revisions).
+     * @param int $postId The ID of the saved post.
+     * @return bool True if fragments were cleared, false for revisions.
      */
     public function purgeObjectCache($postId): bool
     {
-        //Not for revisions
-        if (wp_is_post_revision($postId)) {
+        if ($this->wpService->wpIsPostRevision($postId)) {
             return false;
         }
 
-        //Get post type
-        $postType = get_post_type($postId);
+        $this->fragmentStore->clear($postId);
+        $this->clearPostsModulesListing($postId);
 
-        if (!$this->isModularityPost($postId) && !empty($postType)) {
-            $args = [
-                'post_type' => 'mod-posts',
-                'posts_per_page' => -1,
-                'meta_query' => [
-                    [
-                        'key' => 'posts_data_post_type',
-                        'value' => $postType,
-                        'compare' => '=',
-                    ],
-                ],
-            ];
+        return true;
+    }
 
-            // Flag to check if we purged any cache
-            $purgedPostCache = false;
+    /**
+     * Clears the fragments of every Posts module that lists the post's type.
+     *
+     * @param int $postId The ID of the saved post.
+     */
+    private function clearPostsModulesListing($postId): void
+    {
+        $postType = $this->wpService->getPostType($postId);
 
-            // Fetch posts using get_posts
-            $posts = get_posts($args);
-
-            if (!empty($posts)) {
-                foreach ($posts as $post) {
-                    $moduleId = $post->ID;
-                    $purgedPostCache = true;
-                    wp_cache_delete($moduleId, $this->keyGroup);
-                }
-            }
-
-            return $purgedPostCache;
+        if ($postType === false || $this->isModularityPostType($postType)) {
+            return;
         }
 
-        return false;
+        foreach ($this->getPostsModulesListing($postType) as $postsModule) {
+            $this->fragmentStore->clear($postsModule->ID);
+        }
+    }
+
+    /**
+     * @param string $postType
+     * @return \WP_Post[] Posts modules that list the post type.
+     */
+    private function getPostsModulesListing(string $postType): array
+    {
+        return $this->wpService->getPosts([
+            'post_type' => 'mod-posts',
+            'posts_per_page' => -1,
+            'meta_query' => [
+                [
+                    'key' => 'posts_data_post_type',
+                    'value' => $postType,
+                    'compare' => '=',
+                ],
+            ],
+        ]);
     }
 
     /**
      * Check if a post is of a modularity type.
-     *
-     * This function determines if a post, identified by its post ID, belongs to a modularity
-     * type. Modularity types are identified by post types starting with "mod-".
      *
      * @param int $postId The ID of the post to check.
      * @return bool True if the post is of a modularity type, false otherwise.
      */
     private function isModularityPost($postId): bool
     {
-        if (str_starts_with(get_post_type($postId), 'mod-')) {
-            return true;
-        }
-        return false;
+        return $this->isModularityPostType((string) $this->wpService->getPostType($postId));
+    }
+
+    /**
+     * Modularity types are identified by post types starting with "mod-".
+     */
+    private function isModularityPostType(string $postType): bool
+    {
+        return str_starts_with($postType, 'mod-');
     }
 }

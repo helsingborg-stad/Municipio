@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Modularity;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class DisplayTest extends TestCase
 {
-    /**
-     * Verifies that post type slugs resolve to their module directories.
-     */
+    #[TestDox('findModuleDirectory() resolves post type $postType to module directory $expectedDirectory')]
     #[DataProvider('moduleDirectoryProvider')]
     public function testGetModuleDirectoryResolvesPostTypeSlug(string $postType, string $expectedDirectory): void
     {
