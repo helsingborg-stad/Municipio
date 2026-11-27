@@ -77,9 +77,10 @@ wp site list --field=url | xargs -I {} wp --url={} municipio search-index build
 
 ## When content is synchronized
 
-- A post is indexed or updated after `save_post` when it has an indexable status (published by default), belongs to a public post type included in WordPress search, and is not marked **Exclude from search**.
+- A post is indexed or updated after `wp_after_insert_post` when it has an indexable status (published by default), belongs to a public post type included in WordPress search, and is not marked **Exclude from search**. This runs after post metadata has been saved.
 - Saving a previously indexed post after it becomes ineligible removes its records. This includes unpublishing it, changing its eligibility through filters, or selecting **Exclude from search**.
 - Trashing or permanently deleting a post removes its records.
+- Renaming, moving, or retitling a page re-indexes its published descendant pages and their attachments, so inherited URLs and top-level section titles remain current. Descendants are also re-indexed after WordPress reparents them following a page deletion.
 - Selected media-library file types are indexed when an attachment is added or updated, and removed when it is deleted.
 - Autosaves and revisions are not indexed.
 - `wp municipio search-index build` indexes all currently eligible posts and selected attachments. `clear` removes only records associated with the targeted site, which is important when several sites share an index or collection.
