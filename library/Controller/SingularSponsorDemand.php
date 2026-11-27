@@ -12,6 +12,7 @@ class SingularSponsorDemand extends Singular
         if (isset($this->post)) {
             $presentation = new Sponsor\SponsorPresentation($this->wpService);
             $this->data['sponsor'] = $presentation->map($this->post->getSchema());
+            $this->data['sponsorTemplate'] = Sponsor\SponsorTemplateLabels::forPost($this->post->getId(), true);
         }
         return $this->data;
     }

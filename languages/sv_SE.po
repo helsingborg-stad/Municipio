@@ -5310,6 +5310,10 @@ msgstr "Visar ett galleri med bilder"
 msgid "Archives"
 msgstr "Arkiv"
 
+#: library/Customizer/Sections/SingularTemplateLabels.php
+msgid "Detail views"
+msgstr "Detaljvyer"
+
 #: Modularity/source/php/Module/WpWidget/WpWidget.php:166
 #: library/Theme/Icon.php:4353 library/Theme/Icon.php:4434
 #: library/Theme/Icon.php:4447
