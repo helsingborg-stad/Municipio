@@ -38,4 +38,20 @@ describe("BannerDataManager", () => {
 		// Act / Assert
 		expect(manager.getQueueBannerContent(1)).toBe("Queue position: 1");
 	});
+
+	it("adds the new chat button from the template to the inactive and error banners", () => {
+		// Arrange
+		const template = document.createElement("template");
+		template.innerHTML = `<button data-js-new-chat>New chat</button>`;
+		const manager = new BannerDataManager(template);
+
+		// Act
+		const banners = [manager.getChatInactiveBannerContent(), manager.getErrorBannerContent()] as DocumentFragment[];
+
+		// Assert
+		expect(banners[0].textContent).toBe("The agent has left and the chat is now inactiveNew chat");
+		expect(banners[1].textContent).toBe("Something went wrong, please try again laterNew chat");
+		banners.forEach((banner) => expect(banner.querySelector("[data-js-new-chat]")).not.toBeNull());
+		expect(template.content.querySelectorAll("[data-js-new-chat]")).toHaveLength(1);
+	});
 });

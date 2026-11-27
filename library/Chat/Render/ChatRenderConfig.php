@@ -76,7 +76,8 @@ class ChatRenderConfig implements ChatRenderConfigInterface
             'clear' => $this->wpService->__('Clear', 'municipio'),
             'like' => $this->wpService->__('Like', 'municipio'),
             'dislike' => $this->wpService->__('Dislike', 'municipio'),
-            'minimize' => $this->wpService->__('Minimize', 'municipio')
+            'minimize' => $this->wpService->__('Minimize', 'municipio'),
+            'newChat' => $this->wpService->__('New chat', 'municipio')
         ];
     }
 }

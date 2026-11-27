@@ -118,7 +118,7 @@ describe("ChatInitializer", () => {
 			await initializer.init();
 
 			// Assert
-			expect(createSpy).toHaveBeenCalledWith(chat, expect.any(NullChatUiManager), "myassistant");
+			expect(createSpy).toHaveBeenCalledWith(chat, expect.any(NullChatUiManager), "myassistant", null);
 		});
 	});
 });

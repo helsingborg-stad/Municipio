@@ -43,7 +43,7 @@ declare global {
 	}
 
 	interface ChatIntegrationFactory {
-		async create(chat: any, uiManager: ChatUiManagerInterface, name: string): Promise<ChatIntegrationInterface|false>;
+		async create(chat: any, uiManager: ChatUiManagerInterface, name: string, chatTemplate: HTMLTemplateElement | null): Promise<ChatIntegrationInterface|false>;
 	}
 
 	interface ChatInitializerInterface {

@@ -11,7 +11,7 @@ class PuzzelAgentLeftHandler implements MetaDataHandler {
             return false;
         }
 
-		this.chatHandler.setBannerContent(this.bannerDataManager.getChatInactiveBannerContent());
+		this.chatHandler.setBannerContent(this.bannerDataManager.getAgentLeftContent());
 		this.chatHandler.displayBanner(true);
 		this.chatHandler.addInfo(this.infoDataManager.getAgentLeftInfoContent());
 		this.chatHandler.endSession();

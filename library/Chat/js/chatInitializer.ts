@@ -116,7 +116,7 @@ class ChatInitializer implements ChatInitializerInterface {
 			const factory = (await loader()).default;
 
 			const instance = new factory();
-			const created: ChatIntegrationInterface|false = await instance.create(chat, chatUiManager, assistantName);
+			const created: ChatIntegrationInterface|false = await instance.create(chat, chatUiManager, assistantName, this.chatTemplate);
 
 			return created;
 		} catch (error) {

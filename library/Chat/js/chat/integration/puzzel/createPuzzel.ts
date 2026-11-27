@@ -27,6 +27,7 @@ export function createPuzzel(
     uiManager: ChatUiManagerInterface,
     puzzelConfig: PuzzelConfigInterface,
     name: string,
+    chatTemplate: HTMLTemplateElement | null,
 ): ChatIntegrationInterface {
     const conversationStorageManager = new ConversationStorageManager();
     const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig, conversationStorageManager);
@@ -46,7 +47,7 @@ export function createPuzzel(
         conversationStorageManager,
     );
 
-    const bannerDataManager = new BannerDataManager();
+    const bannerDataManager = new BannerDataManager(chatTemplate);
     const infoDataManager = new InfoDataManager();
     const chatHandler = new ChatHandler(chat);
     const puzzelTypingIndicatorHandler = new PuzzelTypingIndicatorHandler(chatHandler);

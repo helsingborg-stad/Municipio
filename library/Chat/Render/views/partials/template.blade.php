@@ -115,8 +115,9 @@
     @button([
         'attributeList' => [
             'data-js-new-chat' => true
-        ]
+        ],
+        'icon' => 'edit_square',
+        'text' => $lang['newChat']
     ])
-        test
     @endbutton
 @endelement

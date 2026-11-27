@@ -11,9 +11,10 @@ interface PuzzelConfigInterface {
 }
 
 interface BannerDataManagerInterface {
-    getQueueBannerContent(position: number): string;
-    getChatInactiveBannerContent(): string;
-    getErrorBannerContent(): string;
+    getQueueBannerContent(position: number): Node;
+    getAgentLeftContent(): Node;
+    getErrorBannerContent(): Node;
+    getNewChatButton(): Node;
 }
 
 interface InfoDataManagerInterface {
@@ -52,6 +53,7 @@ type CreatePuzzelFunction = (
     uiManager: ChatUiManagerInterface,
     puzzelConfig: PuzzelConfigInterface,
     name: string,
+    chatTemplate: HTMLTemplateElement | null,
 ) => ChatIntegrationInterface;
 
 interface PuzzelAuthenticatorInterface {

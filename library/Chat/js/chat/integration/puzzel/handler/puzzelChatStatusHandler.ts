@@ -28,7 +28,7 @@ class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
     }
 
     private handleDisconnected(): void {
-        this.chatHandler.setBannerContent(this.bannerDataManager.getChatInactiveBannerContent());
+        this.chatHandler.setBannerContent(this.bannerDataManager.getAgentLeftContent());
         this.chatHandler.displayBanner(true);
         this.chatHandler.endSession();
     }

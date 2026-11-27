@@ -35,14 +35,16 @@ describe("PuzzelFactory", () => {
 		const factory = new PuzzelFactory();
 
 		// Act
-		const result = await factory.create(chat, uiManager as any, "puzzel");
+		const chatTemplate = document.createElement("template");
+		const result = await factory.create(chat, uiManager as any, "puzzel", chatTemplate);
 
 		// Assert
 		expect(result).toEqual({ integration: true });
-		const [chatArg, uiManagerArg, config, name] = (createPuzzel as jest.Mock).mock.calls[0];
+		const [chatArg, uiManagerArg, config, name, chatTemplateArg] = (createPuzzel as jest.Mock).mock.calls[0];
 		expect(chatArg).toBe(chat);
 		expect(uiManagerArg).toBe(uiManager);
 		expect(name).toBe("puzzel");
+		expect(chatTemplateArg).toBe(chatTemplate);
 		expect(config).toBeInstanceOf(PuzzelConfig);
 		expect(config.getCustomerId()).toBe("customer");
 		expect(config.getChatQueueKey()).toBe("queue");

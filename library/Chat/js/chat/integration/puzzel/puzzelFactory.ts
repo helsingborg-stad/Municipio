@@ -7,7 +7,8 @@ class PuzzelFactory implements ChatIntegrationFactory {
     public async create(
         chat: any,
         uiManager: ChatUiManagerInterface,
-        name: string
+        name: string,
+        chatTemplate: HTMLTemplateElement | null = null,
     ): Promise<ChatIntegrationInterface|false> {
         this.puzzelConfig = this.createConfig(chat, name);
 
@@ -20,7 +21,7 @@ class PuzzelFactory implements ChatIntegrationFactory {
             PuzzelFactory.createPuzzel = createPuzzel;
         }
 
-        return PuzzelFactory.createPuzzel!(chat, uiManager, this.puzzelConfig, name);
+        return PuzzelFactory.createPuzzel!(chat, uiManager, this.puzzelConfig, name, chatTemplate);
     }
 
     private createConfig(chat: any, name: string): PuzzelConfig|null {
