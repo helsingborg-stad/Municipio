@@ -38,7 +38,7 @@
     "johannheyne/advanced-custom-fields-table-field": "dev-master",
     "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
     "jeradin/acf-website-field": "dev-master",
-    "ooksanen/acf-focuspoint": "^1.2.1",
+    "ooksanen/acf-focuspoint": "1.2.3",
     "jeradin/acf-dynamic-table-field": "dev-master",
     "enshrined/svg-sanitize": "dev-master",
     "helsingborg-stad/acf-select-image-field": "1.6.2",

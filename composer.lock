@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be314bea565154722f11927255916294",
+    "content-hash": "0e517553e7e2e78ab73b868dd06b1d91",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2791,16 +2791,16 @@
         },
         {
             "name": "ooksanen/acf-focuspoint",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acf-focuspoint.git",
-                "reference": "2d062d23bbc94ff4265c4519f80269bdaee96e06"
+                "reference": "cfb9fb8f6fcbf5516e7eac1e02de6585490f148d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acf-focuspoint/zipball/2d062d23bbc94ff4265c4519f80269bdaee96e06",
-                "reference": "2d062d23bbc94ff4265c4519f80269bdaee96e06",
+                "url": "https://api.github.com/repos/helsingborg-stad/acf-focuspoint/zipball/cfb9fb8f6fcbf5516e7eac1e02de6585490f148d",
+                "reference": "cfb9fb8f6fcbf5516e7eac1e02de6585490f148d",
                 "shasum": ""
             },
             "type": "wordpress-muplugin",
@@ -2816,7 +2816,8 @@
             ],
             "description": "Adds a image focus field",
             "support": {
-                "source": "https://github.com/helsingborg-stad/acf-focuspoint/tree/1.2.2"
+                "issues": "https://github.com/helsingborg-stad/acf-focuspoint/issues",
+                "source": "https://github.com/helsingborg-stad/acf-focuspoint/tree/1.2.3"
             },
             "funding": [
                 {
@@ -2824,7 +2825,8 @@
                     "type": "other"
                 }
             ],
-            "time": "2025-03-14T14:51:11+00:00"
+            "time": "2026-11-27T09:23:31+00:00",
+            "published-time": "2026-11-27T09:26:24+00:00"
         },
         {
             "name": "pragmarx/ia-arr",
