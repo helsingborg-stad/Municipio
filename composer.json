@@ -38,7 +38,7 @@
     "johannheyne/advanced-custom-fields-table-field": "dev-master",
     "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
     "jeradin/acf-website-field": "dev-master",
-    "ooksanen/acf-focuspoint": "^1.2.1",
+    "ooksanen/acf-focuspoint": "1.2.3",
     "jeradin/acf-dynamic-table-field": "dev-master",
     "enshrined/svg-sanitize": "dev-master",
     "helsingborg-stad/acf-select-image-field": "1.6.2",
@@ -48,7 +48,7 @@
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "0.5.0",
     "helsingborg-stad/wputilservice": "0.3.5",
-    "helsingborg-stad/styleguide": "dev-fix/inherit-boundary-layer",
+    "helsingborg-stad/styleguide": "3.52.5",
     "firebase/php-jwt": "v7.2.2",
     "algolia/algoliasearch-client-php": "4.55.0"
   },
